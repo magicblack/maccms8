@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>视频批量管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<link rel="stylesheet" type="text/css" href="../images/jq/jquery.webox.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.webox.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<style>select { width:150px; }</style>
+<script language="javascript">
+$(function(){
+	$("#btnDel").click(function(){
+		if(confirm('确定要删除吗')){
+			$("#form1").attr("action","?action=del");
+			$("#form1").submit();
+		}
+		else{return false}
+	});
+	$("#btnSet").click(function(){
+		if($("#ckrq").attr("checked")==false && $("#cktj").attr("checked")==false && $("#cklock").attr("checked")==false && $("#ckhide").attr("checked")==false){
+			alert("请至少选择一个操作项"); return;
+		}
+		if(confirm('确定要设置吗')){
+			$("#form1").attr("action","?action=set");
+			$("#form1").submit();
+		}
+		else{return false}
+	});
+	$("#btnRep").click(function(){
+		
+		if($("#reg_from").val()==''  && $("#regex_str").val()=='' && $("#reg_val").val()==''){
+			alert("请输入替换内容");return;
+		}
+		if(confirm('确定要替换吗')){
+			$("#form1").attr("action","?action=rep");
+			$("#form1").submit();
+		}
+		else{return false}
+	});
+	$("#regex_type").change(function(){
+		var v = $(this).children('option:selected').val();
+		if(v==0){
+			$("#regex_2").css("display","none"); 
+			$("#regex_1").css("display",""); 
+		}
+		else {
+			$("#regex_1").css("display","none"); 
+			$("#regex_2").css("display",""); 
+		}
+	});
+});
+</script>
+<form id="form1" name="form1" method="post">
+<table class="tbinfo pleft">
+	<thead>
+		<tr><th><span style="float:left">视频批量操作</span><span style="float:right">请根据自己的需要选择参数</span></th></tr>
+	</thead>
+    <tr>
+	<td class="hl" colspan="2">
+	<select id="type" name="stype">
+	<option value="">视频分类</option>
+	<!-- BEGIN list_type -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_type -->
+	</select>
+	&nbsp;
+	<select id="topic" name="topic">
+	<option value="">视频专题</option>
+	<!-- BEGIN list_topic -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_topic -->
+	</select>
+	&nbsp;
+	<select id="state" name="state">
+	<option value="">视频连载</option>
+	<!-- BEGIN list_state -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_state -->
+	</select>
+	&nbsp;
+	<select id="area" name="area">
+	<option value="">视频地区</option>
+	<!-- BEGIN list_area -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_area -->
+    </select>
+	&nbsp;
+    <select id="lang" name="lang">
+    <option value="">视频语言</option>
+    <!-- BEGIN list_lang -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_lang -->
+	</select>
+	&nbsp;
+	<select id="server" name="server">
+	<option value="">视频服务器组</option>
+	<!-- BEGIN list_server -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_server -->
+	</select>
+	&nbsp;
+	<select id="play" name="play">
+	<option value="">视频播放器</option>
+	<!-- BEGIN list_play -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_play -->
+	</select>
+	&nbsp;
+	<select id="down" name="down">
+	<option value="">视频下载器</option>
+	<!-- BEGIN list_down -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_down -->
+	</select><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<select id="pic" name="pic">
+	<option value="">视频图片</option>
+	<!-- BEGIN list_pic -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_pic -->
+	</select>
+	&nbsp;
+	<select id="by" name="by">
+	<option value="">视频排序</option>
+	<!-- BEGIN list_by -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_by -->
+	</select>
+	&nbsp;
+	<select id="level" name="level">
+	<option value="">视频推荐</option>
+	<!-- BEGIN list_level -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_level -->
+	</select>
+	&nbsp;
+	<select id="hide" name="hide">
+	<option value="">视频显隐</option>
+	<!-- BEGIN list_hide -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_hide -->
+	</select>
+	&nbsp;
+	<select id="lock" name="lock">
+	<option value="">视频锁定</option>
+	<!-- BEGIN list_lock -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_lock -->
+	</select>
+	&nbsp;关键字：<input id="wd" size="40" name="wd" value="{wd}" onClick="this.select();">
+	<input class="input" type="button" value="搜索" id="btnSearch">
+	</td>
+	</tr>
+	<!-- ENDIF isrepeat -->
+	<tr>
+	<td style="line-height:25px;"><br>批量操作选项1：<br>
+		<input type="checkbox" value="1" name="ckdel" id="ckdel"/> 删除数据
+		<input type="checkbox" value="1" name="ckdelplay" id="ckdelplay"/> 删除播放组
+		<br>
+		<input class="input" type="button" value="批量删除" id="btnDel">
+		
+		<br><br>批量操作选项2：<br>
+		<input type="checkbox" value="1" name="ckrq" id="ckrq"/> 人气 ->
+		<input id="d_hits1" name="d_hits1" type="text" size="4" value="0">
+		到 &nbsp;
+		<input id="d_hits2" name="d_hits2" type="text" size="4" value="0">之间
+		<br>
+		<input type="checkbox" value="1" name="cktj" id="cktj"/> 推荐 ->
+		<select name="d_level">
+            <option value="0" >取消推荐</option>
+            <option value="1" >推荐1</option>
+            <option value="2" >推荐2</option>
+            <option value="3" >推荐3</option>
+            <option value="4" >推荐4</option>
+            <option value="5" >推荐5</option>
+		</select>
+		<br>
+		<input type="checkbox" value="1" name="cklock" id="cklock"/> 锁定 ->
+		<select name="d_lock">
+            <option value="0" >解锁</option>
+            <option value="1" >锁定</option>
+		</select>
+		<br>
+		<input type="checkbox" value="1" name="ckhide" id="ckhide"/> 隐藏 ->
+		<select name="d_hide">
+            <option value="0" >显示</option>
+            <option value="1" >隐藏</option>
+		</select>
+		<br>
+		<input class="input" type="button" value="批量设置" id="btnSet">
+			
+		<br><br>批量操作选项3：<br>
+		 替换字段：
+          <select name="s_col">
+          <option value="d_name" selected>名称(d_name)</option>
+          <option value="d_enname">拼音(d_enname)</option>
+          <option value="d_pic">图片(d_pic)</option>
+          <option value="d_starring">主演(d_starring)</option>
+          <option value="d_directed">导演(d_directed)</option>
+          <option value="d_year">年代(d_year)</option>
+		  <option value="d_area">地区(d_area)</option>
+          <option value="d_language">语言(d_language)</option>
+          <option value="d_content">简介(d_content)</option>
+        </select>
+        替换方式:
+        <select name="regex_type" id="regex_type">
+          <option value="0" selected>普通替换</option>
+          <option value="1">正则替换</option>
+        </select>
+        <br> 
+        <span id="regex_1">
+        替换字符：
+        <input type="text" id="reg_from" name="reg_from" size="80"/>
+		</span>
+        <span id="regex_2" style="display:none">正则公式：
+        <input type="text" id="regex_str" name="regex_str" size="80"/></span>
+        <br />
+        替换目标：
+        <input type="text" id="reg_val" name="reg_val" size="80" />
+        <br>
+		<input class="input" type="button" value="批量替换" id="btnRep">
+	</td>
+	</tr>
+</table>
+</form>
+</div>
+{foot}
+</body>
+</html>

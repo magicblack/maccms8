@@ -1,0 +1,84 @@
+
+
+以下数据在魅魔Maccms ASP 7.x ， 2012-03 测试通过
+
+youku
+例如视频地址:http://v.youku.com/v_show/id_XMTY4NTc3NzA4.html
+则播放地址为:XMTY4NTc3NzA4
+
+56
+例如视频地址为：http://www.56.com/u90/v_NTEyNTQ5NzU.html
+则播放地址为：NTEyNTQ5NzU
+
+tudou
+例如视频地址为：http://www.tudou.com/playlist/playindex.do?lid=8466660
+则播放地址为：8466660
+例如视频地址为：http://www.tudou.com/programs/view/T7opVj3g0zA/
+则查看网页源代码搜索找到 var iid = ，行代码是（var iid = 50761782）
+则播放地址为：50761782
+
+ku6
+例如视频地址为：http://v.ku6.com/show/AGFCJFHseNYKaMMh.html
+则播放地址为：AGFCJFHseNYKaMMh
+
+qq
+例如视频地址为：http://cgi.video.qq.com/v1/videopl?v=6WotL2p9qw4
+则播放地址为：6WotL2p9qw4
+
+6rooms
+例如视频地址为：http://6.cn/watch/12898334.html
+查看网页源代码搜索找到pageMessage.evid = '，行代码是 （pageMessage.evid = 'GO42Sy1gF5c4j3hVsstx5w' ;）
+则播放地址为：GO42Sy1gF5c4j3hVsstx5w
+
+sohu播客
+例如视频地址为：http://v.blog.sohu.com/u/vw/4222181
+则播放地址为：4222181
+
+激动网joy
+例如数据地址为：http://movie.joy.cn/movie/detail/80695.htm
+查看网页源代码搜索找到_video_obj={id:"，行代码是 （_video_obj={id:"40415137",url:"",type:"flv",cover:"http://vodimagefile.megajoy.com/upload_file/2010/3/29/megajoy5_20103291617436328561732.jpg",pubDate:"2010-03-30 00:17",title:"锦衣卫",desc:"",playUrl:"http://movie.joy.cn/movie/detail/80695.htm"};）
+则播放地址为：40415137
+
+
+tudou高清
+例如视频地址为：http://hd.tudou.com/program/25796/
+则播放地址为：25796
+
+sohu高清
+例如视频地址为：http://tv.sohu.com/20100427/n271775180.shtml
+查看网页源代码搜索找到var vid=，行代码是 （var vid="75079";）
+则播放地址为：75079
+
+ku6高清	
+例如视频地址为http://v.ku6.com/film/index_124375.html
+查看网页源代码搜索找到A.VideoInfo = ，行代码是（A.VideoInfo = {hd:0, commvid:"prhFyZAuLEbFymHs", id:"mdqdCh3shwyHm3QF", uid:"3197929", ）
+则播放地址为： mdqdCh3shwyHm3QF
+
+
+sina高清
+例如数据地址为：http://movie.video.sina.com.cn/movie/hdm/001.html
+查看网页源代码搜索找到var vid='，行代码是（var vid='17122736|19484465';//当前播放的视频vid） 
+则播放地址为：17122736|19484465
+
+qiyi
+例如视频地址为：http://www.qiyi.com/dianying/20100417/n3513.html
+查看网页源代码搜索找到   //视频id，行代码是 (videoId : '8951',//视频id )
+则播放地址为：：8951
+
+
+letv
+例如视频地址为：http://www.letv.com/ptv/pplay/20735/22.html
+查看网页源代码搜索找到 <input type="hidden" id="vid"，行代码是 （<input type="hidden" id="vid" value="676374" />）
+则播放地址为：676374
+
+ouou娱乐
+例如数据地址为：http://ouou.com/starmv_mvview.jhtml?cont=877
+查看网页源代码搜索找到var flv = ',行代码是 （var flv = 'http://www.ouou.com/publicimg/starmv/xilige.flv';）
+则播放地址为： http://www.ouou.com/publicimg/starmv/xilige.flv
+
+
+pptv
+例如数据地址为：http://v.pptv.com/show/P15HxS2TA0GHBW0.html
+则播放地址为：P15HxS2TA0GHBW0
+也可以查看网页源代码搜索找到  id_encoded , 后边紧跟的就是 播放地址。 ( "id_encoded":"P15HxS2TA0GHBW0" )
+

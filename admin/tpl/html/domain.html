@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>站群配置 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+	<link rel="stylesheet" type="text/css" href="../images/jq/jquery.webox.css" />
+	<script type="text/javascript" src="../js/jq/jquery.webox.js"></script>
+<script language="javascript">
+$(function(){
+
+});
+</script>
+</head>
+<body>
+<form action="" method="post" name="form1" id="form1">
+	<blockquote class="layui-elem-quote layui-quote-nm">
+		提示信息：<br>
+		1，此功能支持非静态模式下同1个数据库不同域名显示不同的模板和网站配置信息<br>
+		2，不限制域名网站数量<br>
+		3，导入文本格式是：域名$网站名称$关键字$描述$模板$模板目录$广告目录。每行一个网站。清空原有数据。<br>
+		<button class="layui-btn layui-btn-primary" type="button" id="btnExport">导出</button>
+		<button class="layui-btn layui-btn-primary " type="button"  id="btnImport" >导入</button>
+	</blockquote>
+
+	<script>
+        var arr_len = {arr_len};
+	</script>
+
+	<table id="domain_list" class="contents">
+		<!-- BEGIN list_domain -->
+		<tr class="layui-form-item" ><td class="layui-form-label">网站：{n}</td><td class="layui-input-inline w150"><input type="text" name="domain[site_url][]" class="layui-input" placeholder="域名" value="{site_url}"></td>&nbsp;<td class="layui-input-inline w150"><input type="text" name="domain[site_name][]" class="layui-input" placeholder="网站名称" value="{site_name}"></td>&nbsp;<td class="layui-input-inline w150"><input type="text" name="domain[site_keywords][]" class="layui-input" placeholder="关键字" value="{site_keywords}"></td>&nbsp;<td class="layui-input-inline w150"><input type="text" name="domain[site_description][]" class="layui-input" placeholder="描述" value="{site_description}"></td><td class="layui-input-inline w150"><select name="domain[template_dir][]"><option value="no">请选择模板.</option>{template_select}</select></td><td class="layui-input-inline w150"><select name="domain[mob_template_dir][]"><option value="no">请选择手机模板.</option>{mob_template_select}</select></td><td class="layui-input-inline w150"><input type="text" name="domain[html_dir][]" class="layui-input" placeholder="模板目录" value="{html_dir}"></td><td class="layui-input-inline w150"><input type="text" name="domain[ads_dir][]" class="layui-input" placeholder="广告目录" value="{ads_dir}"></td><td><a href="javascript:void(0)" class="j-editor-remove" onclick="remove(this)">删除</a>&nbsp;</td></tr>
+		<!-- END list_domain -->
+	</table>
+	<div class="layui-form-item" style="padding: 10px;">
+		<button class="layui-btn radius j-player-add" type="button" style="width: 80px;height:30px;" onclick="add()">添加一组</button>
+	</div>
+	<div class="layui-form-item" style="padding: 10px;margin: 0 auto; text-align: center;">
+		<button type="submit" class="layui-btn" lay-submit="" lay-filter="formSubmit" style="width: 80px;height:50px;">保 存</button>
+		<button class="layui-btn layui-btn-warm" type="reset" style="width: 80px;height:50px;">还 原</button>
+	</div>
+
+</form>
+
+<div id="win1" style="display:none;padding:5px;width:400px;" >
+	<form enctype="multipart/form-data" action="?m=domain-import" method="post">
+		<table class="tb">
+			<tbody>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="file" id="file1" name="file1">
+					<input type="submit" name="submit" class="input2" value="开始导入">
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<script type="text/javascript">
+    var template_select='{template_html}';
+
+    function add(){
+        arr_len++;
+        var tpl='<tr class="layui-form-item" ><td class="layui-form-label">网站：'+arr_len+'</td><td class="layui-input-inline w150"><input type="text" name="domain[site_url][]" class="layui-input" placeholder="域名" ></td>&nbsp;<td class="layui-input-inline w150"><input type="text" name="domain[site_name][]" class="layui-input" placeholder="网站名称"></td>&nbsp;<td class="layui-input-inline w150"><input type="text" name="domain[site_keywords][]" class="layui-input" placeholder="关键字" ></td>&nbsp;<td class="layui-input-inline w150"><input type="text" name="domain[site_description][]" class="layui-input" placeholder="描述" ></td><td class="layui-input-inline w150"><select name="domain[template_dir][]"><option value="no">请选择PC模板.</option>'+template_select+'</select></td><td class="layui-input-inline w150"><select name="domain[mob_template_dir][]"><option value="no">请选择手机模板.</option>'+template_select+'</select></td><td class="layui-input-inline w150"><input type="text" name="domain[html_dir][]" class="layui-input" placeholder="模板目录" ></td><td class="layui-input-inline w150"><input type="text" name="domain[ads_dir][]" class="layui-input" placeholder="广告目录" ></td><td><a href="javascript:void(0)" class="j-editor-remove" onclick="remove(this)">删除</a>&nbsp;</td></tr>';
+        $("#domain_list").append(tpl);
+    }
+
+    function remove(o){
+        $(o).parent().parent().remove();
+    }
+
+    function showwin()
+    {
+        $.webox({
+            width:330,
+            height:150,
+            bgvisibel:true,
+            title:'导入数据',
+            html: $("#win1").html()
+        });
+    }
+
+
+    $(function(){
+        $("#btnExport").click(function(){
+			location.href= '?m=domain-export';
+        });
+
+        $("#btnImport").click(function(){
+            showwin();
+        });
+
+
+        if(arr_len==0) {
+            $('.j-player-add').click();
+        }
+	});
+
+</script>
+
+{foot}
+</body>
+</html>

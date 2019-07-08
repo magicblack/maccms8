@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>微信对接参数配置 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	
+});
+</script>
+</head>
+<body>
+<form method="POST" action="?m=system-configweixinsave" id="form1" name="form1">
+  <table class="tbinfo pleft">
+	<thead><th colspan="2">微信对接配置</th></thead>
+	<tr>
+		<td>提示信息：</td>
+	    <td><font color="#FF0000">公众号对接域名、公众号搜索域名、网站域名通常一致，因公众号可能产生的封域名问题，你可以单独设置域名进行对接。全部都不要加http://</font></td>
+	</tr>
+    <tr>
+      <td>微信公众号对接域名：</td>
+      <td><input name="weixin_duijie" value="{weixin_duijie}" size="60">
+	  你在公众号后台的对接地址为【http://{weixin_duijie}/inc/weixin.php】<font color="#FF0000">请确认该域名已解析到网站</font>
+	  </td>
+    </tr>
+    <tr>
+      <td>微信公众号搜索域名：</td>
+      <td><input name="weixin_sousuo" value="{weixin_sousuo}" size="60">
+	  用来在公共号内显示的域名，一般红名更换此域名即可<font color="#FF0000">请确认该域名已解析到网站</font>
+	  </td>
+    </tr>
+    <tr>
+      <td>微信公众号对接TOKEN：</td>
+      <td><input name="weixin_token" value="{weixin_token}" size="60">
+	  你在公众号后台对接的token为【{weixin_token}】
+	  </td>
+    </tr>
+    <tr>
+      <td>微信公众号关注回复：</td>
+      <td><input name="weixin_guanzhu" value="{weixin_guanzhu}" size="60">
+	  用户关注你的公众号时自动回复的一句话
+	  </td>
+    </tr>
+    <tr>
+      <td>微信公众号无资源回复：</td>
+      <td><input name="weixin_wuziyuan" value="{weixin_wuziyuan}" size="60">
+	  用户搜索不到资源时默认返回的信息
+	  </td>
+    </tr>
+    <tr>
+      <td>无资源回复对应链接：</td>
+      <td><input name="weixin_wuziyuanlink" value="{weixin_wuziyuanlink}" size="60">
+	  无资源提示信息所链接的网址
+	  </td>
+    </tr>
+    <tr>
+      <td>返回页面地址：</td>
+      <td>
+        <!-- BEGIN list_weixin_bofang -->
+		<input type="radio" name="weixin_bofang" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_weixin_bofang -->
+      </td>
+    </tr>
+    <tr>
+      <td>返回内容类型：</td>
+      <td>
+        <!-- BEGIN list_weixin_msgtype -->
+		<input type="radio" name="weixin_msgtype" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_weixin_msgtype -->
+		提示：微信新规定图文只能返回1条
+      </td>
+    </tr>
+    <tr>
+      <td>自定义关键词1：</td>
+      <td>
+      	<input name="weixin_gjc1" value="{weixin_gjc1}" size="10"> 
+        返回文字<input name="weixin_gjcm1" value="{weixin_gjcm1}" size="20">
+        返回图片<input name="weixin_gjci1" value="{weixin_gjci1}" size="40">
+		返回链接<input name="weixin_gjcl1" value="{weixin_gjcl1}" size="40">
+      </td>
+    </tr>
+    <tr>
+      <td>自定义关键词2：</td>
+      <td>
+      	<input name="weixin_gjc2" value="{weixin_gjc2}" size="10"> 
+        返回文字<input name="weixin_gjcm2" value="{weixin_gjcm2}" size="20">
+        返回图片<input name="weixin_gjci2" value="{weixin_gjci2}" size="40">
+		返回链接<input name="weixin_gjcl2" value="{weixin_gjcl2}" size="40">
+      </td>
+    </tr>
+    <tr>
+      <td>自定义关键词3：</td>
+      <td>
+      	<input name="weixin_gjc3" value="{weixin_gjc3}" size="10"> 
+        返回文字<input name="weixin_gjcm3" value="{weixin_gjcm3}" size="20">
+        返回图片<input name="weixin_gjci3" value="{weixin_gjci3}" size="40">
+		返回链接<input name="weixin_gjcl3" value="{weixin_gjcl3}" size="40">
+      </td>
+    </tr>
+    <tr>
+      <td>自定义关键词4：</td>
+      <td>
+      	<input name="weixin_gjc4" value="{weixin_gjc4}" size="10"> 
+        返回文字<input name="weixin_gjcm4" value="{weixin_gjcm4}" size="20">
+        返回图片<input name="weixin_gjci4" value="{weixin_gjci4}" size="40">
+		返回链接<input name="weixin_gjcl4" value="{weixin_gjcl4}" size="40">
+      </td>
+    </tr>
+     <tr align="center">
+      <td colspan="2">
+          <input name="btnSave" type="submit" id="btnSave" class="input" value="更新参数">
+      </td>
+    </tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

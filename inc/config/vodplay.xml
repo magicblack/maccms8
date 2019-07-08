@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plays>
+	<play status="1" sort="908" from="dplayer" show="DPlayer-H5播放器" des="dplayer.js.org"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="907" from="videojs" show="Videojs-H5播放器" des="videojs.com"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="906" from="iva" show="H5自带解析" des="videojj.com'"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="905" from="iframe" show="iframe外链数据" des="iframe嵌入"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="904" from="link" show="外链数据" des="外部网站播放链接"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="903" from="swf" show="Flash文件" des="swf"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="902" from="flv" show="flv文件" des="flv"><tip><![CDATA[无需安装任何插件]]></tip></play>
+
+	<play status="1" sort="450" from="xigua" show="西瓜影音" des="xigua.com"><tip><![CDATA[<a href="http://union.maccms.com/html/xigua.html" target="_blank">需要下载西瓜影音播放器</a>]]></tip></play>
+	<play status="1" sort="449" from="xfplay" show="先锋影音" des="xfplay.com"><tip><![CDATA[<a href="http://union.maccms.com/html/xfplay.html" target="_blank">需要下载先锋影音播放器</a>]]></tip></play>
+	<play status="1" sort="448" from="jjvod" show="吉吉影音" des="jijizy.com"><tip><![CDATA[<a href="http://union.maccms.com/html/jjvod.html" target="_blank">需要下载吉吉影音播放器</a>]]></tip></play>
+	
+	<play status="1" sort="390" from="youku" show="优酷视频" des="youku.com"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="380" from="56" show="我乐视频" des="56.com"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="370" from="tudou" show="土豆视频" des="tudou.com"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="360" from="ku6" show="酷6视频" des="ku6.com"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="350" from="qq" show="腾讯视频" des="v.qq.com"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="340" from="sohu" show="搜狐视频" des="v.sohu.com"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="330" from="joy" show="激动网" des="joy.cn"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="320" from="qiyi" show="奇艺视频" des="qiyi.com"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="310" from="letv" show="乐视视频" des="letv.com"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="300" from="funshion" show="风行视频" des="funshion.com"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="210" from="pptv" show="pptv" des="pptv.com"><tip><![CDATA[无需安装任何插件]]></tip></play>
+	
+</plays>

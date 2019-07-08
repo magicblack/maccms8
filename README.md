@@ -4,9 +4,9 @@
 
 ## 官方信息
 
-官方网站：www.maccms.com   因不可抗因素暂时关闭中
+官方网站：www.maccms.com   因不可抗因素暂时关闭中，预计19年5月恢复。
 
-开发作者：MagicBlack
+开发作者：MagicBlack  人称：老王    原QQ暂时无法使用请不要联系。
 
 QQ：479025
 

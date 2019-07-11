@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>自定义资源信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnCancel").click(function(){
+		location.href=$("#backurl").val();
+	});
+});
+</script>
+</head>
+<body>
+<form action="admin_data.php?ac=save&tab=collect" method="post" name="form1" id="form1">
+<input id="c_id" name="c_id" type="hidden" value="{c_id}">
+<input id="flag" name="flag" type="hidden" value="{flag}">
+<input id="backurl" name="backurl" type="hidden" value="{backurl}">
+<div class="toptit">自定义资源信息</div>
+<table class="tbinfo pleft">
+	<tr>
+	<td width="100" class="hl">资源名称：</td>
+	<td class="hl"><INPUT id="c_name" size="50" value="{c_name}" name="c_name">
+	</td>
+	</tr>
+	<tr>
+		<td width="100" class="hl">接口地址：</td>
+		<td class="hl"><INPUT id="c_url" size="50" value="{c_url}" name="c_url">
+		</td>
+	</tr>
+	<tr>
+		<td width="100" class="hl">附加参数：</td>
+		<td class="hl"><INPUT id="c_param" size="50" value="{c_param}" name="c_param">
+		</td>
+	</tr>
+
+	<tr>
+	<td>接口类型：<br></td>
+	<td>
+	<!-- BEGIN list_type -->
+	<input type="radio" name="c_type" value="{v}" {c}/>{n}&nbsp;
+	<!-- END list_type -->
+	</td>
+	</tr>
+	<tr>
+		<td>资源类型：<br></td>
+		<td>
+			<!-- BEGIN list_mid -->
+			<input type="radio" name="c_mid" value="{v}" {c}/>{n}&nbsp;
+			<!-- END list_mid -->
+		</td>
+	</tr>
+	<tr>
+		<td>提示：<br></td>
+		<td>
+			目前文章仅支持json格式接口
+		</td>
+	</tr>
+	<tr align="center">
+      <td colspan="2"><input class="input" type="submit" value="保存" id="btnSave"> <input class="input" type="button" value="返回" id="btnCancel"> </td>
+    </tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

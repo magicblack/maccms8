@@ -713,7 +713,22 @@ EOT;
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
 	echo '<script type="text/javascript">showmessage(\'创建数据表 '.$db_tablepre.'art_type... \');</script>';
 	}
-	
+
+        if(!isExistTable("".$db_tablepre."collect",$db_name)){
+            $db->query( "CREATE TABLE `".$db_tablepre."collect` (
+  `c_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `c_name` varchar(30) NOT NULL DEFAULT '',
+  `c_url` varchar(255) NOT NULL DEFAULT '',
+  `c_type` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `c_mid` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `c_appid` varchar(30) NOT NULL DEFAULT '',
+  `c_appkey` varchar(30) NOT NULL DEFAULT '',
+  `c_param` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`c_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
+            echo '<script type="text/javascript">showmessage(\'创建数据表 '.$db_tablepre.'collect... \');</script>';
+        }
+
 	if(!isExistTable("".$db_tablepre."comment",$db_name)){
 	$db->query( "CREATE TABLE `".$db_tablepre."comment` (
   `c_id` int(11) NOT NULL AUTO_INCREMENT,

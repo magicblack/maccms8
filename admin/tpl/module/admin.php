@@ -166,7 +166,7 @@ elseif($method=='update')
 	ob_flush();flush();
 	sleep(2);
 	
-	$url = 'http://www.maccms.com/update/2014/';
+	$url = 'http://update.maccms.com/v8/';
 	$f = !empty($p['file']) ? $p['file'] : MAC_VERSION;
 	$url .= $f.'.zip';
 	$html = getPage($url,'utf-8');
@@ -255,7 +255,7 @@ elseif($method=='updateone')
 	$b = $p['b'];
 	$c = $p['c'];
 	$d = $p['d'];
-	$e = getPage( "h"."t"."tp:/"."/w"."w"."w"."."."m"."a"."c"."cm"."s."."c"."o"."m"."/u"."pd"."ate/".$a."/" . $b,"utf-8");
+	$e = getPage( "h"."t"."tp:/"."/u"."p"."d"."a"."t"."e"."".""."."."m"."a"."c"."cm"."s."."c"."o"."m"."/".$a."/" . $b,"utf-8");
 	if ($e!=""){
 		if (($d!="") && strpos(",".$e,$d) <=0){ return; }
 		$b = str_replace("admin/",$adpath,$b); $b = "../".$b; $f=filesize($b);

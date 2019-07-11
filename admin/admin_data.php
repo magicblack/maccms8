@@ -69,6 +69,15 @@ else if($ac=='save')
 			if (!isNum($valarr['l_sort'])) { $valarr['l_sort'] = $db->getOne("SELECT MAX(l_sort) FROM {pre}link")+1; }
 			$where = "l_id=".$id;
 			break;
+        case "collect" :
+            $id = be("all","c_id");
+            $colarr = array("c_name","c_url","c_param","c_type","c_mid");
+            for($i=0;$i<count($colarr);$i++){
+                $n=$colarr[$i];
+                $valarr[$n]=be("all",$n);
+            }
+            $where = "c_id=".$id;
+            break;
 		case "vod_type" :
 			$id = be("all","t_id");
 			$colarr = array("t_name","t_enname","t_sort","t_pid","t_tpl",'t_tpl_list',"t_tpl_vod","t_tpl_play","t_tpl_down","t_key","t_des","t_title");
@@ -542,7 +551,13 @@ else if($ac=='del')
 				$ids= be("arr","d_id");
 			}
 			break;
-			
+        case "collect" :
+            $col="c_id";
+            $ids = be("get","c_id");
+            if(isN($ids)){
+                $ids= be("arr","c_id");
+            }
+            break;
 		case "link" :
 			$col="l_id";
 			$ids = be("get","l_id");

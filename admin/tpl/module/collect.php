@@ -22,6 +22,8 @@ $type = intval($p['type']);
 $pg = intval($p['pg']);
 $hour = intval($p['hour']);
 $mid = intval($p['mid']);
+$param = $p['param'];
+
 $pre = 'vod';
 if($mid==2){
 	$pre = 'art';
@@ -68,7 +70,7 @@ elseif($method=='list')
     	$url = $apiurl . '-action-list-cid-'. $type . '-h-'. $hour. '-p-' . $pg. '-wd-'. urlencode($wd);
     	$url = str_replace('|','-',$url);
     }
-
+    $url .= base64_decode($param);
     $html = getPage($url, "utf-8");
 	if(empty($html)){
 		echo '连接API资源库失败，通常为服务器网络不稳定或禁用了采集。请刷新重试！';
@@ -219,7 +221,8 @@ elseif($method=='cj'){
     setBreak ("union", "?m=collect-cj-ac2-".$ac2."-xt-".$xt."-ct-".$ct."-group-".$group."-flag-".$flag."-pg-".$pg."-type-" .$type."-wd-".$wd."-apiurl-".$apiurl);
     echo '采集地址&nbsp;'.$url.'<br>';
    	ob_flush();flush();
-   	
+
+    $url .= base64_decode($param);
     $html = getPage($url, "utf-8");
 	if(empty($html)){
 		echo '连接API资源库失败，通常为服务器网络不稳定或禁用了采集。请刷新重试！';
@@ -262,7 +265,7 @@ elseif($method=='cj'){
     
     
 	if($recordcount=='0'){
-		echo '没有任何可用数据'. jump('?m=collect-list-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-apiurl-'.$apiurl,1);
+		echo '没有任何可用数据'. jump('?m=collect-list-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-mid-'.$mid.'-param-'.$param.'-apiurl-'.$apiurl,1);
 		return;
 	}
 	
@@ -515,16 +518,16 @@ ob_flush();flush();
     if ($ac2 == "sel"){
         delBreak ("union");
 		echo "<br>数据采集完成";
-		jump('?m=collect-list-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-pg-'.$pg.'-type-'.$type.'-apiurl-'. $apiurl,3);
+		jump('?m=collect-list-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-mid-'.$mid.'-param-'.$param.'-pg-'.$pg.'-type-'.$type.'-apiurl-'. $apiurl,3);
     }
     else{
 		if ($pg >= $pgcount){
             delBreak ("union");
             echo "<br>数据采集完成";
-            jump('?m=collect-list-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-type-'.$type.'-apiurl-'. $apiurl,1);
+            jump('?m=collect-list-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-mid-'.$mid.'-param-'.$param.'-type-'.$type.'-apiurl-'. $apiurl,1);
         }
         else{
-        	jump('?m=collect-cj-ac2-'.$ac2.'-pg-'.($pg+1).'-type-'.$type.'-hour-'.$hour.'-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-apiurl-'. $apiurl,3);
+        	jump('?m=collect-cj-ac2-'.$ac2.'-pg-'.($pg+1).'-type-'.$type.'-hour-'.$hour.'-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-mid-'.$mid.'-param-'.$param.'-apiurl-'. $apiurl,3);
         }
     }
 }
@@ -532,7 +535,6 @@ ob_flush();flush();
 elseif($method=='listjson')
 {
 	$plt->set_file('main', $ac.'_'.$method.'.html');
-	
 	
 	$colarr=array('action','type','pg','apiurl','wd','hour','xt','group','xt','ct','flag','mid','pre');
 	$valarr=array($method,$type,$pg,$apiurl,$wd,$hour,$xt,$group,$xt,$ct,$flag,$mid,$pre);
@@ -556,7 +558,7 @@ elseif($method=='listjson')
     	$url = $apiurl . '-action-list-cid-'. $type . '-h-'. $hour. '-p-' . $pg. '-wd-'. urlencode($wd);
     	$url = str_replace('|','-',$url);
     }
-
+    $url .= base64_decode($param);
     $html = getPage($url, "utf-8");
 	if(empty($html)){
 		echo '连接API资源库失败，通常为服务器网络不稳定或禁用了采集。请刷新重试！';
@@ -719,7 +721,7 @@ elseif($method=='cjjson'){
     setBreak ("union", "?m=collect-cjjson-ac2-".$ac2."-xt-".$xt."-ct-".$ct."-group-".$group."-flag-".$flag."-pg-".$pg."-mid-".$mid."-type-" .$type."-wd-".$wd."-apiurl-".$apiurl);
     echo '采集地址&nbsp;'.$url.'<br>';
    	ob_flush();flush();
-   	
+    $url .= base64_decode($param);
     $html = getPage($url, "utf-8");
 	if(empty($html)){
 		echo '连接API资源库失败，通常为服务器网络不稳定或禁用了采集。请刷新重试！';
@@ -738,7 +740,7 @@ elseif($method=='cjjson'){
     
     
 	if($recordcount=='0'){
-		echo '没有任何可用数据'. jump('?m=collect-listjson-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-mid-'.$mid.'-apiurl-'.$apiurl,1);
+		echo '没有任何可用数据'. jump('?m=collect-listjson-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-mid-'.$mid.'-param-'.$param.'-apiurl-'.$apiurl,1);
 		return;
 	}
 	
@@ -1346,16 +1348,16 @@ EOT;
     if ($ac2 == "sel"){
         delBreak ("union");
 		echo "<br>数据采集完成";
-		jump('?m=collect-listjson-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-mid-'.$mid.'-pg-'.$pg.'-type-'.$type.'-apiurl-'. $apiurl,3);
+		jump('?m=collect-listjson-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.'-mid-'.$mid.'-param-'.$param.'-pg-'.$pg.'-type-'.$type.'-apiurl-'. $apiurl,3);
     }
     else{
 		if ($pg >= $pgcount){
             delBreak ("union");
             echo "<br>数据采集完成";
-            jump('?m=collect-listjson-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-mid-'.$mid.'-type-'.$type.'-apiurl-'. $apiurl,1);
+            jump('?m=collect-listjson-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-mid-'.$mid.'-param-'.$param.'-type-'.$type.'-apiurl-'. $apiurl,1);
         }
         else{
-        	jump('?m=collect-cjjson-ac2-'.$ac2.'-pg-'.($pg+1).'-type-'.$type.'-hour-'.$hour.'-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-mid-'.$mid.'-apiurl-'. $apiurl,3);
+        	jump('?m=collect-cjjson-ac2-'.$ac2.'-pg-'.($pg+1).'-type-'.$type.'-hour-'.$hour.'-xt-'.$xt."-ct-".$ct.'-group-'.$group.'-flag-'.$flag.'-mid-'.$mid.'-param-'.$param.'-apiurl-'. $apiurl,3);
         }
     }
 }

@@ -33,7 +33,7 @@
     	chkLogin();
     }
     
-    $acs = array('vod','art','admin','user','make','collect','system','extend','template','db','domain');
+    $acs = array('vod','art','admin','user','make','collect','coll','system','extend','template','db','domain');
     
     if(in_array($ac,$acs)){
     	$plt = new Template(MAC_ADMIN."/tpl/html/");
@@ -52,7 +52,7 @@
     	$plt->p("mains");
     	
     	if($method=='wel'){
-    		echo '<span style="display:none"><iframe src="//www.maccms.com/update/update8.htm?v='.MAC_VERSION.'" width="0" height="0"></iframe><script src="//www.maccms.com/update/2014/?c=check&v='.MAC_VERSION.'&p='.PHP_VERSION.'&t='.time().'"></script></span>';
+    		echo '<span style="display:none"><script src="//update.maccms.com/v8/?c=check&v='.MAC_VERSION.'&p='.PHP_VERSION.'&t='.time().'"></script></span>';
     	}
     }
     else{

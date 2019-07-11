@@ -14,7 +14,9 @@ var menu = {
 	"mg":{"text":"模版","default":"template","children":{"template":{"text":"页面模板","url":"?m=template-list"},"custom":{"text":"自定义页面","url":"?m=template-list-label-show"},"ads":{"text":"自定义广告","url":"?m=template-ads"},"wizard":{"text":"标签向导","url":"?m=template-wizard"}}},
 	
 	"mh":{"text":"生成","default":"make","children":{"make":{"text":"生成选项","url":"?m=make-option"},"makeindex":{"text":"生成首页","url":"?m=make-index"},"makemap":{"text":"生成地图","url":"?m=make-map"},"makeartindex":{"text":"生成文章首页","url":"?m=make-index-tab-art"},"makeartmap":{"text":"生成文章地图","url":"?m=make-map-tab-art"}}},
-		
+
+	"mi":{"text":"采集","default":"coll","children":{"coll":{"text":"自定义资源","url":"?m=coll-list"}}},
+
 	"mj":{"text":"数据库","default":"database","children":{"database":{"text":"数据库管理","url":"?m=db-list"},"sql":{"text":"执行SQL语句","url":"?m=db-sql"},"datarep":{"text":"数据批量替换","url":"?m=db-datarep"},"check":{"text":"挂马检测","url":"?m=db-check"} }}
 };
 var currTab = 'ma';

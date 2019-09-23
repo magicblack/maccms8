@@ -1,4 +1,4 @@
-
+#menu1
 h1, h2, h3, h4, h5, h6, p, ul, ol, dl, dt, dd, li, body, form, input, button, img, cite, strong, em, table, td, th { padding:0; margin:0;}
 h1, h2, h3, h4, h5, h6 { font-size:14px;}
 img, table, td, th { border:0;}
@@ -19,13 +19,13 @@ html,body {padding: 0;margin: 0; overflow: hidden;background:#fcfdff}
 .back_nav_list a:hover {color: red; text-decoration: underline;}
 .close_float { position: absolute; bottom: 7px; right: 7px; z-index: 3;}
 
-#head {height: 100px; background: url(head.gif); position: relative;}
-#logo {width: 98px; height: 68px; position: absolute; top: 38px; left: 30px; z-index: 2;}
-#menu {position: absolute; top: 14px; right: 22px; z-index: 2; word-spacing: 5px; color: #234f8d;}
+#head {height: 90px; background: url(head.gif); position: relative;}
+#logo {width: 98px; height: 68px; position: absolute; top: 20px; left: 30px; z-index: 2;}
+#menu {position: absolute; top: 8px; right: 22px; z-index: 2; word-spacing: 5px; color: #234f8d;}
 #menu span {position: relative; bottom: -3px; display: block; float: left; margin-right: 5px;}
 #menu a {color: #234f8d; text-decoration: none;}
 #menu a:hover {text-decoration: underline;}
-#menu1 {position: absolute; top: 42px; right: 22px; z-index: 3; word-spacing: 5px; color: #234f8d;}
+#menu1 {position: absolute; top: 36px; right: 22px; z-index: 3; word-spacing: 5px; color: #234f8d;}
 .menu_btn1 {display: block; float: left; width: 60px; height: 23px; background: url(menu_btn1.gif); border: 0; margin-right: 5px; text-decoration: none; line-height: 19px; +line-height: 22px; text-align: center;}
 .menu_btn2 {display: block; float: left; width: 70px; height: 23px; background: url(menu_btn2.gif); border: 0;  margin-right: 5px;  text-decoration: none; line-height: 19px; +line-height: 22px; text-align: center;}
 #headBg {width: 830px; height: 50px; background: url(head_bg.gif); position: absolute; top: 0; left: 0; z-index: 1;}

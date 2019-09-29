@@ -1662,18 +1662,12 @@ function getVUrl($u)
 }
 
 function getTag($title,$content){
-	$url ='http://zhannei.baidu.com/api/customsearch/keywords?title='.rawurlencode($title).rawurlencode(substring(strip_tags($content),200));
+	$url ='http://api.maccms.com/keyword/?callback=&txt='.rawurlencode($title).rawurlencode(substring(strip_tags($content),200));
 	$data = getPage($url,'utf-8');
-	if($data) {
-		$json = json_decode($data,true);
-		if($json){
-			if(is_array($json['result']['res']['keyword_list'])){
-				$res = $json['result']['res']['keyword_list'];
-				return implode(',',$res);
-			}
-		}
-		else{
-			
+	$json = @json_decode($data,true);
+	if($json){
+		if($json['code']==1){
+			return implode(',',$json['data']);
 		}
 	}
 	return false;

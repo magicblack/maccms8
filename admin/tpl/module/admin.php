@@ -58,8 +58,11 @@ elseif($method=='index'){
 	$path = 'tpl/config/quickmenu.txt';
 	if(file_exists($path)){
 		$fc = file_get_contents($path);
+		$fc = ' ↓↓↓自定义菜单区域↓↓↓,javascript:void(0);return false;'.chr(10) . $fc;
 		$fc = str_replace(chr(13),'',$fc);
+
 		$arr = explode(chr(10),$fc);
+
 		$i=1;
 		foreach($arr as $a){
 			if(!empty($a)){

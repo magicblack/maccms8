@@ -9,19 +9,23 @@ function arr_foreach($arr)
 	return implode($str);
 }
 
+function chkShow()
+{
+    $errmsg = "<div style=\"position:fixed;top:0px;width:100%;height:100%;background-color:white;color:green;font-weight:bold;border-bottom:5px solid #999;\"><br>您的提交带有不合法参数,谢谢合作!<br>操作IP: ".$_SERVER["REMOTE_ADDR"]."<br>操作时间: ".strftime("%Y-%m-%d %H:%M:%S")."<br>操作页面:".$_SERVER["PHP_SELF"]."<br>提交方式: ".$_SERVER["REQUEST_METHOD"]."</div>";
+    print $errmsg;
+    exit();
+}
 function StopAttack($StrFiltKey,$StrFiltValue,$ArrFiltReq)
 {
-	$errmsg = "<div style=\"position:fixed;top:0px;width:100%;height:100%;background-color:white;color:green;font-weight:bold;border-bottom:5px solid #999;\"><br>您的提交带有不合法参数,谢谢合作!<br>操作IP: ".$_SERVER["REMOTE_ADDR"]."<br>操作时间: ".strftime("%Y-%m-%d %H:%M:%S")."<br>操作页面:".$_SERVER["PHP_SELF"]."<br>提交方式: ".$_SERVER["REQUEST_METHOD"]."</div>";
+
 	$StrFiltValue=arr_foreach($StrFiltValue);
 	$StrFiltValue=urldecode($StrFiltValue);
 	
 	if(preg_match("/".$ArrFiltReq."/is",$StrFiltValue)==1){
-		print $errmsg;
-		exit();
+        chkShow();
 	}
 	if(preg_match("/".$ArrFiltReq."/is",$StrFiltKey)==1){
-		print $errmsg;
-		exit();
+        chkShow();
 	}
 }
 function chkSql($s)
@@ -65,9 +69,15 @@ $cookiefilter = "benchmark\s*?\(.*\)|sleep\s*?\(.*\)|be\\(|eval\\(|load_file\s*?
 
 
 foreach($_GET as $key=>$value){
+    if(strlen($value)>52500){
+        chkShow();
+    }
 	StopAttack($key,$value,$getfilter);
 }
 foreach($_POST as $key=>$value){
+    if(strlen($value)>52500){
+        chkShow();
+    }
 	StopAttack($key,$value,$postfilter);
 }
 foreach($_COOKIE as $key=>$value){

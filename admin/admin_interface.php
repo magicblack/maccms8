@@ -51,21 +51,19 @@ if($ac=='vod')
 	
 	$d_addtime = time(); $d_time = time();
     $d_id = be("all", "d_id");
-    $d_name = be("all", "d_name"); $d_subname = be("all", "d_subname"); $d_enname = be("all", "d_enname"); 
+    $d_name = trim(strip_tags(be("all", "d_name"))); $d_subname = trim(strip_tags(be("all", "d_subname"))); trim(strip_tags($d_enname = be("all", "d_enname")));
     
-    $d_type = be("all", "d_type"); $d_remarks = be("all", "d_remarks"); $d_tag = be("all","d_tag");
-    $d_state = be("all", "d_state"); $d_color = be("all", "d_color"); $d_level = be("all", "d_level");
-    $d_starring = be("all", "d_starring"); $d_directed = be("all", "d_directed"); $d_lang = be("all", "d_lang");
-    $d_year = be("all", "d_year");  $d_area = be("all", "d_area"); $d_class = be("all", "d_class");
+    $d_type = be("all", "d_type"); trim(strip_tags($d_remarks = be("all", "d_remarks"))); $d_tag = trim(strip_tags(be("all","d_tag")));
+    $d_state = intval(be("all", "d_state")); $d_color = be("all", "d_color"); $d_level = intval(be("all", "d_level"));
+    $d_starring = trim(strip_tags(be("all", "d_starring"))); $d_directed = trim(strip_tags(be("all", "d_directed"))); $d_lang = trim(strip_tags(be("all", "d_lang")));
+    $d_year = trim(strip_tags(be("all", "d_year")));  $d_area = trim(strip_tags(be("all", "d_area"))); $d_class = trim(strip_tags(be("all", "d_class")));
     
     $d_hits = be("all", "d_hits"); $d_dayhits = be("all", "d_dayhits");
     $d_weekhits = be("all", "d_weekhits"); $d_monthhits = be("all", "d_monthhits"); 
-    $d_content = be("all", "d_content");
+    $d_content = trim(strip_tags(be("all", "d_content")));
     
-    $d_hide = be("all", "d_hide"); $d_up = be("all", "d_up"); $d_down = be("all", "d_down"); 
-    
+    $d_hide = be("all", "d_hide"); $d_up = be("all", "d_up"); $d_down = be("all", "d_down");
     $d_pic = be("all", "d_pic"); $d_picthumb = be("all", "d_picthumb"); $d_picslide = be("all", "d_picslide");
-    
     $d_playurl = be("all", "d_playurl");  $d_playfrom = be("all", "d_playfrom");
     $d_playserver = be("all", "d_playserver"); $d_playnote = be("all", "d_playnote");
     
@@ -76,12 +74,11 @@ if($ac=='vod')
     $d_duration = be("all","d_duration"); $d_stintdown = be("all", "d_stintdown");
     $d_score = be("all","d_score"); $d_scorenum = be("all","d_scorenum"); $d_scoreall = be("all","d_scoreall");
     
-    $d_pic = stripslashes($d_pic); $d_picthumb = stripslashes($d_picthumb); $d_picslide = stripslashes($d_picslide);
-    //$d_name = str_replace("'", "''",$d_name);
-    //$d_starring = str_replace("'", "''",$d_starring);
-    //$d_directed = str_replace("'", "''",$d_directed);
-    $d_content = stripslashes($d_content); 
-    //$d_content = str_replace("'", "''",$d_content);
+    $d_pic = trim(strip_tags($d_pic)); $d_picthumb = trim(strip_tags($d_picthumb)); $d_picslide = trim(strip_tags($d_picslide));
+    $d_name = str_replace("'", "''",$d_name);
+    $d_starring = str_replace("'", "''",$d_starring);
+    $d_directed = str_replace("'", "''",$d_directed);
+    $d_content = str_replace("'", "''",$d_content);
     
     if (!isNum($d_usergroup)) { $d_usergroup = 0;}
     if (isN($d_name)) { echo "视频名称不能为空err"; exit;}
@@ -368,7 +365,7 @@ if($ac=='vod')
 	            $downfrom_new = $d_downfrom;
 	            $downurl_new = $d_downurl;
 	            $downserver_new = $d_downserver;
-	            $downnote_new = $d_downnbte;
+	            $downnote_new = $d_downnote;
 	        }
 	        else{
 	            $resultdes = "更新下载地址ok";
@@ -490,21 +487,20 @@ else if($ac=='art')
     global $db,$pass;
 	if ($MAC['interface']['pass'] != $pass){ echo "非法使用err";exit; }
     
-    $a_id = be("all", "a_id"); $a_name = be("all", "a_name");
-    $a_subname = be("all", "a_subname"); $a_enname = be("all", "a_enname");
-    $a_type = be("all", "a_type");$a_content = be("all", "a_content");
+    $a_id = be("all", "a_id"); $a_name = trim(strip_tags(be("all", "a_name")));
+    $a_subname = trim(strip_tags(be("all", "a_subname"))); $a_enname = trim(strip_tags(be("all", "a_enname")));
+    $a_type = be("all", "a_type");$a_content = trim(strip_tags(be("all", "a_content")));
     $a_author = be("all", "a_author"); $a_color = be("all", "a_color");
     $a_hits = be("all", "a_hits"); $a_dayhits = be("all", "a_dayhits");
     $a_weekhits = be("all", "a_weekhits");$a_monthhits = be("all", "a_monthhits");
-    $a_from = be("all", "a_from"); $a_hide = be("all", "a_hide"); $a_pic = be("all", "a_pic");
-    $a_level = be("all", "a_level"); $a_remarks = be("all", "a_remarks");
-    $a_up = be("all", "a_up"); $a_down = be("all", "a_down");  $a_tag = be("all","a_tag");
+    $a_from = be("all", "a_from"); $a_hide = be("all", "a_hide"); $a_pic = trim(strip_tags(be("all", "a_pic")));
+    $a_level = be("all", "a_level"); $a_remarks = trim(strip_tags(be("all", "a_remarks")));
+    $a_up = be("all", "a_up"); $a_down = be("all", "a_down");  trim(strip_tags($a_tag = be("all","a_tag")));
     
     $a_addtime = time(); $a_time = time();
-    //$a_name = str_replace("'", "''",$a_name);
-    //$a_author = str_replace("'", "''",$a_author);
-    $a_content = stripslashes($a_content); 
-    //$a_content = str_replace("'", "''",$a_content);
+    $a_name = str_replace("'", "''",$a_name);
+    $a_author = str_replace("'", "''",$a_author);
+    $a_content = str_replace("'", "''",$a_content);
     
     if (isN($a_name)) { echo "文章名称不能为空err"; exit;}
     if (isN($a_type)) { echo "文章分类不能为空err"; exit;}
@@ -534,7 +530,7 @@ else if($ac=='art')
     $inrule = $MAC['collect']['art']['inrule'];
 	$uprule = $MAC['collect']['art']['uprule'];
 	$filter = $MAC['collect']['art']['filter'];
-    if(strpos(','.$filter,$d_name)) { $des="数据在过滤单中,系统跳过采集err";exit; }
+    if(strpos(','.$filter,$a_name)) { $des="数据在过滤单中,系统跳过采集err";exit; }
     if($a_tag=='' && $MAC['collect']['art']['tag']==1){
 		$a_tag = getTag($a_name,$a_content);
 	}

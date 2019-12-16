@@ -60,7 +60,7 @@ if($ac=='vod')
     
     $d_hits = be("all", "d_hits"); $d_dayhits = be("all", "d_dayhits");
     $d_weekhits = be("all", "d_weekhits"); $d_monthhits = be("all", "d_monthhits"); 
-    $d_content = trim(strip_tags(be("all", "d_content")));
+    $d_content = trim(be("all", "d_content"));
     
     $d_hide = be("all", "d_hide"); $d_up = be("all", "d_up"); $d_down = be("all", "d_down");
     $d_pic = be("all", "d_pic"); $d_picthumb = be("all", "d_picthumb"); $d_picslide = be("all", "d_picslide");
@@ -489,8 +489,8 @@ else if($ac=='art')
     
     $a_id = be("all", "a_id"); $a_name = trim(strip_tags(be("all", "a_name")));
     $a_subname = trim(strip_tags(be("all", "a_subname"))); $a_enname = trim(strip_tags(be("all", "a_enname")));
-    $a_type = be("all", "a_type");$a_content = trim(strip_tags(be("all", "a_content")));
-    $a_author = be("all", "a_author"); $a_color = be("all", "a_color");
+    $a_type = be("all", "a_type");$a_content = trim(be("all", "a_content"));
+    $a_author = trim(strip_tags(be("all", "a_author"))); $a_color = be("all", "a_color");
     $a_hits = be("all", "a_hits"); $a_dayhits = be("all", "a_dayhits");
     $a_weekhits = be("all", "a_weekhits");$a_monthhits = be("all", "a_monthhits");
     $a_from = be("all", "a_from"); $a_hide = be("all", "a_hide"); $a_pic = trim(strip_tags(be("all", "a_pic")));

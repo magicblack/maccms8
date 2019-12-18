@@ -86,6 +86,8 @@ elseif($method=='index'){
 }
 
 elseif($method=='wel'){
+    $plt->set_file('main', $ac.'_'.$method.'.html');
+
 	$ok='<font color=green><strong>√ </strong></font>';
 	$err='<font color=red><strong>× </strong></font>';	
 	$gd = @gd_info();
@@ -107,7 +109,16 @@ elseif($method=='wel'){
 	for($i=0;$i<count($colarr);$i++){
 		$plt->set_var('PHP_'.$colarr[$i],$valarr[$i]);
 	}
-	$plt->set_file('main', $ac.'_'.$method.'.html');
+
+	$sql_update = false;
+    $sql_file='bak/database.php';
+	if(file_exists($sql_file)){
+        $sql_update = true;
+    }
+
+
+    $plt->set_if('main','sql_update',$sql_update);
+
 }
 
 elseif($method=='quickmenusave')
@@ -213,21 +224,43 @@ elseif($method=='update2sql')
 	echo "<div class='Update'><h1>在线升级进行中第二步【数据库升级】,请稍后......</h1><textarea rows=\"25\" readonly>";
 	ob_flush();flush();
 	sleep(1);
-	$f='bak/update2sql_'.MAC_VERSION.'.txt';
-	if(file_exists($f)){
+    $sql_file='bak/database.php';
+
+	if(file_exists($sql_file)){
 		echo "\n发现数据库升级脚本，正在处理...\n";
-		
-		$sql=file_get_contents($f);
-		$sqlarr=explode(";",$sql);
-		
-		for($i=0;$i<count($sqlarr)-1;$i++){
-			$db->query($sqlarr[$i]);
-			$msg=getBody($sqlarr[$i],'#start#','#end#');
-			echo $msg."...\n";
-		}
-		unset($sqlarr);
+
+		$sql = 'select * from information_schema.columns where table_schema =\''.$GLOBALS['MAC']['db']['name'].'\' ';
+        $schema = $db->queryArray($sql);
+
+        $col_list = [];
+        $sql='';
+        $pre = $GLOBALS['MAC']['db']['tablepre'];
+        foreach($schema as $k=>$v){
+            $col_list[$v['TABLE_NAME']][$v['COLUMN_NAME']] = $v;
+        }
+
+        @include $sql_file;
+
+        if(!empty($sql)) {
+            $sql = str_replace("{pre}",$pre,$sql);
+            $sqlarr=explode("\r",$sql);
+
+            for($i=0;$i<count($sqlarr)-1;$i++){
+                $v = $sqlarr[$i];
+                if(!empty($v)){
+                    echo $v . "...\n";
+                    try {
+                        $db->query($v);
+                        echo "    ---成功" . "\n\n";
+                    } catch (Exception $e) {
+                        echo "    ---失败" . "\n\n";
+                    }
+                }
+            }
+            unset($sqlarr);
+        }
 		echo "\n数据库部分处理完成，将自动删除升级脚本...\n";
-		unlink($f);
+		@unlink($sql_file);
 	}
 	else{
 		echo "\n未发现数据库升级脚本，稍后进入更新数据缓存部分...\n";

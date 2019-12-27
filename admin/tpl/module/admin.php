@@ -232,7 +232,7 @@ elseif($method=='update2sql')
 		$sql = 'select * from information_schema.columns where table_schema =\''.$GLOBALS['MAC']['db']['name'].'\' ';
         $schema = $db->queryArray($sql);
 
-        $col_list = [];
+        $col_list = array();
         $sql='';
         $pre = $GLOBALS['MAC']['db']['tablepre'];
         foreach($schema as $k=>$v){

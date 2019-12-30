@@ -1459,7 +1459,8 @@ function updateCacheFile()
 	try{
 		$cachevodtype= $db->queryarray('SELECT * FROM {pre}vod_type','t_id');
 		$i=0;
-		foreach($cachevodtype as $v){
+		foreach($cachevodtype as $k=>$v){
+		    $cachevodtype[$k] = filter_tags($v);
 			$strchild='';
 			$rc=false;
 			$rs= $db->query('SELECT t_id FROM {pre}vod_type WHERE t_pid=' .$v['t_id']);
@@ -1486,16 +1487,15 @@ function updateCacheFile()
 		echo '更新视频分类缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
-	$arr['vodtype'] = filter_tags($cachevodtype);
-	
-	
-	
-	$arr['vodclass'] = filter_tags($cachevodclass);
+	$arr['vodtype'] = $cachevodtype;
+
+	$arr['vodclass'] = $cachevodclass;
 	//文章分类缓存
 	try{
 		$cachearttype=$db->queryarray('SELECT *,\'\' AS childids FROM {pre}art_type','t_id');
 		$i=0;
-		foreach($cachearttype as $v){
+		foreach($cachearttype as $k=>$v){
+            $cachearttype[$k] = filter_tags($v);
 			$strchild='';
 			$rc=false;
 			$rs= $db->query('SELECT t_id FROM {pre}art_type WHERE t_pid=' .$v['t_id']);
@@ -1521,48 +1521,60 @@ function updateCacheFile()
 		echo '更新文章分类缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
-	$arr['arttype'] = filter_tags($cachearttype);
+	$arr['arttype'] = $cachearttype;
 	
 	//视频剧情分类缓存
 	try{
 		$cachevodclass=$db->queryarray('SELECT * FROM {pre}vod_class','c_id');
+        foreach($cachevodclass as $k=>$v) {
+            $cachevodclass[$k] = filter_tags($v);
+        }
 	}
 	catch(Exception $e){ 
 		echo '更新视频剧情分类缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
-	$arr['vodclass'] = filter_tags($cachevodclass);
+	$arr['vodclass'] = $cachevodclass;
 	
 	
 	//视频专题缓存
 	try{
 		$cachevodtopic=$db->queryarray('SELECT * FROM {pre}vod_topic','t_id');
+        foreach($cachevodtopic as $k=>$v) {
+            $cachevodtopic[$k] = filter_tags($v);
+        }
 	}
 	catch(Exception $e){ 
 		echo '更新视频专题缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
-	$arr['vodtopic'] = filter_tags($cachevodtopic);
+	$arr['vodtopic'] = $cachevodtopic;
 	
 	//文章专题缓存
 	try{
 		$cachearttopic=$db->queryarray('SELECT * FROM {pre}art_topic','t_id');
+        foreach($cachearttopic as $k=>$v) {
+            $cachearttopic[$k] = filter_tags($v);
+        }
 	}
 	catch(Exception $e){ 
 		echo '更新文章专题缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
-	$arr['arttopic'] = filter_tags($cachearttopic);
+	$arr['arttopic'] = $cachearttopic;
 	
 	//用户组缓存
 	try{
 		$cacheusergroup=$db->queryarray('SELECT * FROM {pre}user_group','ug_id');
+        foreach($cacheusergroup as $k=>$v) {
+            $cacheusergroup[$k] = filter_tags($v);
+        }
 	}
 	catch(Exception $e){ 
 		echo '更新用户组缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
-	$arr['usergroup'] = filter_tags($cacheusergroup);
+	$arr['usergroup'] = $cacheusergroup;
 	
 	
 	$arr['vodplay'] = getVodXml('vodplay.xml','play');

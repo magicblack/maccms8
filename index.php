@@ -28,7 +28,7 @@
                  $tpl->P[trim($par[$i])] = intval($par[$i+1]);
              }
              elseif(in_array($par[$i],$col_str)){
-                 $tpl->P[trim($par[$i])] = chkSql(htmlspecialchars(urldecode(trim($par[$i+1]))));
+                 $tpl->P[trim($par[$i])] = chkSql($par[$i+1]);
              }
         }
     }

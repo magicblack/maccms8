@@ -41,7 +41,7 @@ foreach($timmingnodes as $timmingnode){
 	    if($parlen>=2){
 	    	$method = $par[1];
 	    	 for($i=2;$i<$parlen;$i+=2){
-	            $p[$par[$i]] = in_array($par[$i],$colnum) ? intval($par[$i+1]) : chkSql(urldecode($par[$i+1]));
+	            $p[$par[$i]] = in_array($par[$i],$colnum) ? intval($par[$i+1]) : chkSql($par[$i+1]);
 	        }
 	    }
 	    if($p['pg']<1){ $p['pg']=1; }

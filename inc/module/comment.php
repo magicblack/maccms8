@@ -32,8 +32,8 @@ elseif($method=='save')
 {
 	$c_vid = intval(be("all", "vid"));
 	$c_type = intval(be("all", "aid"));
-    $c_name = be("all", "c_name");  $c_name = chkSql(htmlspecialchars($c_name));
-    $c_content = be("all", "c_content");  $c_content = chkSql(htmlspecialchars($c_content)); 
+    $c_name = be("all", "c_name");  $c_name = chkSql($c_name);
+    $c_content = be("all", "c_content");  $c_content = chkSql($c_content);
     $c_code = be("all","c_code");  $c_code = chkSql($c_code);
     
     if($c_type>=16 && $c_type<=18){

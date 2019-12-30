@@ -99,6 +99,7 @@ if($ac=='detail')
 		
 		while ($row = $db ->fetch_array($rs))
 		{
+            $row = filter_tags($row);
 		    if(substr($row["a_pic"],0,4)=="http"){ $temppic = $row["a_pic"]; } else { $temppic = $MAC['api']['art']['imgurl'] . $row["a_pic"]; }
 		    
 		    $typearr =  $MAC_CACHE['arttype'][$row["a_type"]];
@@ -191,6 +192,7 @@ else
 		
 		while ($row = $db ->fetch_array($rs))
 	  	{
+            $row = filter_tags($row);
 	  		$dt = $from!='' ? $from : replaceStr($row["a_playfrom"],'$$$',',');
 	  		$typearr = $MAC_CACHE['arttype'][$row["a_type"]];
 			
@@ -217,6 +219,7 @@ else
 	$rs = $db->query($sql);
 	while ($row = $db ->fetch_array($rs))
 	{
+        $row = filter_tags($row);
 		$json['class'][] = array(
 			'type_id'=>$row['t_id'],
 			'type_name'=>$row['t_name']

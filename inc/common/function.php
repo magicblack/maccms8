@@ -1486,11 +1486,11 @@ function updateCacheFile()
 		echo '更新视频分类缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
-	$arr['vodtype'] = $cachevodtype;
+	$arr['vodtype'] = filter_tags($cachevodtype);
 	
 	
 	
-	$arr['vodclass'] = $cachevodclass;
+	$arr['vodclass'] = filter_tags($cachevodclass);
 	//文章分类缓存
 	try{
 		$cachearttype=$db->queryarray('SELECT *,\'\' AS childids FROM {pre}art_type','t_id');
@@ -1521,7 +1521,7 @@ function updateCacheFile()
 		echo '更新文章分类缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
-	$arr['arttype'] = $cachearttype;
+	$arr['arttype'] = filter_tags($cachearttype);
 	
 	//视频剧情分类缓存
 	try{
@@ -1531,7 +1531,7 @@ function updateCacheFile()
 		echo '更新视频剧情分类缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
-	$arr['vodclass'] = $cachevodclass;
+	$arr['vodclass'] = filter_tags($cachevodclass);
 	
 	
 	//视频专题缓存
@@ -1542,7 +1542,7 @@ function updateCacheFile()
 		echo '更新视频专题缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
-	$arr['vodtopic'] = $cachevodtopic;
+	$arr['vodtopic'] = filter_tags($cachevodtopic);
 	
 	//文章专题缓存
 	try{
@@ -1552,7 +1552,7 @@ function updateCacheFile()
 		echo '更新文章专题缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
-	$arr['arttopic'] = $cachearttopic;
+	$arr['arttopic'] = filter_tags($cachearttopic);
 	
 	//用户组缓存
 	try{
@@ -1562,7 +1562,7 @@ function updateCacheFile()
 		echo '更新用户组缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
-	$arr['usergroup'] = $cacheusergroup;
+	$arr['usergroup'] = filter_tags($cacheusergroup);
 	
 	
 	$arr['vodplay'] = getVodXml('vodplay.xml','play');
@@ -2033,27 +2033,50 @@ function resize($srcImage,$toFile,$maxWidth = 100,$maxHeight = 100,$imgQuality=1
     } 
     $scale = min($maxWidth/$width, $maxHeight/$height); //求出绽放比例 
      
-    if($scale < 1) { 
-    $newWidth = floor($scale*$width); 
-    $newHeight = floor($scale*$height); 
-    $newImg = imagecreatetruecolor($newWidth, $newHeight); 
-    imagecopyresampled($newImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height); 
-    $newName = ""; 
-    $toFile = preg_replace("/(.gif|.jpg|.jpeg|.png)/i","",$toFile); 
- 
-    switch($type) { 
-        case 1: if(imagegif($newImg, "$toFile$newName.gif", $imgQuality)) 
-        return "$newName.gif"; break; 
-        case 2: if(imagejpeg($newImg, "$toFile$newName.jpg", $imgQuality)) 
-        return "$newName.jpg"; break; 
-        case 3: if(imagepng($newImg, "$toFile$newName.png", $imgQuality)) 
-        return "$newName.png"; break; 
-        default: if(imagejpeg($newImg, "$toFile$newName.jpg", $imgQuality))
-        return "$newName.jpg"; break; 
-    } 
-    imagedestroy($newImg); 
-    } 
+    if($scale < 1) {
+        $newWidth = floor($scale * $width);
+        $newHeight = floor($scale * $height);
+        $newImg = imagecreatetruecolor($newWidth, $newHeight);
+        imagecopyresampled($newImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+        $newName = "";
+        $toFile = preg_replace("/(.gif|.jpg|.jpeg|.png)/i", "", $toFile);
+
+        switch ($type) {
+            case 1:
+                if (imagegif($newImg, "$toFile$newName.gif", $imgQuality))
+                    return "$newName.gif";
+                break;
+            case 2:
+                if (imagejpeg($newImg, "$toFile$newName.jpg", $imgQuality))
+                    return "$newName.jpg";
+                break;
+            case 3:
+                if (imagepng($newImg, "$toFile$newName.png", $imgQuality))
+                    return "$newName.png";
+                break;
+            default:
+                if (imagejpeg($newImg, "$toFile$newName.jpg", $imgQuality))
+                    return "$newName.jpg";
+                break;
+        }
+        imagedestroy($newImg);
+    }
     imagedestroy($img); 
     return false; 
+}
+
+function filter_tags($rs)
+{
+    if(is_array($rs)){
+        foreach($rs as $k2=>$v2){
+            if(strpos($k2,'_content')===false) {
+                $rs[$k2] = strip_tags($v2);
+            }
+        }
+    }
+    else{
+        $rs = strip_tags($rs);
+    }
+    return $rs;
 }
 ?>

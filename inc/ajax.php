@@ -184,8 +184,8 @@ elseif($ac=='userfav')
 elseif($ac=='reporterr')
 {
 	$g_vid = be("post","g_vid"); $g_vid = intval($g_vid);
-	$g_name = be("post","g_name"); $g_name = chkSql(htmlspecialchars($g_name));
-	$g_content = be("post","g_content"); $g_content = chkSql(htmlspecialchars($g_content));
+	$g_name = be("post","g_name"); $g_name = chkSql($g_name);
+	$g_content = be("post","g_content"); $g_content = chkSql($g_content);
 	
 	if (!isNum($g_vid)){ $g_vid=0; } 
     if (isN($g_name) || isN($g_content)){ alert('请输入昵称和内容'); exit;}
@@ -209,8 +209,8 @@ elseif($ac=='reporterr')
 
 elseif($ac=='suggest')
 {
-	$q=be("get","q"); $q = chkSql(htmlspecialchars($q));
-	$t=be("get","t"); $t = chkSql(htmlspecialchars($t));
+	$q=be("get","q"); $q = chkSql($q);
+	$t=be("get","t"); $t = chkSql($t);
 	$res = '{"status":0,"info":"err","data":[{}]}';
 	if(!empty($q)){
 		$sql="SELECT d_name from {pre}vod WHERE d_name like '".$q."%' or d_enname like '".($q)."%' ";

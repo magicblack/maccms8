@@ -34,8 +34,8 @@ $ac = be("get","ac");
 $t = intval(be("get","t"));
 $pg = intval(be("get","pg"));
 $h= intval(be("get","h"));
-$wd = be("get","wd"); $wd = chkSql(htmlspecialchars($wd));
-$ids= be("all","ids"); $ids = chkSql(htmlspecialchars($ids));
+$wd = be("get","wd"); $wd = chkSql($wd);
+$ids= be("all","ids"); $ids = chkSql($ids);
 if ($pg < 1){ $pg=1;}
 $from =''; //不为空时只显示某种资源例如youku
 
@@ -97,6 +97,7 @@ if($ac=='videolist')
 		
 		while ($row = $db ->fetch_array($rs))
 		{
+            $row = filter_tags($row);
 			$tempurl = urlDeal($row["d_downurl"],$row["d_downfrom"],$from);
 		    if(substr($row["d_pic"],0,4) =="http"){ $temppic = $row["d_pic"]; } else { $temppic = $MAC['api']['vod']['imgurl'] . $row["d_pic"]; }
 		    
@@ -169,6 +170,7 @@ else
 		
 		while ($row = $db ->fetch_array($rs))
 	  	{
+            $row = filter_tags($row);
 	  		$typearr = $MAC_CACHE['vodtype'][$row["d_type"]];
 			$xml .= "<video>";
 			$xml .= "<last>".date('Y-m-d H:i:s',$row["d_time"])."</last>";
@@ -197,6 +199,7 @@ else
 	$rs = $db->query($sql);
 	while ($row = $db ->fetch_array($rs))
 	{
+        $row = filter_tags($row);
 		$xml .= "<ty id=\"". $row["t_id"] ."\">". $row["t_name"] . "</ty>";
 	}
 	unset($rs);

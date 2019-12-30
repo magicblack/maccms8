@@ -99,6 +99,7 @@ if($ac=='videolist' || $ac=='detail')
 		
 		while ($row = $db ->fetch_array($rs))
 		{
+            $row = filter_tags($row);
 			$tmp = urlDeal($row["d_playurl"],$row["d_playfrom"],$row["d_playserver"],$row["d_playnote"],$from);
 		    if(substr($row["d_pic"],0,4)=="http"){ $temppic = $row["d_pic"]; } else { $temppic = $MAC['api']['vod']['imgurl'] . $row["d_pic"]; }
 		    
@@ -214,6 +215,7 @@ else
 		
 		while ($row = $db ->fetch_array($rs))
 	  	{
+            $row = filter_tags($row);
 	  		$dt = $from!='' ? $from : replaceStr($row["d_playfrom"],'$$$',',');
 	  		$typearr = $MAC_CACHE['vodtype'][$row["d_type"]];
 			
@@ -239,6 +241,7 @@ else
 	$rs = $db->query($sql);
 	while ($row = $db ->fetch_array($rs))
 	{
+        $row = filter_tags($row);
 		$json['class'][] = array(
 			'type_id'=>$row['t_id'],
 			'type_name'=>$row['t_name']

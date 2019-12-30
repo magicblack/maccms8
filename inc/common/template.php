@@ -1365,6 +1365,8 @@ class AppTpl
     {
         if($mnum<10){ $numfill="0".$mnum; } else{ $numfill=$mnum;}
 		$val=$m1;
+        $mrs = filter_tags($mrs);
+
         switch($f)
         {
             case "menu":
@@ -2275,6 +2277,7 @@ class AppTpl
     
     function replaceVod()
     {
+        $this->D = filter_tags($this->D);
     	$id = $this->D['d_id'];
         $name = $this->D['d_name'];
 		$this->H = str_replace(array('[vod:hits]','[vod:fav]','[vod:share]','[vod:error]','[vod:desktop]','[vod:digg]','[vod:scoremark1]','[vod:scoremark2]'),array('<em id="hits">加载中</em><script>MAC.Hits("vod","'.$id.'")</script>','<a target="_self" href="javascript:void(0)" onclick=\'MAC.Fav(document.URL,document.title);return false;\'>我要收藏</a>','<a target="_self" href="javascript:void(0)" onclick=\'MAC.Copy(document.title+"  " +document.URL);return false;\'>我要分享</a>','<a target="_self" href="javascript:void(0)" onclick=\'MAC.Error("vod","'.$id.'","'.$name.'");return false;\'>我要报错</a>','<a target="_self" href="javascript:void(0)" onclick=\'MAC.Desktop("'.$name.'");return false;\'>保存到桌面</a>','<a target="_self" href="javascript:void(0)" class="digg_vodup">顶(<span>0</span>)</a><a target="_self" href="javascript:void(0)" class="digg_voddown">踩(<span>0</span>)</a>','<script>MAC.Score.Show(0,"vod",'.$id.');</script>','<script>MAC.Score.Show(1,"vod",'.$id.');</script>'),$this->H);
@@ -2349,6 +2352,7 @@ class AppTpl
     
     function replaceArt()
     {
+        $this->D = filter_tags($this->D);
     	$id = $this->D['a_id'];
         $name = $this->D['a_name'];
     	$slink = $this->getLink('art','detail',$typearr,$this->D);

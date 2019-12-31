@@ -1194,6 +1194,7 @@ class AppTpl
     	}
     	else{
     		$phpcode = $this->markdes;
+
     		$phpcode = @preg_replace("/'@me'|\"@me\"|@me/i", '$resval', $phpcode);
     		@eval($phpcode);
     	}

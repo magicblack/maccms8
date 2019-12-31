@@ -265,32 +265,32 @@ function getRndStr($length)
 
 function be($mode,$key,$sp=',')
 {
-	ini_set("magic_quotes_runtime", 0);
-	$magicq= get_magic_quotes_gpc();
-	switch($mode)
-	{
-		case 'post':
-			$res=isset($_POST[$key]) ? $magicq?$_POST[$key]:@addslashes($_POST[$key]) : '';
-			break;
-		case 'get':
-			$res=isset($_GET[$key]) ? $magicq?$_GET[$key]:@addslashes($_GET[$key]) : '';
-			break;
-		case 'arr':
-			$arr =isset($_POST[$key]) ? $_POST[$key] : '';
-			if($arr==""){
-				$value="0";
-			}
-			else{
-				for($i=0;$i<count($arr);$i++){
-					$res=implode($sp,$arr);
-				} 
-			}
-			break;
-		default:
-			$res=isset($_REQUEST[$key]) ? $magicq ? $_REQUEST[$key] : @addslashes($_REQUEST[$key]) : '';
-			break;
-	}
-	return $res;
+    ini_set("magic_quotes_runtime", 0);
+    $magicq= get_magic_quotes_gpc();
+    switch($mode)
+    {
+        case 'post':
+            $res=isset($_POST[$key]) ? $magicq?$_POST[$key]:@addslashes($_POST[$key]) : '';
+            break;
+        case 'get':
+            $res=isset($_GET[$key]) ? $magicq?$_GET[$key]:@addslashes($_GET[$key]) : '';
+            break;
+        case 'arr':
+            $arr =isset($_POST[$key]) ? $_POST[$key] : '';
+            if($arr==""){
+                $value="0";
+            }
+            else{
+                for($i=0;$i<count($arr);$i++){
+                    $res=implode($sp,$arr);
+                }
+            }
+            break;
+        default:
+            $res=isset($_REQUEST[$key]) ? $magicq ? $_REQUEST[$key] : @addslashes($_REQUEST[$key]) : '';
+            break;
+    }
+    return $res;
 }
 
 function mkdirs($path)
@@ -2084,10 +2084,12 @@ function filter_tags($rs)
             if(strpos($k2,'_content')===false) {
                 $rs[$k2] = strip_tags($v2);
             }
+            $rs[$k2] = preg_replace( buildregx('{if-([\s\S]*?):([\s\S]+?)}([\s\S]*?){endif-\1}',"is") ,'',$rs[$k2]);
         }
     }
     else{
         $rs = strip_tags($rs);
+        $rs = preg_replace( buildregx('{if-([\s\S]*?):([\s\S]+?)}([\s\S]*?){endif-\1}',"is") ,'',$rs);
     }
     return $rs;
 }

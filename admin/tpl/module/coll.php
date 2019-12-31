@@ -35,7 +35,7 @@ if($method=='list')
 		$valarr=array();
         for($i=0;$i<count($colarr);$i++){
             $n=$colarr[$i];
-            $valarr[$n]=$row[$n];
+            $valarr[$n]=htmlspecialchars($row[$n]);
         }
         $valarr['c_acx'] = $row['c_type']==1 ? '' : 'json';
 
@@ -74,7 +74,7 @@ elseif($method=='info')
 			$valarr=array();
 			for($i=0;$i<count($colarr);$i++){
 				$n=$colarr[$i];
-				$valarr[$n]=$row[$n];
+				$valarr[$n]=htmlspecialchars($row[$n]);
 			}
 		}
 		unset($row);

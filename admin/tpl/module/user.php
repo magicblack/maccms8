@@ -35,7 +35,7 @@ if($method=='manager')
 		$valarr=array();
 		for($i=0;$i<count($colarr);$i++){
 			$n=$colarr[$i];
-			$valarr[$n]=$row[$n];
+			$valarr[$n]=htmlspecialchars($row[$n]);
 		}
 		$valarr['m_logintime'] = $row['m_logintime']==0 ? '' : getColorDay($row['m_logintime']);
 		$valarr['m_loginip'] = long2ip($row['m_loginip']);
@@ -71,7 +71,7 @@ elseif($method=='managerinfo')
 			$valarr=array();
 			for($i=0;$i<count($colarr);$i++){
 				$n=$colarr[$i];
-				$valarr[$n]=$row[$n];
+				$valarr[$n]=htmlspecialchars($row[$n]);
 			}
 		}
 		unset($row);
@@ -150,7 +150,7 @@ elseif($method=='group')
 		$ug_count = $db->getOne('SELECT count(u_id) FROM {pre}user WHERE u_group='.$row['ug_id']);
 		for($i=0;$i<count($colarr);$i++){
 			$n=$colarr[$i];
-			$valarr[$n]=$row[$n];
+			$valarr[$n]=htmlspecialchars($row[$n]);
 		}
 		$valarr['ug_count'] = $ug_count;
 		
@@ -184,7 +184,7 @@ elseif($method=='groupinfo')
 			$valarr=array();
 			for($i=0;$i<count($colarr);$i++){
 				$n=$colarr[$i];
-				$valarr[$n]=$row[$n];
+				$valarr[$n]=htmlspecialchars($row[$n]);
 			}
 		}
 		unset($row);
@@ -321,7 +321,7 @@ elseif($method=='list')
 		$ug_count = $db->getOne('SELECT count(u_id) FROM {pre}user WHERE u_group='.$row['ug_id']);
 		for($i=0;$i<count($colarr);$i++){
 			$n=$colarr[$i];
-			$valarr[$n]=$row[$n];
+			$valarr[$n]=htmlspecialchars($row[$n]);
 		}
 		$valarr['u_group'] = $MAC_CACHE['usergroup'][$row['u_group']]['ug_name'];
 		$valarr['u_logintime'] = $row['u_logintime']==0 ? '' : getColorDay($row['u_logintime']);
@@ -369,7 +369,7 @@ elseif($method=='info')
 			$valarr=array();
 			for($i=0;$i<count($colarr);$i++){
 				$n=$colarr[$i];
-				$valarr[$n]=$row[$n];
+				$valarr[$n]=htmlspecialchars($row[$n]);
 			}
 		}
 		unset($row);
@@ -501,7 +501,7 @@ elseif($method=='card')
 		$c_user = $db->getOne('SELECT u_name FROM {pre}user WHERE u_id='.$row['c_user']);
 		for($i=0;$i<count($colarr);$i++){
 			$n=$colarr[$i];
-			$valarr[$n]=$row[$n];
+			$valarr[$n]=htmlspecialchars($row[$n]);
 		}
 		$valarr['c_user'] = $c_user;
 		$valarr['c_sale'] = $row['c_sale']==1 ? '<font color=red>已使用</font>' : '<font color=green>未使用</font>';

@@ -373,7 +373,7 @@ elseif($method=='link')
 		$valarr=array();
 		for($i=0;$i<count($colarr);$i++){
 			$n=$colarr[$i];
-			$valarr[$n]=$row[$n];
+			$valarr[$n]=htmlspecialchars($row[$n]);
 		}
 		$l_type_c0 = $row['l_type'] ==0 ? 'selected' : '';
 		$l_type_c1 = $row['l_type'] ==1 ? 'selected' : '';
@@ -430,7 +430,7 @@ elseif($method=='linkinfo')
 			$valarr=array();
 			for($i=0;$i<count($colarr);$i++){
 				$n=$colarr[$i];
-				$valarr[$n]=$row[$n];
+				$valarr[$n]=htmlspecialchars($row[$n]);
 			}
 			$l_type_c0 = $row['l_type'] ==0 ? 'selected' : '';
 			$l_type_c1 = $row['l_type'] ==1 ? 'selected' : '';
@@ -523,7 +523,7 @@ elseif($method=='gbook')
 		$valarr=array();
 		for($i=0;$i<count($colarr);$i++){
 			$n=$colarr[$i];
-			$valarr[$n]=$row[$n];
+			$valarr[$n]=htmlspecialchars($row[$n]);
 		}
 		$valarr['g_content'] = regReplace($row['g_content'], "\[em:(\d{1,})?\]", "<img src=\"../images/face/$1.gif\" border=0/>");
 		$valarr['g_ip'] = long2ip($row['g_ip']);
@@ -574,7 +574,7 @@ elseif($method=='gbookinfo')
 			$valarr=array();
 			for($i=0;$i<count($colarr);$i++){
 				$n=$colarr[$i];
-				$valarr[$n]=$row[$n];
+				$valarr[$n]=htmlspecialchars($row[$n]);
 			}
 		}
 		unset($row);
@@ -656,7 +656,7 @@ elseif($method=='comment')
 		$valarr=array();
 		for($i=0;$i<count($colarr);$i++){
 			$n=$colarr[$i];
-			$valarr[$n]=$row[$n];
+			$valarr[$n]=htmlspecialchars($row[$n]);
 		}
 		
 		//$valarr['c_type']= $row['c_type'] == 26 ? '文章':'视频';
@@ -694,7 +694,7 @@ elseif($method=='commentinfo')
 			$valarr=array();
 			for($i=0;$i<count($colarr);$i++){
 				$n=$colarr[$i];
-				$valarr[$n]=$row[$n];
+				$valarr[$n]=htmlspecialchars($row[$n]);
 			}
 		}
 		unset($row);

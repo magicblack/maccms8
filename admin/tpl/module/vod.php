@@ -37,7 +37,7 @@ if($method=='type'){
 		$valarr=array();
 		for($i=0;$i<count($colarr);$i++){
 			$n=$colarr[$i];
-			$valarr[$n]=$row[$n];
+			$valarr[$n]=htmlspecialchars($row[$n]);
 		}
 		$valarr['t_span']=$t_span;
 		$valarr['t_count']=$t_count;
@@ -134,7 +134,7 @@ elseif($method=='typeinfo')
 		if($row){
 			for($i=0;$i<count($colarr);$i++){
 				$n=$colarr[$i];
-				$valarr[$n]=$row[$n];
+				$valarr[$n]=htmlspecialchars($row[$n]);
 			}
 		}
 		unset($row);
@@ -239,7 +239,7 @@ elseif($method=='class')
 		$valarr=array();
 		for($i=0;$i<count($colarr);$i++){
 			$n=$colarr[$i];
-			$valarr[$n]=$row[$n];
+			$valarr[$n]=htmlspecialchars($row[$n]);
 		}
 		$valarr['c_span']='';
 		
@@ -273,7 +273,7 @@ elseif($method=='classinfo')
 		if($row){
 			for($i=0;$i<count($colarr);$i++){
 				$n=$colarr[$i];
-				$valarr[$n]=$row[$n];
+				$valarr[$n]=htmlspecialchars($row[$n]);
 			}
 		}
 		unset($row);
@@ -336,7 +336,7 @@ elseif($method=='topic')
 		$t_count = $db->getOne('SELECT count(*) FROM {pre}vod_relation WHERE r_type=2 and r_a='.$row['t_id']);
 		for($i=0;$i<count($colarr);$i++){
 			$n=$colarr[$i];
-			$valarr[$n]=$row[$n];
+			$valarr[$n]=htmlspecialchars($row[$n]);
 		}
 		$valarr['t_addtime'] = getColorDay($row['t_addtime']);
 		$valarr['t_time'] = getColorDay($row['t_time']);
@@ -374,7 +374,7 @@ elseif($method=='topicinfo')
 		if($row){
 			for($i=0;$i<count($colarr);$i++){
 				$n=$colarr[$i];
-				$valarr[$n]=$row[$n];
+				$valarr[$n]=htmlspecialchars($row[$n]);
 			}
 		}
 		unset($row);
@@ -459,7 +459,7 @@ elseif($method=='topicdata')
 		$valarr=array();
 		for($i=0;$i<count($colarr);$i++){
 			$n=$colarr[$i];
-			$valarr[$n]=$row[$n];
+			$valarr[$n]=htmlspecialchars($row[$n]);
 		}
 		$typearr = $GLOBALS['MAC_CACHE']['vodtype'][$valarr['d_type']];
 		$d_link = "../".$tpl->getLink('vod','detail',$typearr,$row);
@@ -1255,7 +1255,7 @@ elseif($method=='list')
 		$valarr=array();
 		for($i=0;$i<count($colarr);$i++){
 			$n=$colarr[$i];
-			$valarr[$n]=$row[$n];
+			$valarr[$n]=htmlspecialchars($row[$n]);
 		}
 		$typearr = $MAC_CACHE['vodtype'][$row['d_type']];
 		
@@ -1316,7 +1316,7 @@ elseif($method=='info')
 			$valarr=array();
 			for($i=0;$i<count($colarr);$i++){
 				$n=$colarr[$i];
-				$valarr[$n]=$row[$n];
+				$valarr[$n]=htmlspecialchars($row[$n]);
 			}
 		}
 		unset($row);

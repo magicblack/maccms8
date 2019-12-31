@@ -2,6 +2,15 @@
 if(!defined('MAC_ADMIN')){
 	exit('Access Denied');
 }
+
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    foreach($_POST as $k=>$v){
+        if(strpos($v,'<?')!==false || strpos($v,'{if')!==false || strpos($v,':php')!==false){
+            showErr('System','为了系统安全配置项目中不允许出现php代码和if标签');
+            return;
+        }
+    }
+}
 if($method=='configsave')
 {
 	$tempcacheid= time();

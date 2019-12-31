@@ -166,7 +166,12 @@ elseif($method=='save')
 	$filename = be('post','filename');
 	$suffix = be('post','suffix');
 	$filecontent =  stripslashes(be('post','filecontent'));
-	
+
+	if(strpos($filecontent,'<?')!==false || strpos($filecontent,'{if')!==false || strpos($filecontent,':php')!==false){
+        showErr('System','为了系统安全在线编辑模板不允许模板中出现php代码和if标签');
+        return;
+    }
+
 	if(isN($path)){
 		if (substring($file,11)!='../template' || count( explode('../',$file) ) > 2) {
 			showErr('System','非法目录请求');

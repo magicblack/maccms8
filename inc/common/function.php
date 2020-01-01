@@ -290,7 +290,6 @@ function be($mode,$key,$sp=',')
             $res=isset($_REQUEST[$key]) ? $magicq ? $_REQUEST[$key] : @addslashes($_REQUEST[$key]) : '';
             break;
     }
-    $res = str_replace("_", "\_", $res);
     $res = str_replace("%", "\%", $res);
     return $res;
 }

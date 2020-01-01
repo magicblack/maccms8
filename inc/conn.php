@@ -12,6 +12,7 @@ require(MAC_ROOT.'/inc/common/template.php');
 require(MAC_ROOT."/inc/common/template_diy.php");
 
 @ini_set('display_errors','On');
+@ini_set('pcre.backtrack_limit', 99999);
 @error_reporting(7);
 @set_error_handler('my_error_handler');
 @ob_start();

@@ -290,6 +290,8 @@ function be($mode,$key,$sp=',')
             $res=isset($_REQUEST[$key]) ? $magicq ? $_REQUEST[$key] : @addslashes($_REQUEST[$key]) : '';
             break;
     }
+    $res = str_replace("_", "\_", $res);
+    $res = str_replace("%", "\%", $res);
     return $res;
 }
 
@@ -571,7 +573,7 @@ function unescape($str)
 
 function htmlEncode($str)
 {
-	if (!isN($str)){
+	if (!empty($str)){
 		$str = str_replace(chr(38), "&#38;",$str);
 		$str = str_replace(">", "&gt;",$str);
 		$str = str_replace("<", "&lt;",$str);
@@ -587,7 +589,7 @@ function htmlEncode($str)
 
 function htmlDecode($str)
 {
-	if (!isN($str)){
+	if (!empty($str)){
 		$str = str_replace("<br/>", chr(13)&chr(10),$str);
 		$str = str_replace("<br>", chr(13)&chr(10),$str);
 		$str = str_replace("<br />", chr(13)&chr(10),$str);

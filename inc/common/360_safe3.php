@@ -76,7 +76,7 @@ foreach($_GET as $key=>$value){
     if(strlen($value)>52500){
         chkShow();
     }
-    $value = preg_replace('#[^\x{4e00}-\x{9fa5}A-Za-z0-9]#u','',$value);
+    $value = preg_replace('#[^\x{4e00}-\x{9fa5}A-Za-z0-9-._]#u','',$value);
    	$_GET[$key] = $value;
 	StopAttack($key,$value,$getfilter);
 }
@@ -84,7 +84,7 @@ foreach($_POST as $key=>$value){
     if(strlen($value)>52500){
         chkShow();
     }
-    $value = preg_replace('#[^\x{4e00}-\x{9fa5}A-Za-z0-9]#u','',$value);
+    $value = preg_replace('#[^\x{4e00}-\x{9fa5}A-Za-z0-9-._]#u','',$value);
    	$_POST[$key] = $value;
 	StopAttack($key,$value,$postfilter);
 }

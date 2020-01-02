@@ -171,7 +171,7 @@ function debuginfo()
 		
 		$func .= isset($error['function']) ? $error['function'] : '';
 		
-		$error[line] = sprintf('%04d', $error['line']);
+		$error['line'] = sprintf('%04d', $error['line']);
 		
 		$show .= "<li>[Line: $error[line]]".$file."($func)</li>";
 	}

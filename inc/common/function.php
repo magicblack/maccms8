@@ -2082,12 +2082,13 @@ function filter_tags($rs)
 {
     if(is_array($rs)){
         foreach($rs as $k2=>$v2){
-            if(!is_numeric($v2)) {
-                if (strpos($k2, '_content') === false && strpos($k2, '_play') === false && strpos($k2, '_down') === false){
-                    $rs[$k2] = strip_tags($v2);
-                }
+
+            if (strpos($k2, '_content') === false && strpos($k2, '_play') === false && strpos($k2, '_down') === false && strpos($k2, 'hits') === false && strpos($k2, 'time') === false
+                && !is_numeric($v2) ){
+                $rs[$k2] = strip_tags($v2);
                 $rs[$k2] = preg_replace(buildregx('{if-([\s\S]*?):([\s\S]+?)}([\s\S]*?){endif-\1}', "is"), '', $rs[$k2]);
             }
+
         }
     }
     else{

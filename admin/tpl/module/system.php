@@ -74,7 +74,8 @@ if($method=='configsave')
 	$config['app']['cache'] = intval(trim(be('post','app_cache')));
 	$config['app']['dynamiccache'] = intval(trim(be('post','app_dynamiccache')));
 	$config['app']['compress'] = intval(trim(be('post','app_compress')));
-	
+    $config['app']['filtertags'] = intval(trim(be('post','app_filtertags')));
+
 	$config['app']['searchtime'] = !is_numeric(be('post','app_searchtime')) ? 5 : intval(trim(be('post','app_searchtime')));
 	$config['app']['cachetime'] = !is_numeric(be('post','app_cachetime')) ? 60 : intval(trim(be('post','app_cachetime')));
 	$config['app']['cacheid'] = trim(be('post','app_cacheid'));
@@ -273,6 +274,7 @@ elseif($method=='config')
 		array('p'=>'app','a'=>'cache','c'=>$MAC['app']['cache'],'t'=>0),
 		array('p'=>'app','a'=>'dynamiccache','c'=>$MAC['app']['dynamiccache'],'t'=>0),
 		array('p'=>'app','a'=>'compress','c'=>$MAC['app']['compress'],'t'=>0),
+        array('p'=>'app','a'=>'filtertags','c'=>$MAC['app']['filtertags'],'t'=>0),
 		array('p'=>'app','a'=>'playersort','c'=>$MAC['app']['playersort'],'t'=>0,'n'=>array('添加顺序','全局顺序'),'v'=>array(0,1)),
 		array('p'=>'app','a'=>'encrypt','c'=>$MAC['app']['encrypt'],'t'=>1,'n'=>array('不加密','escape编码','base64编码'),'v'=>array(0,1,2)),
 		array('p'=>'app','a'=>'isopen','c'=>$MAC['app']['isopen'],'t'=>1,'n'=>array('普通窗口','弹出窗口'),'v'=>array(0,1)),

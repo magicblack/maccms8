@@ -185,6 +185,15 @@ function sethtmldir(id,value){
 		<!-- END list_app_compress -->
 	  </td>
     </tr>
+        <tr>
+            <td>安全过滤字段内容：</td>
+            <td>
+                <!-- BEGIN list_app_filtertags -->
+                <input type="radio" name="app_filtertags" value="{v}" {c} />{n}&nbsp;
+                <!-- END list_app_filtertags -->
+                （提醒：开启后可能会影响网站速度，但是会过滤数据库里的挂马html标签和if标签来保证系统安全。）
+            </td>
+        </tr>
     <tr>
       <td>搜索时间间隔(秒)：</td>
       <td>

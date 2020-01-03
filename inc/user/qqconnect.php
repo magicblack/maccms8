@@ -21,7 +21,7 @@ class QqConnect
   
   function checkLogin()
   {
-  	  if(isN($_REQUEST["code"])){
+  	  if(empty($_REQUEST["code"])){
   	  	  return false;
   	  }
   	  else{

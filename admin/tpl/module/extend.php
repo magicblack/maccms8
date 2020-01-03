@@ -409,11 +409,11 @@ elseif($method=='linkinfo')
 			$l_type = be('post','l_type'. $id);
 			$l_logo = be('post','l_logo'. $id);
 			
-			if (isN($l_name)){ $l_name='未知';}
-			if (isN($l_url)){ $l_url='';}
-			if (isN($l_logo)) { $l_logo=''; }
-			if (!isNum($l_type)){ $l_type=0; }
-			if (!isNum($l_sort)){ $l_sort=0; }
+			if (empty($l_name)){ $l_name='未知';}
+			if (empty($l_url)){ $l_url='';}
+			if (empty($l_logo)) { $l_logo=''; }
+			if (!is_numeric($l_type)){ $l_type=0; }
+			if (!is_numeric($l_sort)){ $l_sort=0; }
 			$db->Update ('{pre}link',array('l_name','l_url', 'l_sort','l_type','l_logo'),array($l_name,$l_url,$l_sort,$l_type,$l_logo),'l_id='.$id);
 		}
 		redirect($backurl);
@@ -455,9 +455,9 @@ elseif($method=='gbook')
 	$page = intval($p['pg']);
 	if ($page < 1) { $page = 1; }
 	
-	$vid=$p['vid']; if(isN($vid)){ $vid=999; } else { $vid=intval($vid); }
-	$hide=$p['hide']; if(isN($hide)){ $hide=999; } else { $hide=intval($hide); }
-	$reply=$p['reply']; if(isN($reply)){ $reply=999; } else { $reply=intval($reply); }
+	$vid=$p['vid']; if(empty($vid)){ $vid=999; } else { $vid=intval($vid); }
+	$hide=$p['hide']; if(empty($hide)){ $hide=999; } else { $hide=intval($hide); }
+	$reply=$p['reply']; if(empty($reply)){ $reply=999; } else { $reply=intval($reply); }
 	$wd=$p['wd'];
 	
 	if($vid!=999){
@@ -595,8 +595,8 @@ elseif($method=='comment')
 	$page = intval($p['pg']);
 	if ($page < 1) { $page = 1; }
 	
-	$hide=$p['hide']; if(isN($hide)){ $hide=999; } else { $hide=intval($hide); }
-	$type=$p['type']; if(isN($type)){ $type=999; } else { $type=intval($type); }
+	$hide=$p['hide']; if(empty($hide)){ $hide=999; } else { $hide=intval($hide); }
+	$type=$p['type']; if(empty($type)){ $type=999; } else { $type=intval($type); }
 	$wd=$p['wd'];
 	
 	if($hide!=999){

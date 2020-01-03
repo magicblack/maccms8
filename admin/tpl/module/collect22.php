@@ -470,7 +470,7 @@ elseif($method=='cj'){
 	                         $des .= '<font color="red">地址相同，跳过。</font>';
 	                         continue;
 	                    }
-	                    elseif(isN($d_playfrom)){
+	                    elseif(empty($d_playfrom)){
 	                    	$des .= '<font color="red">播放器类型为空，跳过。</font>';
 	                    	continue;
 	                    }

@@ -98,7 +98,7 @@ elseif($method=='search')
 		exit;
 	}
 	
-	//if (isN($tpl->P["wd"]) && isN($tpl->P["ids"]) && isN($tpl->P["pinyin"]) && isN($tpl->P["letter"]) && isN($tpl->P["tag"]) && isN($tpl->P["type"]) ){ alert ("搜索参数不正确"); }
+	//if (empty($tpl->P["wd"]) && empty($tpl->P["ids"]) && empty($tpl->P["pinyin"]) && empty($tpl->P["letter"]) && empty($tpl->P["tag"]) && empty($tpl->P["type"]) ){ alert ("搜索参数不正确"); }
 	
 	$tpl->P['cp'] = 'artsearch';
 	$tpl->P['cn'] = urlencode($tpl->P['wd']).'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'].'-'.$tpl->P['ids']. '-'.$tpl->P['pinyin']. '-'.$tpl->P['type'] .'-'.urlencode($tpl->P['tag']) ;
@@ -109,30 +109,30 @@ elseif($method=='search')
 	getDbConnect();
 	
 	
-	if (!isN($tpl->P["letter"])){
+	if (!empty($tpl->P["letter"])){
     	$tpl->P["key"]=$tpl->P["letter"];
     	$tpl->P["des"] = $tpl->P["des"] . "&nbsp;首字母为" . $tpl->P["letter"];
     }
     
     if($tpl->P["wd"]=='{wd}'){ $tpl->P["wd"]=''; }
-    if (!isN($tpl->P["wd"])) {
+    if (!empty($tpl->P["wd"])) {
     	$tpl->P["key"]=$tpl->P["wd"] ;
     	$tpl->P["des"] = $tpl->P["des"] . "&nbsp;名称或主演为" . $tpl->P["wd"];
     }
-    if (!isN($tpl->P["pinyin"])){
+    if (!empty($tpl->P["pinyin"])){
     	$tpl->P["key"]=$tpl->P["pinyin"] ;
     	$tpl->P["des"] = $tpl->P["des"] . "&nbsp;拼音为" . $tpl->P["pinyin"];
     }
-    if (!isN($tpl->P["tag"])){
+    if (!empty($tpl->P["tag"])){
 		$tpl->P["key"]=$tpl->P["tag"] ;
 		$tpl->P["des"] = $tpl->P["des"] . "&nbsp;Tag为" . $tpl->P["tag"];
 	}
     $tpl->P['typepid'] = 0;
-	if(!isN($tpl->P["typeid"])){
+	if(!empty($tpl->P["typeid"])){
 		$typearr = $MAC_CACHE['arttype'][$tpl->P['typeid']];
 		if (is_array($typearr)){
 			$tpl->P['typepid'] = $typearr['t_pid'];
-			if (isN($tpl->P["key"])){ $tpl->P["key"]= $typearr["t_name"];  }
+			if (empty($tpl->P["key"])){ $tpl->P["key"]= $typearr["t_name"];  }
 			$tpl->P["des"] = $tpl->P["des"] . "&nbsp;分类为" . $typearr["t_name"];
 		}
 	}

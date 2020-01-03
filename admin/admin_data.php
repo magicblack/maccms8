@@ -66,7 +66,7 @@ else if($ac=='save')
 				$n=$colarr[$i];
 				$valarr[$n]=be("all",$n);
 			}
-			if (!isNum($valarr['l_sort'])) { $valarr['l_sort'] = $db->getOne("SELECT MAX(l_sort) FROM {pre}link")+1; }
+			if (!is_numeric($valarr['l_sort'])) { $valarr['l_sort'] = $db->getOne("SELECT MAX(l_sort) FROM {pre}link")+1; }
 			$where = "l_id=".$id;
 			break;
         case "collect" :
@@ -86,8 +86,8 @@ else if($ac=='save')
 				$valarr[$n]=be("all",$n);
 			}
 			$valarr['t_name'] = strip_tags($valarr['t_name']);
-			if(isN($valarr['t_enname'])) { $valarr['t_enname'] = Hanzi2Pinyin($valarr['t_name']);}
-			if(!isNum($valarr['t_sort'])) { $valarr['t_sort'] = $db->getOne("SELECT MAX(t_sort) FROM {pre}vod_type")+1; }
+			if(empty($valarr['t_enname'])) { $valarr['t_enname'] = Hanzi2Pinyin($valarr['t_name']);}
+			if(!is_numeric($valarr['t_sort'])) { $valarr['t_sort'] = $db->getOne("SELECT MAX(t_sort) FROM {pre}vod_type")+1; }
 			if(empty($id)){
     			$colarr[] = 't_union';
     			$valarr['t_union'] = '';
@@ -103,7 +103,7 @@ else if($ac=='save')
 				$valarr[$n]=be("all",$n);
 			}
 			$valarr['c_name'] = strip_tags($valarr['c_name']);
-			if (!isNum($valarr['c_sort'])) { $valarr['c_sort'] = $db->getOne("SELECT MAX(c_sort) FROM {pre}vod_class where c_pid=".$valarr['c_pid'])+1; }
+			if (!is_numeric($valarr['c_sort'])) { $valarr['c_sort'] = $db->getOne("SELECT MAX(c_sort) FROM {pre}vod_class where c_pid=".$valarr['c_pid'])+1; }
 			$where = "c_id=".$id;
 			$upcache=true;
 			break;
@@ -117,7 +117,7 @@ else if($ac=='save')
 				$valarr[$n]=be("all",$n);
 			}
 			$valarr['t_name'] = strip_tags($valarr['t_name']);
-			if(isN($valarr['t_enname'])) { $valarr['t_enname'] = Hanzi2Pinyin($valarr['t_name']);}
+			if(empty($valarr['t_enname'])) { $valarr['t_enname'] = Hanzi2Pinyin($valarr['t_name']);}
 			if(strlen($valarr['t_addtime'])!=10) { $valarr['t_addtime']=time(); $valarr['t_time']= $valarr['t_addtime']; }
     		if($uptime=='1'){ $valarr['t_time'] =time(); }
     		$valarr['t_sort'] = intval($valarr['t_sort']);
@@ -150,8 +150,8 @@ else if($ac=='save')
 				$valarr[$n]=be("all",$n);
 			}
 			$valarr['t_name'] = strip_tags($valarr['t_name']);
-			if(isN($valarr['t_enname'])) { $valarr['t_enname'] = Hanzi2Pinyin($valarr['t_name']);}
-			if (!isNum($valarr['t_sort'])) { $valarr['t_sort'] = $db->getOne("SELECT MAX(t_sort) FROM {pre}art_type")+1; }
+			if(empty($valarr['t_enname'])) { $valarr['t_enname'] = Hanzi2Pinyin($valarr['t_name']);}
+			if (!is_numeric($valarr['t_sort'])) { $valarr['t_sort'] = $db->getOne("SELECT MAX(t_sort) FROM {pre}art_type")+1; }
 			if(empty($id)){
     			$colarr[] = 't_union';
     			$valarr['t_union'] = '';
@@ -169,7 +169,7 @@ else if($ac=='save')
 				$valarr[$n]=be("all",$n);
 			}
 			$valarr['t_name'] = strip_tags($valarr['t_name']);
-			if(isN($valarr['t_enname'])) { $valarr['t_enname'] = Hanzi2Pinyin($valarr['t_name']);}
+			if(empty($valarr['t_enname'])) { $valarr['t_enname'] = Hanzi2Pinyin($valarr['t_name']);}
 			if(strlen($valarr['t_addtime'])!=10) { $valarr['t_addtime']=time(); $valarr['t_time']= $valarr['t_addtime']; }
     		if($uptime=='1'){ $valarr['t_time'] =time(); }
     		$valarr['t_sort'] = intval($valarr['t_sort']);
@@ -368,8 +368,8 @@ else if($ac=='save')
 			if(strlen($valarr['a_addtime'])!=10) { $valarr['a_addtime']=time(); $valarr['a_time']= $valarr['a_addtime']; }
     		if($uptime=='1'){ $valarr['a_time'] =time(); }
     		$valarr['a_name'] = strip_tags($valarr['a_name']);
-    		if(isN($valarr['a_enname'])) { $valarr['a_enname'] = Hanzi2Pinyin($valarr['a_name']);}
-			if(isN($valarr['a_letter'])) { $valarr['a_letter'] = strtoupper(substring($valarr['a_enname'],1)); }
+    		if(empty($valarr['a_enname'])) { $valarr['a_enname'] = Hanzi2Pinyin($valarr['a_name']);}
+			if(empty($valarr['a_letter'])) { $valarr['a_letter'] = strtoupper(substring($valarr['a_enname'],1)); }
 			$valarr['a_content'] = be('arr','a_content','[art:page]');
 			if($uptag=='1' && $valarr['a_tag']==''){
 				$valarr['a_tag'] = getTag($valarr['a_name'],$valarr['a_content']);
@@ -425,8 +425,8 @@ else if($ac=='save')
     		if($valarr['d_time']!=''){  $valarr['d_time']= strtotime($valarr['d_time']); } else { $valarr['d_time']= $valarr['d_addtime']; }
     		if($uptime=='1'){ $valarr['d_time'] =time(); }
     		$valarr['d_name'] = strip_tags($valarr['d_name']);
-    		if(isN($valarr['d_enname'])) { $valarr['d_enname'] = Hanzi2Pinyin($valarr['d_name']);}
-			if(isN($valarr['d_letter'])) { $valarr['d_letter'] = strtoupper(substring($valarr['d_enname'],1)); }
+    		if(empty($valarr['d_enname'])) { $valarr['d_enname'] = Hanzi2Pinyin($valarr['d_name']);}
+			if(empty($valarr['d_letter'])) { $valarr['d_letter'] = strtoupper(substring($valarr['d_enname'],1)); }
 			$valarr['d_level'] = intval($valarr['d_level']);
     		$valarr['d_lock'] = intval($valarr['d_lock']);
     		$valarr['d_year'] = intval($valarr['d_year']);
@@ -453,14 +453,14 @@ else if($ac=='save')
 		    $playurlarr=explode(',,,',$playurl); $playfromarr=explode(',',$playfrom); $playserverarr=explode(',',$playserver); 
 		    $playnotearr=explode(',',$playnote);
 		    $playurlarrlen=count($playurlarr); $playfromarrlen=count($playfromarr); $playserverarrlen=count($playserverarr);
-		    if(isN($playurl)) { $playurlarrlen=-1; }
+		    if(empty($playurl)) { $playurlarrlen=-1; }
 		    
 		    
 		    $downurl=be('arr', 'downurl',',,,'); $downfrom=be('arr', 'downfrom'); $downserver=be('arr', 'downserver');$downnote=be('arr', 'downnote');
 		    $downurlarr=explode(',,,',$downurl); $downfromarr=explode(',',$downfrom); $downserverarr=explode(',',$downserver);
 		    $downnotearr=explode(',',$downnote);
 		    $downurlarrlen=count($downurlarr); $downfromarrlen=count($downfromarr); $downserverarrlen=count($downserverarr);
-		    if(isN($downurl)) { $downurlarrlen=-1; }
+		    if(empty($downurl)) { $downurlarrlen=-1; }
 		    
 		    $valarr['d_class'] = be('arr','d_class');
 		    if(!empty($valarr['d_class'])){
@@ -540,35 +540,35 @@ else if($ac=='del')
 		case "art":
 			$col="a_id";
 			$ids = be("get","a_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","a_id");
 			}
 			break;
 		case "vod":
 			$col="d_id";
 			$ids = be("get","d_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","d_id");
 			}
 			break;
         case "collect" :
             $col="c_id";
             $ids = be("get","c_id");
-            if(isN($ids)){
+            if(empty($ids)){
                 $ids= be("arr","c_id");
             }
             break;
 		case "link" :
 			$col="l_id";
 			$ids = be("get","l_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","l_id");
 			}
 			break;
 		case "vod_type":
 			$col="t_id";
 			$ids = be("get","t_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","t_id");
 			}
 			$arr=explode(',',$ids);
@@ -589,7 +589,7 @@ else if($ac=='del')
 		case "vod_class":
 			$col="c_id";
 			$ids = be("get","c_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","c_id");
 			}
 			$upcache=true;
@@ -597,7 +597,7 @@ else if($ac=='del')
 		case "vod_topic" :
 			$col="t_id";
 			$ids = be("get","t_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","t_id");
 			}
 			$arr=explode(',',$ids);
@@ -613,7 +613,7 @@ else if($ac=='del')
 		case "art_type" :
 			$col="t_id";
 			$ids = be("get","t_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","t_id");
 			}
 			$arr=explode(',',$ids);
@@ -634,7 +634,7 @@ else if($ac=='del')
 		case "art_topic" :
 			$col="t_id";
 			$ids = be("get","t_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","t_id");
 			}
 			$arr=explode(',',$ids);
@@ -650,21 +650,21 @@ else if($ac=='del')
 		case "gbook":
 			$col="g_id";
 			$ids = be("get","g_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","g_id");
 			}
 			break;
 		case "manager":
 			$col="m_id";
 			$ids = be("get","m_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","m_id");
 			}
 			break;
 		case "user_group":
 			$col="ug_id";
 			$ids = be("get","ug_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","ug_id");
 			}
 			$upcache=true;
@@ -672,26 +672,26 @@ else if($ac=='del')
 		case "user":
 			$col="u_id";
 			$ids = be("get","u_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","u_id");
 			}
 			break;
 		case "user_card":
 			$col="c_id";
 			$ids = be("get","c_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","c_id");
 			}
 			break;
 		case "comment":
 			$col="c_id";
 			$ids = be("get","c_id");
-			if(isN($ids)){
+			if(empty($ids)){
 				$ids= be("arr","c_id");
 			}
 			break;
 	}
-	if (!isN($ids)) { $db->Delete('{pre}'.$tab, $col." in (".$ids.")"); }
+	if (!empty($ids)) { $db->Delete('{pre}'.$tab, $col." in (".$ids.")"); }
 	if ($upcache){ updateCacheFile(); }
 	redirect ( getReferer() );
 }
@@ -926,8 +926,8 @@ elseif($ac=='hits')
 	else{
 		$val = be("all","val");
 		$val2 = be("all","val2");
-		if (!isNum($val)){ $val=1;}
-		if (!isNum($val2)){ $val2=1000;}
+		if (!is_numeric($val)){ $val=1;}
+		if (!is_numeric($val2)){ $val2=1000;}
 		
 		$rs = $db->query("select ".$colid." from {pre}".$tab." where ".$colid." in (" .$id . ")");
 		while($row = $db->fetch_array($rs))

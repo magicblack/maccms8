@@ -92,11 +92,11 @@ elseif($method=='typesaveall')
 		$t_tpl = be('post','t_tpl' .$id);
 		$t_tpl_art = be('post','t_tpl_art' .$id);
 		
-		if (isN($t_name)) { $t_name='未知';}
-		if (isN($t_enname)) { $t_enname='weizhi';}
-		if (!isNum($t_sort)) { $t_sort=0;}
-		if (isN($t_tpl)) { $t_tpl = 'artlist.html';}
-		if (isN($t_tpl_art)) { $t_tpl_art = 'art.html';}
+		if (empty($t_name)) { $t_name='未知';}
+		if (empty($t_enname)) { $t_enname='weizhi';}
+		if (!is_numeric($t_sort)) { $t_sort=0;}
+		if (empty($t_tpl)) { $t_tpl = 'artlist.html';}
+		if (empty($t_tpl_art)) { $t_tpl_art = 'art.html';}
 		
 		$db->Update ('{pre}art_type',array('t_name','t_enname', 't_sort','t_tpl','t_tpl_art'),array($t_name,$t_enname,$t_sort,$t_tpl,$t_tpl_art),'t_id='.$id);
 	}
@@ -337,16 +337,16 @@ elseif($method=='list')
 	$page = intval($p['pg']);
 	if ($page < 1) { $page = 1; }
 	
-	$type=$p['type']; if(isN($type)){ $type=999; } else { $type=intval($type); }
-	$topic=$p['topic']; if(isN($topic)){ $topic=999; } else { $topic=intval($topic); }
-	$level=$p['level']; if(isN($level)){ $level=999; } else { $level=intval($level); }
-	$hide=$p['hide']; if(isN($hide)){ $hide=999; } else { $hide=intval($hide); }
-	$lock=$p['lock']; if(isN($lock)){ $lock=999; } else { $lock=intval($lock); }
+	$type=$p['type']; if(empty($type)){ $type=999; } else { $type=intval($type); }
+	$topic=$p['topic']; if(empty($topic)){ $topic=999; } else { $topic=intval($topic); }
+	$level=$p['level']; if(empty($level)){ $level=999; } else { $level=intval($level); }
+	$hide=$p['hide']; if(empty($hide)){ $hide=999; } else { $hide=intval($hide); }
+	$lock=$p['lock']; if(empty($lock)){ $lock=999; } else { $lock=intval($lock); }
 	
 	$id=$p['id'];
 	$repeat=$p['repeat'];
 	$repeatlen=$p['repeatlen'];
-	$by=$p['by']; if(isN($by)) { $by='a_time'; }
+	$by=$p['by']; if(empty($by)) { $by='a_time'; }
 	$wd=$p['wd'];
 	
 	if($id!=''){

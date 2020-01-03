@@ -75,13 +75,13 @@ if($method=='configsave')
 	$config['app']['dynamiccache'] = intval(trim(be('post','app_dynamiccache')));
 	$config['app']['compress'] = intval(trim(be('post','app_compress')));
 	
-	$config['app']['searchtime'] = !isNum(be('post','app_searchtime')) ? 5 : intval(trim(be('post','app_searchtime')));
-	$config['app']['cachetime'] = !isNum(be('post','app_cachetime')) ? 60 : intval(trim(be('post','app_cachetime')));
+	$config['app']['searchtime'] = !is_numeric(be('post','app_searchtime')) ? 5 : intval(trim(be('post','app_searchtime')));
+	$config['app']['cachetime'] = !is_numeric(be('post','app_cachetime')) ? 60 : intval(trim(be('post','app_cachetime')));
 	$config['app']['cacheid'] = trim(be('post','app_cacheid'));
 	$config['app']['memcachedhost'] = trim(be('post','app_memcachedhost'));
 	$config['app']['memcachedport'] = trim(be('post','app_memcachedport'));
 	$config['app']['safecode'] = trim(be('post','app_safecode'));
-	$config['app']['pagesize'] = !isNum(be('post','app_pagesize')) ? 20 : intval(trim(be('post','app_pagesize')));
+	$config['app']['pagesize'] = !is_numeric(be('post','app_pagesize')) ? 20 : intval(trim(be('post','app_pagesize')));
 	$config['app']['expandtype'] = intval(trim(be('post','app_expandtype')));
 	$config['app']['playersort'] = intval(trim(be('post','app_playersort')));
 	$config['app']['encrypt'] = intval(trim(be('post','app_encrypt')));
@@ -92,36 +92,36 @@ if($method=='configsave')
 	$config['app']['makesize'] = trim(be('post','app_makesize'));
 	$config['app']['suffix'] = trim(be('post','app_suffix'));
 	
-	$config['user']['status'] = !isNum(be('post','user_status')) ? 1 : intval(trim(be('post','user_status')));
-	$config['user']['reg'] = !isNum(be('post','user_reg')) ? 1 : intval(trim(be('post','user_reg')));
-	$config['user']['regpoint'] = !isNum(be('post','user_regpoint')) ? 1 : intval(trim(be('post','user_regpoint')));
-	$config['user']['regstate'] = !isNum(be('post','user_regstate')) ? 1 : intval(trim(be('post','user_regstate')));
-	$config['user']['popularize'] = !isNum(be('post','user_popularize')) ? 2 : intval(trim(be('post','user_popularize')));
-	$config['user']['popularizestate'] = !isNum(be('post','user_popularizestate')) ? 1 : intval(trim(be('post','user_popularizestate')));
+	$config['user']['status'] = !is_numeric(be('post','user_status')) ? 1 : intval(trim(be('post','user_status')));
+	$config['user']['reg'] = !is_numeric(be('post','user_reg')) ? 1 : intval(trim(be('post','user_reg')));
+	$config['user']['regpoint'] = !is_numeric(be('post','user_regpoint')) ? 1 : intval(trim(be('post','user_regpoint')));
+	$config['user']['regstate'] = !is_numeric(be('post','user_regstate')) ? 1 : intval(trim(be('post','user_regstate')));
+	$config['user']['popularize'] = !is_numeric(be('post','user_popularize')) ? 2 : intval(trim(be('post','user_popularize')));
+	$config['user']['popularizestate'] = !is_numeric(be('post','user_popularizestate')) ? 1 : intval(trim(be('post','user_popularizestate')));
 	$config['user']['reggroup'] = intval(trim(be('post','user_reggroup')));
-	$config['user']['weekpoint'] = !isNum(be('post','user_weekpoint')) ? 100 : intval(trim(be('post','user_weekpoint')));
-	$config['user']['monthpoint'] = !isNum(be('post','user_monthpoint')) ? 1000 : intval(trim(be('post','user_monthpoint')));
-	$config['user']['yearpoint'] = !isNum(be('post','user_yearpoint')) ? 5000 : intval(trim(be('post','user_yearpoint')));
+	$config['user']['weekpoint'] = !is_numeric(be('post','user_weekpoint')) ? 100 : intval(trim(be('post','user_weekpoint')));
+	$config['user']['monthpoint'] = !is_numeric(be('post','user_monthpoint')) ? 1000 : intval(trim(be('post','user_monthpoint')));
+	$config['user']['yearpoint'] = !is_numeric(be('post','user_yearpoint')) ? 5000 : intval(trim(be('post','user_yearpoint')));
 	
 	$config['other']['filter'] = trim(be('post','other_filter'));
-	$config['other']['gbook'] = !isNum(be('post','other_gbook')) ? 1 : intval(trim(be('post','other_gbook')));
-	$config['other']['gbooknum'] = !isNum(be('post','other_gbooknum')) ? 10 : intval(trim(be('post','other_gbooknum')));
-	$config['other']['gbooktime'] = !isNum(be('post','other_gbooktime')) ? 10 : intval(trim(be('post','other_gbooktime')));
+	$config['other']['gbook'] = !is_numeric(be('post','other_gbook')) ? 1 : intval(trim(be('post','other_gbook')));
+	$config['other']['gbooknum'] = !is_numeric(be('post','other_gbooknum')) ? 10 : intval(trim(be('post','other_gbooknum')));
+	$config['other']['gbooktime'] = !is_numeric(be('post','other_gbooktime')) ? 10 : intval(trim(be('post','other_gbooktime')));
 	$config['other']['gbookverify'] = intval(trim(be('post','other_gbookverify')));
 	$config['other']['gbookaudit'] = intval(trim(be('post','other_gbookaudit')));
-	$config['other']['comment'] = !isNum(be('post','other_comment')) ? 1 : intval(trim(be('post','other_comment')));
-	$config['other']['commentnum'] = !isNum(be('post','other_commentnum')) ? 10 : intval(trim(be('post','other_commentnum')));
-	$config['other']['commenttime'] = !isNum(be('post','other_commenttime')) ? 10 : intval(trim(be('post','other_commenttime')));
+	$config['other']['comment'] = !is_numeric(be('post','other_comment')) ? 1 : intval(trim(be('post','other_comment')));
+	$config['other']['commentnum'] = !is_numeric(be('post','other_commentnum')) ? 10 : intval(trim(be('post','other_commentnum')));
+	$config['other']['commenttime'] = !is_numeric(be('post','other_commenttime')) ? 10 : intval(trim(be('post','other_commenttime')));
 	$config['other']['commentverify'] = intval(trim(be('post','other_commentverify')));
 	$config['other']['commentaudit'] = intval(trim(be('post','other_commentaudit')));
-	$config['other']['mood'] = !isNum(be('post','other_mood'))=='' ? 1 : intval(trim(be('post','other_mood')));
+	$config['other']['mood'] = !is_numeric(be('post','other_mood'))=='' ? 1 : intval(trim(be('post','other_mood')));
 	
 	$config['upload']['thumb'] = intval(trim(be('post','upload_thumb')));
 	$config['upload']['thumbw'] = intval(trim(be('post','upload_thumbw')));
 	$config['upload']['thumbh'] = intval(trim(be('post','upload_thumbh')));
-	$config['upload']['picpath'] = !isNum(be('post','upload_picpath')) ? 1 : intval(trim(be('post','upload_picpath')));
+	$config['upload']['picpath'] = !is_numeric(be('post','upload_picpath')) ? 1 : intval(trim(be('post','upload_picpath')));
 	$config['upload']['watermark'] = intval(trim(be('post','upload_watermark')));
-	$config['upload']['waterlocation'] = !isNum(be('post','upload_waterlocation')) ? 2 : intval(trim(be('post','upload_waterlocation')));
+	$config['upload']['waterlocation'] = !is_numeric(be('post','upload_waterlocation')) ? 2 : intval(trim(be('post','upload_waterlocation')));
 	$config['upload']['waterfont'] = trim(be('post','upload_waterfont'));
 	
 	$config['upload']['remote'] = intval(trim(be('post','upload_remote')));
@@ -601,7 +601,7 @@ elseif($method=='configapisave')
 	$config['api']['vod']['imgurl'] = trim(be('post','vod_imgurl'));
 	$config['api']['vod']['typefilter'] = trim(be('post','vod_typefilter'));
 	$config['api']['vod']['vodfilter'] = trim(be('post','vod_vodfilter'));
-	$config['api']['vod']['pagesize'] = !isNum(be('post','vod_pagesize')) ? 20 : intval(trim(be('post','vod_pagesize')));
+	$config['api']['vod']['pagesize'] = !is_numeric(be('post','vod_pagesize')) ? 20 : intval(trim(be('post','vod_pagesize')));
 	$config['api']['vod']['charge'] = trim(be('post','vod_charge'));
 	$config['api']['vod']['auth'] = $auth;
 	
@@ -610,7 +610,7 @@ elseif($method=='configapisave')
 	$config['api']['art']['imgurl'] = trim(be('post','art_imgurl'));
 	$config['api']['art']['typefilter'] = trim(be('post','art_typefilter'));
 	$config['api']['art']['vodfilter'] = trim(be('post','art_vodfilter'));
-	$config['api']['art']['pagesize'] = !isNum(be('post','art_pagesize')) ? 20 : intval(trim(be('post','art_pagesize')));
+	$config['api']['art']['pagesize'] = !is_numeric(be('post','art_pagesize')) ? 20 : intval(trim(be('post','art_pagesize')));
 	$config['api']['art']['charge'] = trim(be('post','art_charge'));
 	$config['api']['art']['auth'] = $auth_art;
 	
@@ -685,8 +685,8 @@ elseif($method=='configapi')
 elseif($method=='configpaysave')
 {
 	$config = $MAC;
-	$config['pay']['app']['min'] = !isNum(be('post','app_min')) ? 10 : intval(trim(be('post','app_min')));
-	$config['pay']['app']['exc'] = !isNum(be('post','app_exc')) ? 1 : intval(trim(be('post','app_exc')));
+	$config['pay']['app']['min'] = !is_numeric(be('post','app_min')) ? 10 : intval(trim(be('post','app_min')));
+	$config['pay']['app']['exc'] = !is_numeric(be('post','app_exc')) ? 1 : intval(trim(be('post','app_exc')));
 	$config['pay']['ys']['id'] = trim(be('post','ys_id'));
 	$config['pay']['ys']['key'] = trim(be('post','ys_key'));
 	$config['pay']['alipay']['no'] = trim(be('post','alipay_no'));

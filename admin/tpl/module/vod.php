@@ -96,13 +96,13 @@ elseif($method=='typesaveall')
 		$t_tpl_play = be('post','t_tpl_play' .$id);
 		$t_tpl_down = be('post','t_tpl_down' .$id);
 		
-		if (isN($t_name)) { $t_name='未知';}
-		if (isN($t_enname)) { $t_enname='weizhi';}
-		if (!isNum($t_sort)) { $t_sort=0;}
-		if (isN($t_tpl)) { $t_tpl = 'vodlist.html';}
-		if (isN($t_tpl_vod)) { $t_tpl_vod = 'vod.html';}
-		if (isN($t_tpl_play)) { $t_tpl_play = 'vodplay.html';}
-		if (isN($t_tpl_down)) { $t_tpl_down = 'voddown.html';}
+		if (empty($t_name)) { $t_name='未知';}
+		if (empty($t_enname)) { $t_enname='weizhi';}
+		if (!is_numeric($t_sort)) { $t_sort=0;}
+		if (empty($t_tpl)) { $t_tpl = 'vodlist.html';}
+		if (empty($t_tpl_vod)) { $t_tpl_vod = 'vod.html';}
+		if (empty($t_tpl_play)) { $t_tpl_play = 'vodplay.html';}
+		if (empty($t_tpl_down)) { $t_tpl_down = 'voddown.html';}
 		
 		$t_name = strip_tags($t_name);
 		
@@ -176,8 +176,8 @@ elseif($method=='classsaveall')
 		$c_name = be('post','c_name' .$id);
 		$c_sort = be('post','c_sort' .$id);
 		
-		if (isN($c_name)) { $c_name='未知'; }
-		if (!isNum($c_sort)) { $c_sort=0; }
+		if (empty($c_name)) { $c_name='未知'; }
+		if (!is_numeric($c_sort)) { $c_sort=0; }
 		
 		$c_name = strip_tags($c_name);
 			
@@ -763,18 +763,18 @@ elseif($method=='batch')
 	$page = intval($p['pg']);
 	if ($page < 1) { $page = 1; }
 	
-	$type=$p['type']; if(isN($type)){ $type=999; } else { $type=intval($type); }
-	$topic=$p['topic']; if(isN($topic)){ $topic=999; } else { $topic=intval($topic); }
-	$level=$p['level']; if(isN($level)){ $level=999; } else { $level=intval($level); }
-	$hide=$p['hide']; if(isN($hide)){ $hide=999; } else { $hide=intval($hide); }
-	$lock=$p['lock']; if(isN($lock)){ $lock=999; } else { $lock=intval($lock); }
-	$state=$p['state']; if(isN($state)){ $state=999; } else { $state=intval($state); }
-	$pic=$p['pic']; if(isN($pic)){ $pic=999; } else { $pic=intval($pic); }
+	$type=$p['type']; if(empty($type)){ $type=999; } else { $type=intval($type); }
+	$topic=$p['topic']; if(empty($topic)){ $topic=999; } else { $topic=intval($topic); }
+	$level=$p['level']; if(empty($level)){ $level=999; } else { $level=intval($level); }
+	$hide=$p['hide']; if(empty($hide)){ $hide=999; } else { $hide=intval($hide); }
+	$lock=$p['lock']; if(empty($lock)){ $lock=999; } else { $lock=intval($lock); }
+	$state=$p['state']; if(empty($state)){ $state=999; } else { $state=intval($state); }
+	$pic=$p['pic']; if(empty($pic)){ $pic=999; } else { $pic=intval($pic); }
 	
 	$id=$p['id'];
 	$repeat=$p['repeat'];
 	$repeatlen=$p['repeatlen'];
-	$by=$p['by']; if(isN($by)) { $by='d_time'; }
+	$by=$p['by']; if(empty($by)) { $by='d_time'; }
 	$wd=$p['wd'];
 	$play=$p['play'];
 	$down=$p['down'];
@@ -1014,18 +1014,18 @@ elseif($method=='list')
 	$page = intval($p['pg']);
 	if ($page < 1) { $page = 1; }
 	
-	$type=$p['type']; if(isN($type)){ $type=999; } else { $type=intval($type); }
-	$topic=$p['topic']; if(isN($topic)){ $topic=999; } else { $topic=intval($topic); }
-	$level=$p['level']; if(isN($level)){ $level=999; } else { $level=intval($level); }
-	$hide=$p['hide']; if(isN($hide)){ $hide=999; } else { $hide=intval($hide); }
-	$lock=$p['lock']; if(isN($lock)){ $lock=999; } else { $lock=intval($lock); }
-	$state=$p['state']; if(isN($state)){ $state=999; } else { $state=intval($state); }
-	$pic=$p['pic']; if(isN($pic)){ $pic=999; } else { $pic=intval($pic); }
+	$type=$p['type']; if(empty($type)){ $type=999; } else { $type=intval($type); }
+	$topic=$p['topic']; if(empty($topic)){ $topic=999; } else { $topic=intval($topic); }
+	$level=$p['level']; if(empty($level)){ $level=999; } else { $level=intval($level); }
+	$hide=$p['hide']; if(empty($hide)){ $hide=999; } else { $hide=intval($hide); }
+	$lock=$p['lock']; if(empty($lock)){ $lock=999; } else { $lock=intval($lock); }
+	$state=$p['state']; if(empty($state)){ $state=999; } else { $state=intval($state); }
+	$pic=$p['pic']; if(empty($pic)){ $pic=999; } else { $pic=intval($pic); }
 	
 	$id=$p['id'];
 	$repeat=$p['repeat'];
 	$repeatlen=$p['repeatlen'];
-	$by=$p['by']; if(isN($by)) { $by='d_time'; }
+	$by=$p['by']; if(empty($by)) { $by='d_time'; }
 	$wd=$p['wd'];
 	$play=$p['play'];
 	$down=$p['down'];

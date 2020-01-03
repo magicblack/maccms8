@@ -213,7 +213,7 @@ function isN($str)
 
 function isNum($str)
 {
-	if(!isN($str)){
+	if(!empty($str)){
 		if(is_numeric($str)){return true;}else{ return false;}
   	}
 }
@@ -236,7 +236,7 @@ function ifPosEcho($s1,$s2,$res='checked')
 
 function isIp($ip)
 {
-	$e="([0-9]|1[0-9]{2}|[1-9][0-9]|2[0-4][0-9]|25[0-5])";  
+	$e="([0-9]|1[0-9]{2}|[1-9][0-9]|2[0-4][0-9]|25[0-5])";
 	if(preg_match("^$e\.$e\.$e\.$e$",$ip)){ return true; } else{ return false; }
 }
 
@@ -371,7 +371,7 @@ function execTime()
 function getTimeSpan($sn)
 {
 	$lastTime = $_SESSION[$sn];
-	if (isN($lastTime)){
+	if (empty($lastTime)){
 		$lastTime= "1228348800";
 	}
 	$res = time() - intval($lastTime);
@@ -415,8 +415,8 @@ function repSpecialChar($str)
 
 function getTextt($num,$sname)
 {
-	if (isNum($num)){
-		if (!isN($sname)){
+	if (is_numeric($num)){
+		if (!empty($sname)){
 			$res= substring($sname,$num);
 		}
 		else{
@@ -436,7 +436,7 @@ function getDatet($iformat,$itime)
 	$iformat = str_replace("hh","H",$iformat);
 	$iformat = str_replace("mm","m",$iformat);
 	$iformat = str_replace("dd","d",$iformat);
-	
+
 	if(empty($iformat)){ $iformat = 'Y-m-d';}
 	$res = date($iformat,$itime);
 	return $res;
@@ -449,7 +449,7 @@ function buildregx($regstr,$regopt)
 
 function replaceStr($text,$search,$replace)
 {
-	if(isN($text)){ return "" ;}
+	if(empty($text)){ return "" ;}
 	$res=str_replace($search,$replace,$text);
 	return $res;
 }
@@ -457,7 +457,7 @@ function replaceStr($text,$search,$replace)
 function regReplace($str,$rule,$value)
 {
 	$rule = buildregx($rule,"is");
-	if (!isN($str)){
+	if (!empty($str)){
 		$res = preg_replace($rule,$value,$str);
 	}
 	return $res;
@@ -524,7 +524,7 @@ function utf2ucs($str)
 		$lowCode = ord($str[1]);
 		$a   = 0x3F & $highCode;
 		$b   = 0x7F & $lowCode;
-		$ucsCode = 64*$a + $b; 
+		$ucsCode = 64*$a + $b;
 	}
 	elseif($n==1) {
 		$ucscode = ord($str);
@@ -630,7 +630,7 @@ function htmltojs($content)
 
 function jstohtml($str)
 {
-	if (!isN($str)){
+	if (!empty($str)){
 		$str = str_replace("document.writeln('" , "",$str);
 		$str = str_replace("\'" , "'",$str);
 		$str = str_replace("\"" , "\"\"",$str);
@@ -643,7 +643,7 @@ function jstohtml($str)
 
 function jsEncode($str)
 {
-	if (!isN($str)){
+	if (!empty($str)){
 		$str = str_replace(chr(92),"\\",$str);
 		$str = str_replace(chr(34),"\"",$str);
 		$str = str_replace(chr(39),"\'",$str);
@@ -689,46 +689,46 @@ function substring1($str,$len, $start) {
              $tmpstr .= substr($str, $i, 1);
      }
      return $tmpstr;
-} 
+}
 
-function substring($str, $lenth, $start=0) 
-{ 
-	$len = strlen($str); 
-	$r = array(); 
+function substring($str, $lenth, $start=0)
+{
+	$len = strlen($str);
+	$r = array();
 	$n = 0;
 	$m = 0;
-	
-	for($i=0;$i<$len;$i++){ 
-		$x = substr($str, $i, 1); 
-		$a = base_convert(ord($x), 10, 2); 
+
+	for($i=0;$i<$len;$i++){
+		$x = substr($str, $i, 1);
+		$a = base_convert(ord($x), 10, 2);
 		$a = substr( '00000000 '.$a, -8);
-		
-		if ($n < $start){ 
-            if (substr($a, 0, 1) == 0) { 
+
+		if ($n < $start){
+            if (substr($a, 0, 1) == 0) {
             }
-            else if (substr($a, 0, 3) == 110) { 
-              $i += 1; 
+            else if (substr($a, 0, 3) == 110) {
+              $i += 1;
             }
-            else if (substr($a, 0, 4) == 1110) { 
-              $i += 2; 
-            } 
-            $n++; 
+            else if (substr($a, 0, 4) == 1110) {
+              $i += 2;
+            }
+            $n++;
 		}
-		else{ 
-            if (substr($a, 0, 1) == 0) { 
-             	$r[] = substr($str, $i, 1); 
-            }else if (substr($a, 0, 3) == 110) { 
-             	$r[] = substr($str, $i, 2); 
-            	$i += 1; 
-            }else if (substr($a, 0, 4) == 1110) { 
-            	$r[] = substr($str, $i, 3); 
-             	$i += 2; 
-            }else{ 
-             	$r[] = ' '; 
-            } 
-            if (++$m >= $lenth){ 
-              break; 
-            } 
+		else{
+            if (substr($a, 0, 1) == 0) {
+             	$r[] = substr($str, $i, 1);
+            }else if (substr($a, 0, 3) == 110) {
+             	$r[] = substr($str, $i, 2);
+            	$i += 1;
+            }else if (substr($a, 0, 4) == 1110) {
+            	$r[] = substr($str, $i, 3);
+             	$i += 2;
+            }else{
+             	$r[] = ' ';
+            }
+            if (++$m >= $lenth){
+              break;
+            }
         }
 	}
 	return  join('',$r);
@@ -741,7 +741,7 @@ function Hanzi2PinYin($str){
 	$res = '';
 	$str = trim($str);
 	$slen = strlen($str);
-	
+
 	if($slen<2){
 		return $str;
 	}
@@ -790,7 +790,7 @@ function getFolderItem($tmppath){
 function convert_encoding($str,$nfate,$ofate){
 	if ($ofate=="UTF-8"){ return $str; }
 	if ($ofate=="GB2312"){ $ofate="GBK"; }
-	
+
 	if(function_exists("mb_convert_encoding")){
 		$str=mb_convert_encoding($str,$nfate,$ofate);
 	}
@@ -807,7 +807,7 @@ function getPage($url,$charset)
 	$content = "";
 	if(!empty($url)) {
 		if( function_exists('curl_init') ){
-			
+
 			$ch = @curl_init();
 			curl_setopt($ch, CURLOPT_URL, $url);
 			curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; SLCC1; )');
@@ -834,20 +834,20 @@ function getPage($url,$charset)
 
 function getBody($strBody,$strStart,$strEnd)
 {
-	if(isN($strBody)){ return false; }
-	if(isN($strStart)){ return false; }
-	if(isN($strEnd)){ return false; }
-	
+	if(empty($strBody)){ return false; }
+	if(empty($strStart)){ return false; }
+	if(empty($strEnd)){ return false; }
+
     $strStart=stripslashes($strStart);
    	$strEnd=stripslashes($strEnd);
-	
+
 	if(strpos($strBody,$strStart)!=""){
 		$str = substr($strBody,strpos($strBody,$strStart)+strlen($strStart));
 		$str = substr($str,0,strpos($str,$strEnd));
 	}
 	else{
 		$str=false;
-	}	
+	}
 	return $str;
 }
 
@@ -855,10 +855,10 @@ function getArray($strBody,$strStart,$strEnd)
 {
 	$strStart=stripslashes($strStart);
     $strEnd=stripslashes($strEnd);
-	if(isN($strBody)){ return false; }
-	if(isN($strStart)){ return false; }
-	if(isN($strEnd)){ return false; }
-	
+	if(empty($strBody)){ return false; }
+	if(empty($strStart)){ return false; }
+	if(empty($strEnd)){ return false; }
+
 	$strStart = str_replace("(","\(",$strStart);
 	$strStart = str_replace(")","\)",$strStart);
 	$strStart = str_replace("'","\'",$strStart);
@@ -867,7 +867,7 @@ function getArray($strBody,$strStart,$strEnd)
 	$strEnd = str_replace(")","\)",$strStart);
 	$strEnd = str_replace("'","\'",$strStart);
 	$strEnd = str_replace("?","\?",$strStart);
-	
+
 	$labelRule = $strStart."(.*?)".$strEnd;
 	$labelRule = buildregx($labelRule,"is");
 	preg_match_all($labelRule,$strBody,$tmparr);
@@ -879,27 +879,27 @@ function getArray($strBody,$strStart,$strEnd)
 		$str .= $tmparr[1][$i];
 		$rc=true;
 	}
-	
-	if (isN($str)) { return false ;}
+
+	if (empty($str)) { return false ;}
 	$str=str_replace($strStart,"",$str);
 	$str=str_replace($strEnd,"",$str);
 	$str=str_replace("\"\"","",$str);
 	$str=str_replace("'","",$str);
 	$str=str_replace(" ","",$str);
-	if (isN($str)) { return false ;}
+	if (empty($str)) { return false ;}
 	return $str;
 }
 
 function getColorText($txt,$color,$lens)
 {
-	if (isN($txt)) { return '';}
+	if (empty($txt)) { return '';}
 	if ($lens>0){ $txt = substring($txt,$lens); }
-	if (!isN($color)){ $txt= '<font color='.$color.'>'. $txt . '</font>'; }
+	if (!empty($color)){ $txt= '<font color='.$color.'>'. $txt . '</font>'; }
 	return $txt;
 }
 function getColorDay($t)
 {
-	if (isN($t)) { return ''; }
+	if (empty($t)) { return ''; }
 	$t = date('Y-m-d H:i:s',$t);
 	$now = date('Y-m-d',time());
 	if (strpos(','.$t,$now)>0){ $c = 'color="#FF0000"'; }
@@ -944,7 +944,7 @@ function array_sort($arr,$keys,$type='asc')
 		$new_array[$k] = $arr[$k];
 	}
 	return $new_array;
-} 
+}
 
 /* xml 相关操作*/
 function getVodXmlText($f,$t,$v)
@@ -955,7 +955,7 @@ function getVodXmlText($f,$t,$v)
 	$res="";
 	for($i=0;$i<count($fromarr);$i++){
 		if($rc){ $res.=","; }
-		
+
 		$res.= $arr1[$fromarr[$i]]['show'];
 		$rc=true;
 	}
@@ -972,10 +972,10 @@ function getVodXml($name,$path)
 	$xmlpath = MAC_ROOT ."/inc/config/" .$name;
 	$doc = new DOMDocument();
 	$doc -> formatOutput = true;
-	
+
 	$xml = @file_get_contents($xmlpath);
 	$doc -> loadXML($xml);
-	
+
 	$xmlnode = $doc -> documentElement;
 	$nodes = $xmlnode->getElementsByTagName($path);
 	foreach($nodes as $node){
@@ -1158,19 +1158,19 @@ function setPageCache($cp,$cn,$cv)
 function repPseRnd($tab,$txt,$id)
 {
 	$id = $id % 7;
-	if (isN($txt)){ $txt=""; }
+	if (empty($txt)){ $txt=""; }
 	$psecontent = loadFile(MAC_ROOT. "/inc/config/pse_".$tab."rnd.txt");
-	if (isN($psecontent)){ $psecontent = ""; }
+	if (empty($psecontent)){ $psecontent = ""; }
 	$psecontent = str_replace(chr(10),"",$psecontent);
 	$psearr = explode(chr(13),$psecontent);
 	$i=count($psearr)+1;
 	$j=strpos($txt,"<br>");
-	
+
 	if ($j==0){ $j=strpos($txt,"<br/>");}
 	if ($j==0){ $j=strpos($txt,"<br />");}
 	if ($j==0){ $j=strpos($txt,"</p>");}
 	if ($j==0){ $j=strpos($txt,"。")+1;}
-	
+
 	if ($j>0){
 		$res= substring($txt,$j-1) . $psearr[$id % $i] . substring($txt,strlen($txt)-$j,$j);
 	}
@@ -1184,12 +1184,12 @@ function repPseRnd($tab,$txt,$id)
 function repPseSyn($tab,$txt)
 {
 	$id = $id % 7;
-	if (isN($txt)){ $txt=""; }
+	if (empty($txt)){ $txt=""; }
 	$psecontent = loadFile(MAC_ROOT. "/inc/config/pse_".$tab."syn.txt");
-	if (isN($psecontent)){ $psecontent = ""; }
+	if (empty($psecontent)){ $psecontent = ""; }
 	$psecontent = str_replace(chr(10),"",$psecontent);
 	$psearr = explode(chr(13),$psecontent);
-	
+
 	foreach($psearr as $a){
 		if(!empty($a)){
 			$one = explode('=',$a);
@@ -1238,14 +1238,14 @@ function getTypeByPopedomFilter($flag)
 	if ($GLOBALS['MAC']['user']['status']==0){
 		return true;
 	}
-	
+
 	$a="0,";
 	$b="0,";
 	$rc=false;
 	$userid=intval($_SESSION["userid"]);
 	$usergroup=intval($_SESSION["usergroup"]);
-	
-	
+
+
 	$groupcache = $GLOBALS['MAC_CACHE']['usergroup'];
 	$curgroup = $groupcache[$usergroup];
 	if(!is_array($curgroup)) { $curgroup = array("ug_popvalue"=>0); }
@@ -1257,7 +1257,7 @@ function getTypeByPopedomFilter($flag)
 			$b .= $arr["ug_id"]. ",";
 		}
 	}
-	
+
 	$arr = explode(',',$curgroup["ug_type"]);
 	foreach($arr as $tmp){
 		if(!empty($tmp)){
@@ -1266,13 +1266,13 @@ function getTypeByPopedomFilter($flag)
 	}
 	$a = str_replace(",,",",",$a);
 	$b = str_replace(",,",",",$b);
-	
+
 	unset($curgroup);
 	unset($groupcache);
-	
+
 	if (substring($a,1,strlen($a)-1) == ","){ $a = substring($a,strlen($a)-1); }
 	if (substring($b,1,strlen($b)-1) == ","){ $b = substring($b,strlen($b)-1); }
-	
+
 	if ($flag=="menu"){
 		$res = " and t_id not in(". $a .") ";
 	}
@@ -1287,10 +1287,10 @@ function getUserPopedom($id,$flag)
 	if ($GLOBALS['MAC']['user']['status']==0){
 		return true;
 	}
-	
+
 	$userid=intval($_SESSION["userid"]);
 	$usergroup=intval($_SESSION["usergroup"]);
-	
+
 	$res=false;
 	$ug_popvalue1=0;
 	$num=0;
@@ -1312,10 +1312,10 @@ function getUserPopedom($id,$flag)
 	if (strpos(",".$curgroup["ug_type"],",".$id.",")>0 && strpos(",".$curgroup["ug_popedom"],",".$flag.",")>0){
 		return true;
 	}
-	
+
 	foreach($groupcache as $arr){
 		if($arr["ug_id"]!=$usergroup){
-			
+
 			if(strpos(",".$arr["ug_type"],",".$id.",")>0 && strpos(",".$arr["ug_popedom"],",".$flag.",")>0){
 				 $num++;
 				 if ($ug_popvalue1 >= $arr["ug_popvalue"]){ $res=true; break;}
@@ -1339,24 +1339,24 @@ function pageshow($page,$pagecount,$halfPer=6,$url,$pagego='',$pl='')
 	}
 	$prelink = $page==2 ? $firstlink : str_replace('{pg}',($page-1),$url);
     $linkPage .= ( $page > 1 )
-        ? '<a target="_self" href="'.$firstlink.'" class="pagelink_a">首页</a>&nbsp;<a target="_self" href="'.$prelink.'" class="pagelink_a">上一页</a>&nbsp;' 
+        ? '<a target="_self" href="'.$firstlink.'" class="pagelink_a">首页</a>&nbsp;<a target="_self" href="'.$prelink.'" class="pagelink_a">上一页</a>&nbsp;'
         : '<em>首页</em>&nbsp;<em>上一页</em>&nbsp;';
-    
+
 	$loopnum1=intval($halfPer/2)+1;
 	$loopnum2=intval($halfPer/2);
 	if ($halfPer%2>0){ $loopnum1++; }
 	$i = $page - $loopnum1+1;
 	$j = $page + $loopnum2;
 	if ($i<1){
-		$i=1; 
+		$i=1;
 		$j=$halfPer;
-	} 
+	}
 	if ($j> $pagecount){
 		$i = $i+($pagecount-$j);
 		$j = $pagecount;
 		if ($i<1){
 			$i=1;
-		} 
+		}
 	}
 	for ($p=$i;$p<=$j;$p++){
 		if ($p > $pagecount){ break; }
@@ -1364,9 +1364,9 @@ function pageshow($page,$pagecount,$halfPer=6,$url,$pagego='',$pl='')
 		if($p==1){
 			$lnk = $firstlink;
 		}
-		$linkPage .= ($p==$page)?'<span class="pagenow">'.$p.'</span>&nbsp;':'<a target="_self" class="pagelink_b" href="'.$lnk.'">'.$p.'</a>&nbsp;'; 
+		$linkPage .= ($p==$page)?'<span class="pagenow">'.$p.'</span>&nbsp;':'<a target="_self" class="pagelink_b" href="'.$lnk.'">'.$p.'</a>&nbsp;';
 	}
-    
+
     $linkPage .= ( $page < $pagecount )
         ? '<a target="_self" href="'.str_replace('{pg}',($page+1),$url).'" class="pagelink_a">下一页</a>&nbsp;<a target="_self" href="'.str_replace('{pg}',$pagecount,$url).'" class="pagelink_a">尾页</a>'
         : '<em>下一页</em>&nbsp;<em>尾页</em>';
@@ -1380,9 +1380,9 @@ function pageshow($page,$pagecount,$halfPer=6,$url,$pagego='',$pl='')
 function makeSelect($tabName,$colId,$colName,$colSort,$valUrl,$valspan,$valId)
 {
 	global $MAC_CACHE;
-	if (!isN($colSort)){ $strOrder=" order by ".$colSort." asc";} 
-	if (isN($valId)){ $valId=0; }
-	
+	if (!empty($colSort)){ $strOrder=" order by ".$colSort." asc";}
+	if (empty($valId)){ $valId=0; }
+
 	switch($tabName)
 	{
 		case "{pre}user_group": $arr = $MAC_CACHE['usergroup']; break;
@@ -1392,11 +1392,11 @@ function makeSelect($tabName,$colId,$colName,$colSort,$valUrl,$valspan,$valId)
 	}
 	$res="";
 	foreach($arr as $arr1){
-		if (intval($valId)==$arr1[$colId]){ $strSelected=" selected"; } else{ $strSelected=""; } 
-		if (isN($valUrl)){ 
-			$strValue=$arr1[$colId]; 
-		} 
-		else{ 
+		if (intval($valId)==$arr1[$colId]){ $strSelected=" selected"; } else{ $strSelected=""; }
+		if (empty($valUrl)){
+			$strValue=$arr1[$colId];
+		}
+		else{
 			$strValue=$valUrl;
 			if(strpos($valUrl,"?")>0){ $strValue.="&"; } else{ $strValue.="?"; }
 			$strValue.= $tabName."=".$arr1[$colId];
@@ -1411,7 +1411,7 @@ function makeSelect($tabName,$colId,$colName,$colSort,$valUrl,$valspan,$valId)
 function makeSelectAll($tabName,$colId,$colName,$colPid,$colSort,$valPid,$valUrl,$valspan,$valId)
 {
 	global $MAC_CACHE;
-	if (isN($valId)){ $valId=0; }
+	if (empty($valId)){ $valId=0; }
 	switch($tabName)
 	{
 		case "{pre}vod_type": $arr = $MAC_CACHE['vodtype']; break;
@@ -1420,13 +1420,13 @@ function makeSelectAll($tabName,$colId,$colName,$colPid,$colSort,$valPid,$valUrl
 	$res="";
 	foreach($arr as $arr1){
 		if($arr1[$colPid]==0){
-			if (intval($valId)==$arr1[$colId]){ $strSelected=" selected"; } else{ $strSelected=""; } 
-			if (isN($valUrl)){ $strValue=$arr1[$colId]; } else{ $strValue=$valUrl."?".$tabName."=".$arr1[$colId]; } 
+			if (intval($valId)==$arr1[$colId]){ $strSelected=" selected"; } else{ $strSelected=""; }
+			if (empty($valUrl)){ $strValue=$arr1[$colId]; } else{ $strValue=$valUrl."?".$tabName."=".$arr1[$colId]; }
 			$res = $res."<option value='".$strValue."' ".$strSelected.">&nbsp;|—".$arr1[$colName]."</option>";
 			foreach($arr as $arr2){
 				if($arr2[$colPid]==$arr1[$colId]){
-					if (intval($valId)==$arr2[$colId]){ $strSelected=" selected"; } else{ $strSelected=""; } 
-					if (isN($valUrl)){ $strValue=$arr2[$colId]; } else{ $strValue=$valUrl."?".$tabName."=".$arr2[$colId]; } 
+					if (intval($valId)==$arr2[$colId]){ $strSelected=" selected"; } else{ $strSelected=""; }
+					if (empty($valUrl)){ $strValue=$arr2[$colId]; } else{ $strValue=$valUrl."?".$tabName."=".$arr2[$colId]; }
 					$res=$res."<option value='".$strValue."' ".$strSelected.">&nbsp;|&nbsp;&nbsp;&nbsp;|—".$arr2[$colName]."</option>";
 				}
 			}
@@ -1471,9 +1471,9 @@ function updateCacheFile()
 				$rc=true;
 			}
 			unset($rs);
-			if (isN($strchild)){ $strchild = $v['t_id'];} else{ $strchild = $v['t_id'] . ',' . $strchild; }
+			if (empty($strchild)){ $strchild = $v['t_id'];} else{ $strchild = $v['t_id'] . ',' . $strchild; }
 			$cachevodtype[$v['t_id']]['childids'] = $strchild;
-			
+
 			//$lnk = $tpl->getLink('vod','type',$v,$row,false,1,1,false);
 			//$cachevodtype[$v['t_id']]['link'] = $lnk;
 			//$plnk = '';
@@ -1484,7 +1484,7 @@ function updateCacheFile()
 			$i++;
 		}
 	}
-	catch(Exception $e){ 
+	catch(Exception $e){
 		echo '更新视频分类缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
@@ -1506,7 +1506,7 @@ function updateCacheFile()
 				$rc=true;
 			}
 			unset($rs);
-			if (isN($strchild)){ $strchild = $v['t_id'];} else{$strchild = $v['t_id'] . ',' . $strchild;}
+			if (empty($strchild)){ $strchild = $v['t_id'];} else{$strchild = $v['t_id'] . ',' . $strchild;}
 			$cachearttype[$v['t_id']]['childids'] = $strchild;
 			//$lnk = $tpl->getLink('art','type',$v,$row,false,1,1,false);
 			//$cachearttype[$v['t_id']]['link'] = $lnk;
@@ -1518,12 +1518,12 @@ function updateCacheFile()
 			$i++;
 		}
 	}
-	catch(Exception $e){ 
+	catch(Exception $e){
 		echo '更新文章分类缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
 	$arr['arttype'] = $cachearttype;
-	
+
 	//视频剧情分类缓存
 	try{
 		$cachevodclass=$db->queryarray('SELECT * FROM {pre}vod_class','c_id');
@@ -1531,13 +1531,13 @@ function updateCacheFile()
             $cachevodclass[$k] = filter_tags($v);
         }
 	}
-	catch(Exception $e){ 
+	catch(Exception $e){
 		echo '更新视频剧情分类缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
 	$arr['vodclass'] = $cachevodclass;
-	
-	
+
+
 	//视频专题缓存
 	try{
 		$cachevodtopic=$db->queryarray('SELECT * FROM {pre}vod_topic','t_id');
@@ -1545,12 +1545,12 @@ function updateCacheFile()
             $cachevodtopic[$k] = filter_tags($v);
         }
 	}
-	catch(Exception $e){ 
+	catch(Exception $e){
 		echo '更新视频专题缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
 	$arr['vodtopic'] = $cachevodtopic;
-	
+
 	//文章专题缓存
 	try{
 		$cachearttopic=$db->queryarray('SELECT * FROM {pre}art_topic','t_id');
@@ -1558,12 +1558,12 @@ function updateCacheFile()
             $cachearttopic[$k] = filter_tags($v);
         }
 	}
-	catch(Exception $e){ 
+	catch(Exception $e){
 		echo '更新文章专题缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
 	$arr['arttopic'] = $cachearttopic;
-	
+
 	//用户组缓存
 	try{
 		$cacheusergroup=$db->queryarray('SELECT * FROM {pre}user_group','ug_id');
@@ -1571,36 +1571,36 @@ function updateCacheFile()
             $cacheusergroup[$k] = filter_tags($v);
         }
 	}
-	catch(Exception $e){ 
+	catch(Exception $e){
 		echo '更新用户组缓存失败，请检查数据是否合法，是否包含引号、单引号、百分号、尖括号等特殊字符';
 		exit;
 	}
 	$arr['usergroup'] = $cacheusergroup;
-	
-	
+
+
 	$arr['vodplay'] = getVodXml('vodplay.xml','play');
 	$arr['voddown'] = getVodXml('voddown.xml','down');
 	$arr['vodserver'] = getVodXml('vodserver.xml','server');
-	
+
 	$cacheValue = '<?php'.chr(10).'$MAC_CACHE = '.compress_html(var_export($arr, true)).';'.chr(10).'?>';
 	fwrite(fopen(MAC_ROOT.'/inc/config/cache.php','wb'),$cacheValue);
-	
-	
-	
+
+
+
 	foreach($arr['vodplay'] as $k=>$v){
 		$plays.= 'mac_show["'.$k.'"]="'.$v['show'].'";';
 	}
 	foreach($arr['vodserver'] as $k=>$v){
 		$plays.= 'mac_show_server["'.$k.'"]="'.$v['des'].'";';
 	}
-	
+
 	$fp = MAC_ROOT.'/js/playerconfig.js';
 	if(!file_exists($fp)){ $fp .= '.bak'; }
 	$fc = file_get_contents( $fp );
 	$jsb = getBody($fc,'//缓存开始','//缓存结束');
 	$fc = str_replace($jsb,"\r\n".$plays."\r\n",$fc);
 	@fwrite(fopen(MAC_ROOT.'/js/playerconfig.js','wb'),$fc);
-	
+
 	echo '';
 }
 
@@ -1611,7 +1611,7 @@ function getFrom($f)
 	switch($f)
 	{
 		case "百度影音" :
-		case "bdhd": 
+		case "bdhd":
 			$f="baidu";break;
 		case "皮皮影音": $f="pipi";break;
 		case "闪播Pvod": $f="pvod";break;
@@ -1619,21 +1619,21 @@ function getFrom($f)
 		case "肥佬影音": $f="fvod";break;
 		case "非凡影音": $f="ffhd";break;
 		case "迅雷看看": $f="kankan";break;
-		case "吉吉影音": 
-		case "吉吉": 
+		case "吉吉影音":
+		case "吉吉":
 			$f="jjvod";break;
-		case "西瓜影音": 
-		case "西瓜": 
+		case "西瓜影音":
+		case "西瓜":
 			$f="xigua";
 			break;
-		case "乐视": 
+		case "乐视":
 		case "乐视网":
 			$f="letv";break;
 		case "搜狐": $f="sohu";break;
 		case "土豆": $f="tudou";break;
 		case "奇艺": $f="qiyi";break;
-		case "影音先锋": 
-		case "先锋影音": 
+		case "影音先锋":
+		case "先锋影音":
 			$f="xfplay";break;
 		case "yuku":
 		case "优酷":
@@ -1650,7 +1650,7 @@ function getVUrl($u)
 	$arr1 = explode("#",$u);
 	$rc=false;
 	for ($i=0;$i<count($arr1);$i++){
-		if (!isN($arr1[$i])){
+		if (!empty($arr1[$i])){
 			if (strpos( $arr1[$i],"$$") > 0){
 				$arr3 = explode("$$",$arr1[$i]);
 				$arr2= explode("$",$arr3[1]);
@@ -2082,15 +2082,19 @@ function filter_tags($rs)
 {
     if(is_array($rs)){
         foreach($rs as $k2=>$v2){
-            if(strpos($k2,'_content')===false) {
-                $rs[$k2] = strip_tags($v2);
+            if(!is_numeric($v2)) {
+                if (strpos($k2, '_content') === false && strpos($k2, '_play') === false && strpos($k2, '_down') === false){
+                    $rs[$k2] = strip_tags($v2);
+                }
+                $rs[$k2] = preg_replace(buildregx('{if-([\s\S]*?):([\s\S]+?)}([\s\S]*?){endif-\1}', "is"), '', $rs[$k2]);
             }
-            $rs[$k2] = preg_replace( buildregx('{if-([\s\S]*?):([\s\S]+?)}([\s\S]*?){endif-\1}',"is") ,'',$rs[$k2]);
         }
     }
     else{
-        $rs = strip_tags($rs);
-        $rs = preg_replace( buildregx('{if-([\s\S]*?):([\s\S]+?)}([\s\S]*?){endif-\1}',"is") ,'',$rs);
+        if(is_numeric($rs)) {
+            $rs = strip_tags($rs);
+            $rs = preg_replace(buildregx('{if-([\s\S]*?):([\s\S]+?)}([\s\S]*?){endif-\1}', "is"), '', $rs);
+        }
     }
     return $rs;
 }

@@ -22,12 +22,12 @@ function gettypere($flag,$tn)
     }
     
     $str = file_get_contents($file);
-    if (!isN($str)){
+    if (!empty($str)){
         $str = str_replace( Chr(10),Chr(13),$str);
         $arr1 = explode(Chr(13),$str);
         
         for ($i=0;$i<count($arr1);$i++){
-            if (!isN($arr1[$i])){
+            if (!empty($arr1[$i])){
                 $str1 = $arr1[$i];
                 $arr2 = explode("=",$str1);
                 
@@ -80,27 +80,27 @@ if($ac=='vod')
     $d_directed = str_replace("'", "''",$d_directed);
     $d_content = str_replace("'", "''",$d_content);
     
-    if (!isNum($d_usergroup)) { $d_usergroup = 0;}
-    if (isN($d_name)) { echo "视频名称不能为空err"; exit;}
-    if (isN($d_type)) { echo "视频分类不能为空err"; exit;}
+    if (!is_numeric($d_usergroup)) { $d_usergroup = 0;}
+    if (empty($d_name)) { echo "视频名称不能为空err"; exit;}
+    if (empty($d_type)) { echo "视频分类不能为空err"; exit;}
     
-    if(!isNum($d_year)) { $d_year = 0;}
-    if(!isNum($d_level)) { $d_level = 0;}
-    if(!isNum($d_hits)) { $d_hits = 0;}
-    if(!isNum($d_dayhits)) { $d_dayhits = 0;}
-    if(!isNum($d_weekhits)) { $d_weekhits = 0;}
-    if(!isNum($d_monthhits)) { $d_monthhits = 0;}
-    if(!isNum($d_stint)) { $d_stint = 0;}
-    if(!isNum($d_stintdown)) { $d_stintdown = 0;}
-    if(!isNum($d_state)) { $d_state = 0;}
-    if(!isNum($d_up)) { $d_up=0;}
-    if(!isNum($d_down)) { $d_down=0;}
-    if(!isNum($d_scorenum)) { $d_scorenum=0;}
-    if(!isNum($d_scoreall)) { $d_scoreall=0;}
-    if(!isNum($d_score)) { $d_score=0;}
-    if(!isNum($d_hide)) { $d_hide = 0;}
-    if(!isNum($d_duration)) { $d_duration=0;}
-    if(isN($d_enname)) { $d_enname = Hanzi2PinYin($d_name); }
+    if(!is_numeric($d_year)) { $d_year = 0;}
+    if(!is_numeric($d_level)) { $d_level = 0;}
+    if(!is_numeric($d_hits)) { $d_hits = 0;}
+    if(!is_numeric($d_dayhits)) { $d_dayhits = 0;}
+    if(!is_numeric($d_weekhits)) { $d_weekhits = 0;}
+    if(!is_numeric($d_monthhits)) { $d_monthhits = 0;}
+    if(!is_numeric($d_stint)) { $d_stint = 0;}
+    if(!is_numeric($d_stintdown)) { $d_stintdown = 0;}
+    if(!is_numeric($d_state)) { $d_state = 0;}
+    if(!is_numeric($d_up)) { $d_up=0;}
+    if(!is_numeric($d_down)) { $d_down=0;}
+    if(!is_numeric($d_scorenum)) { $d_scorenum=0;}
+    if(!is_numeric($d_scoreall)) { $d_scoreall=0;}
+    if(!is_numeric($d_score)) { $d_score=0;}
+    if(!is_numeric($d_hide)) { $d_hide = 0;}
+    if(!is_numeric($d_duration)) { $d_duration=0;}
+    if(empty($d_enname)) { $d_enname = Hanzi2PinYin($d_name); }
     
     
     if(strpos($d_enname, "*")>0 || strpos($d_enname, ":")>0 || strpos($d_enname, "?")>0 || strpos($d_enname, "\"")>0 || strpos($d_enname, "<")>0 || strpos($d_enname, ">")>0 || strpos($d_enname, "|")>0 || strpos($d_enname, "\\")>0){
@@ -136,8 +136,8 @@ if($ac=='vod')
 	
 	
     $rc = false;
-    if (!isN($d_playurl)){
-	    if (isN($d_playfrom)) { echo "视频播放器类型不能为空err";exit;}
+    if (!empty($d_playurl)){
+	    if (empty($d_playfrom)) { echo "视频播放器类型不能为空err";exit;}
 	    $d_playurl = str_replace(array(chr(13),chr(10)),array("","#"),$d_playurl);
         $d_playurl = str_replace("##", "#",$d_playurl);
         $d_playurl = trim($d_playurl,' ,$,#');
@@ -163,8 +163,8 @@ if($ac=='vod')
 	    }
 	    
     }
-    if (!isN($d_downurl)){
-	    if (isN($d_downfrom)) { echo "视频下载类型不能为空err";exit;}
+    if (!empty($d_downurl)){
+	    if (empty($d_downfrom)) { echo "视频下载类型不能为空err";exit;}
         $d_downurl = str_replace(array(chr(13),chr(10)),array("","#"),$d_downurl);
         $d_downurl = str_replace("##", "#",$d_downurl);
         $d_downurl = trim($d_downurl,' ,$,#');
@@ -193,12 +193,12 @@ if($ac=='vod')
     $newtype = "";
     $newtypeid = 0;
     $newtype = $d_type;
-    if (!isNum($d_type)) { $newtypeid = gettypere("vod", $d_type);} else{ $newtypeid = intval($d_type);}
+    if (!is_numeric($d_type)) { $newtypeid = gettypere("vod", $d_type);} else{ $newtypeid = intval($d_type);}
     if ($newtypeid ==0) { echo $d_name . " " . $newtype . " 没有找到转换的分类err";exit; }
     $d_type = $newtypeid;
     
     
-	if(!isN($d_class)){
+	if(!empty($d_class)){
     	$arr=explode(',',$d_class);
     	$d_class='';
     	$rc=false;
@@ -260,7 +260,7 @@ if($ac=='vod')
         if (empty($row["d_picthumb"]) || strpos(",".$row["d_picthumb"], "http:") > 0) { } else { $d_picthumb= $row["d_picthumb"];}
         if (empty($row["d_picslide"]) || strpos(",".$row["d_picslide"], "http:") > 0) { } else { $d_picslide= $row["d_picslide"];}
         
-        if (!isN($d_playurl)){
+        if (!empty($d_playurl)){
 	        $oldplayfrom = $row["d_playfrom"];
 	    	$oldplayurl = $row["d_playurl"];
 	    	$oldplayserver = $row["d_playserver"];
@@ -278,7 +278,7 @@ if($ac=='vod')
 	            $playserver_new = $oldplayserver;
 	            $playnote_new = $oldplaynote;
 	        }
-	        else if(isN($oldplayfrom)){
+	        else if(empty($oldplayfrom)){
 	        	$resultdes = "新增播放地址ok";
 	            $playfrom_new = $d_playfrom;
 	            $playurl_new = $d_playurl;
@@ -342,7 +342,7 @@ if($ac=='vod')
 		}
         $playurl_new = str_replace(Chr(13), "#",$playurl_new);
         
-        if (!isN($d_downurl)){
+        if (!empty($d_downurl)){
 	        $olddownfrom = $row["d_downfrom"];
 	    	$olddownurl = $row["d_downurl"];
 	    	$olddownserver = $row["d_downserver"];
@@ -360,7 +360,7 @@ if($ac=='vod')
 	            $downserver_new = $olddownserver;
 	            $downnote_new = $olddownnote;
 	        }
-	        else if(isN($olddownfrom)){
+	        else if(empty($olddownfrom)){
 	        	$resultdes = "新增下载地址ok";
 	            $downfrom_new = $d_downfrom;
 	            $downurl_new = $d_downurl;
@@ -502,23 +502,23 @@ else if($ac=='art')
     $a_author = str_replace("'", "''",$a_author);
     $a_content = str_replace("'", "''",$a_content);
     
-    if (isN($a_name)) { echo "文章名称不能为空err"; exit;}
-    if (isN($a_type)) { echo "文章分类不能为空err"; exit;}
-    if (!isNum($a_hide)) { $a_hide = 0;}
-    if (!isNum($a_level)) { $a_level = 0;}
-    if (!isNum($a_hits)) { $a_hits = 0;}
-    if (!isNum($a_dayhits)) { $a_dayhits = 0;}
-    if (!isNum($a_weekhits)) { $a_weekhits = 0;}
-    if (!isNum($a_monthhits)) { $a_monthhits = 0;}
-    if (!isNum($a_up)) { $a_up = 0;}
-    if (!isNum($a_down)) { $a_down = 0;}
-    if (isN($a_enname)) { $a_enname = Hanzi2PinYin($a_name); }
+    if (empty($a_name)) { echo "文章名称不能为空err"; exit;}
+    if (empty($a_type)) { echo "文章分类不能为空err"; exit;}
+    if (!is_numeric($a_hide)) { $a_hide = 0;}
+    if (!is_numeric($a_level)) { $a_level = 0;}
+    if (!is_numeric($a_hits)) { $a_hits = 0;}
+    if (!is_numeric($a_dayhits)) { $a_dayhits = 0;}
+    if (!is_numeric($a_weekhits)) { $a_weekhits = 0;}
+    if (!is_numeric($a_monthhits)) { $a_monthhits = 0;}
+    if (!is_numeric($a_up)) { $a_up = 0;}
+    if (!is_numeric($a_down)) { $a_down = 0;}
+    if (empty($a_enname)) { $a_enname = Hanzi2PinYin($a_name); }
     
     if (strpos($a_enname, "*")>0 || strpos($a_enname, ":")>0 || strpos($a_enname, "?")>0 || strpos($a_enname, "\"")>0 || strpos($a_enname, "<")>0 || strpos($a_enname, ">")>0 || strpos($a_enname, "|")>0 || strpos($a_enname, "\\")>0){
         echo "名称和拼音名称中: 不能出现英文输入状态下的 * : ? \" < > | \ 等特殊符号err"; exit;
     }
     $a_letter = strtoupper(substring($a_enname,1));
-    if (!isNum($a_type)) { $a_type = gettypere("art", $a_type);}
+    if (!is_numeric($a_type)) { $a_type = gettypere("art", $a_type);}
     if ($a_type== 0) { echo "没有找到转换的分类err";exit;}
     if($MAC['collect']['art']['psernd']==1){
 		$a_content = repPseRnd('art',$a_content,0);

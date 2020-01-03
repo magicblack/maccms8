@@ -69,7 +69,7 @@ elseif($ac=='hits')
 		if(file_exists($path)){
 			$hitstime = @file_get_contents($path);
 		}
-		if(!isN($hitstime)){
+		if(!empty($hitstime)){
 			if ( date('m',time()) != date('m',$hitstime) ){
 				$db->Update ("{pre}".$tab,array($col_monthhits),array(0),$col_id.">0");
 				$monthhits=0; 
@@ -155,14 +155,14 @@ elseif($ac=='score')
 elseif($ac=='userfav')
 {
 	if($id<1){ echo "err"; exit;}
-	if (isN($_SESSION["userid"])) { echo "login";exit; }
+	if (empty($_SESSION["userid"])) { echo "login";exit; }
 	
 	$res = "err";
 	$row = $db->getRow("select * from {pre}user where u_id=".$_SESSION["userid"]);
 	if ($row){
 		$u_fav = $row["u_fav"];
 		
-		if (isN($u_fav)){
+		if (empty($u_fav)){
 			$u_fav = ",". $id . ",";
 			$res = "ok";
 		}
@@ -187,8 +187,8 @@ elseif($ac=='reporterr')
 	$g_name = be("post","g_name"); $g_name = chkSql($g_name);
 	$g_content = be("post","g_content"); $g_content = chkSql($g_content);
 	
-	if (!isNum($g_vid)){ $g_vid=0; } 
-    if (isN($g_name) || isN($g_content)){ alert('请输入昵称和内容'); exit;}
+	if (!is_numeric($g_vid)){ $g_vid=0; } 
+    if (empty($g_name) || empty($g_content)){ alert('请输入昵称和内容'); exit;}
     if (getTimeSpan("last_gbooktime") < $MAC['other']['gbooktime']){ alert('请不要频繁操作');exit; }
     $pattern = '/[^\x00-\x80]/'; 
 	if(!preg_match($pattern,$g_content)){

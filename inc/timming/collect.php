@@ -284,7 +284,7 @@ function cj(){
                             if ($n_url == $d_playurl) {
                                 $des .= '<font color="red">地址相同，跳过。</font>';
                                 continue;
-                            } elseif (isN($d_playfrom)) {
+                            } elseif (empty($d_playfrom)) {
                                 $des .= '<font color="red">播放器类型为空，跳过。</font>';
                                 continue;
                             } elseif (strpos("," . $n_from, $d_playfrom) <= 0) {

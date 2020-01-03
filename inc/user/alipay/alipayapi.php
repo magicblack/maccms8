@@ -5,7 +5,7 @@ include(MAC_ROOT."/inc/user/alipay/alipay.config.php");
 include(MAC_ROOT."/inc/user/alipay/lib/alipay_submit.class.php");
 
 if($MAC['user']['status'] == 0){ showErr('System','会员系统关闭中'); }
-if(isN($_SESSION["userid"])) { showErr('System',"非法操作"); }
+if(empty($_SESSION["userid"])) { showErr('System',"非法操作"); }
 
 
 /**************************请求参数**************************/
@@ -15,19 +15,24 @@ if(isN($_SESSION["userid"])) { showErr('System',"非法操作"); }
         //必填，不能修改
         //服务器异步通知页面路径
         $notify_url = $_POST['RetUrl'];
-        //需http://格式的完整路径，不能加?id=123这类自定义参数
+        //需http://格式的完整路径，不能加?id=123这类自定义参数
+
         //页面跳转同步通知页面路径
         $return_url = $_POST['BgRetUrl'];
-        //需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
+        //需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
+
         //商户订单号
         $out_trade_no = intval($_POST['WIDout_trade_no']);
-        //商户网站订单系统中唯一订单号，必填
+        //商户网站订单系统中唯一订单号，必填
+
         //订单名称
         $subject = $_POST['WIDsubject'];
-        //必填
+        //必填
+
         //付款金额
         $price = $_POST['WIDprice'];
-        //必填
+        //必填
+
         //商品数量
         $quantity = "1";
         //必填，建议默认为1，不改变值，把一次交易看成是一次下订单而非购买一件商品
@@ -40,23 +45,29 @@ if(isN($_SESSION["userid"])) { showErr('System',"非法操作"); }
         //物流支付方式
         $logistics_payment = "SELLER_PAY";
         //必填，两个值可选：SELLER_PAY（卖家承担运费）、BUYER_PAY（买家承担运费）
-        //订单描述
+        //订单描述
+
         $body = $_POST['WIDbody'];
         //商品展示地址
         $show_url = $_POST['WIDshow_url'];
-        //需以http://开头的完整路径，如：http://www.xxx.com/myorder.html
+        //需以http://开头的完整路径，如：http://www.xxx.com/myorder.html
+
         //收货人姓名
         $receive_name = $_POST['WIDreceive_name'];
-        //如：张三
+        //如：张三
+
         //收货人地址
         $receive_address = $_POST['WIDreceive_address'];
-        //如：XX省XXX市XXX区XXX路XXX小区XXX栋XXX单元XXX号
+        //如：XX省XXX市XXX区XXX路XXX小区XXX栋XXX单元XXX号
+
         //收货人邮编
         $receive_zip = $_POST['WIDreceive_zip'];
-        //如：123456
+        //如：123456
+
         //收货人电话号码
         $receive_phone = $_POST['WIDreceive_phone'];
-        //如：0571-88158090
+        //如：0571-88158090
+
         //收货人手机号码
         $receive_mobile = $_POST['WIDreceive_mobile'];
         //如：13312341234

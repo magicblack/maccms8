@@ -30,7 +30,7 @@ elseif($method=='save')
     $g_content = be("all", "g_content"); $g_content = chkSql($g_content);
     $g_code = be("all","g_code"); $g_code = chkSql($g_code); 
     
-    if (isN($g_name) || isN($g_content)){ alert('请输入昵称和内容'); exit;}
+    if (empty($g_name) || empty($g_content)){ alert('请输入昵称和内容'); exit;}
     if ($MAC['other']['gbookverify']==1 && $_SESSION["code_gbook"] != $g_code){ alert('验证码错误');exit; }
     if (getTimeSpan("last_gbooktime") < $MAC['other']['gbooktime']){ alert('请不要频繁操作');exit; }
     $pattern = '/[^\x00-\x80]/'; 

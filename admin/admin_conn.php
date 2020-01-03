@@ -2,7 +2,7 @@
 define('MAC_ADMIN', preg_replace("|[/\\\]{1,}|",'/',dirname(__FILE__) ) );
 require(MAC_ADMIN."/../inc/conn.php");
 require(MAC_ADMIN.'/../inc/common/phplib.php');
-define('MAC_VERSION','2019.1012');
+define('MAC_VERSION','2019.1013');
 
 
 if(strpos($_SERVER["SCRIPT_NAME"],'/admin/')>0){
@@ -37,7 +37,7 @@ function chkLogin2()
 	if( strpos($_SERVER['PHP_SELF'],'editor')>-1 ){
 		$index = "../".$index;
 	}
-	if (!isN($m_name) && !isNum($m_id)){
+	if (!empty($m_name) && !is_numeric($m_id)){
 		$row = $db->getRow('SELECT * FROM {pre}manager WHERE m_name=\'' . $m_name .'\' AND m_id= \''.$m_id .'\' AND m_status=1');
 		if($row){
 			$loginValidate = md5($row['m_random'] . $row['m_name'] . $row['m_id']);

@@ -168,7 +168,7 @@ class AppMysql
 	function AutoID($tabName,$colname)
 	{
 		$n = $this->getOne("SELECT Max(".$colname.") FROM [".$tabName."]");
-		if (!isNum(n)){ $n=0; }
+		if (!is_numeric(n)){ $n=0; }
 		return $n;
 	}
 	
@@ -402,7 +402,7 @@ class AppMysqli
 	function AutoID($tabName,$colname)
 	{
 		$n = $this->getOne("SELECT Max(".$colname.") FROM [".$tabName."]");
-		if (!isNum(n)){ $n=0; }
+		if (!is_numeric(n)){ $n=0; }
 		return $n;
 	}
 	

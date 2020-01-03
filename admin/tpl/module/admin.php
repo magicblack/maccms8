@@ -8,7 +8,7 @@ if($method=='check')
 	$m_name = be('post','m_name'); ckSql($m_name);
 	$m_password = be('post','m_password'); ckSql($m_password); $m_password = md5($m_password);
 	$m_check = be('post','m_check'); ckSql($m_check);
-	if (isN($m_name) || isN($m_password) || isN($m_check)){
+	if (empty($m_name) || empty($m_password) || empty($m_check)){
 		alertUrl ('请输入您的用户名、密码和安全码!!!','?m=admin-login');
 	}
 	$row = $db->getRow('SELECT * FROM {pre}manager WHERE m_name=\''. $m_name .'\' AND m_password = \''. $m_password .'\' AND m_status=1');

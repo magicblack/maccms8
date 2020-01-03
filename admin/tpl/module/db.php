@@ -19,7 +19,7 @@ elseif($method=='sqlexe')
 	$plt->set_file('main', $ac.'_'.$method.'.html');
 	
 	$sql = be("post","sql");
-	if (!isN($sql)){
+	if (!empty($sql)){
 		$sql= stripslashes($sql);
 		if (strtolower(substr($sql,0,6))=="select"){
 			$isselect=true;
@@ -184,7 +184,7 @@ elseif($method=='repair')
 elseif($method=='del')
 {
 	$file = $p['file'];
-	if(isN($file)){
+	if(empty($file)){
 		$file = be('arr','file');
 	}
 	$arr = explode(',',$file);
@@ -205,8 +205,8 @@ elseif($method=='reduction')
 	$num = $p['num'];
 	$fcount = $p['fcount'];
 	
-	if(!isNum($num)){ $num=1;} else{ $num=intval($num); }
-	if(!isNum($fcount)){ $fcount=-1;} else { $fcount = intval($fcount); }
+	if(!is_numeric($num)){ $num=1;} else{ $num=intval($num); }
+	if(!is_numeric($fcount)){ $fcount=-1;} else { $fcount = intval($fcount); }
 	if($fcount==-1){
 		$fcount=0;
 	    foreach( glob('bak/*') as $f){
@@ -231,7 +231,7 @@ elseif($method=='reduction')
 				{
 					$sql = str_replace(chr(10),'',$sql);
 					$sql = str_replace(chr(13),'',$sql);
-					if (!isN($sql)){
+					if (!empty($sql)){
 						$db->query(trim($sql));
 					}
 					unset($sql);

@@ -228,7 +228,7 @@ elseif($method=='type')
 	}
 	
 	$num=0;
-	if(!isNum($start)) { $start = 1;}
+	if(!is_numeric($start)) { $start = 1;}
 	
 	foreach($typearr as $id)
 	{
@@ -238,7 +238,7 @@ elseif($method=='type')
 		$tpl->H = loadFile(MAC_ROOT_TEMPLATE.'/'.$tpl->T['t_tpl']);
 			
 		if(empty($pagesize)){ $pagesize = $tpl->getPageListSizeByCache($tab,'type'); }
-		if(!isNum($pagesize)) { $pagesize = 10; }
+		if(!is_numeric($pagesize)) { $pagesize = 10; }
 		if(empty($datacount)){
 			$sql = 'select count(*) from {pre}'.$tab.' where '.$pre.'_type IN ('. $tpl->T["childids"].')';
 			$datacount = $db->getOne($sql);
@@ -314,7 +314,7 @@ elseif($method=='topicindex')
 		
 	$tpl->H = loadFile(MAC_ROOT_TEMPLATE."/".$tab."_topicindex.html");
 	if(empty($pagesize)){ $pagesize = $tpl->getPageListSizeByCache('topic',$tab); }
-	if(!isNum($pagesize)) { $pagesize = 10;}
+	if(!is_numeric($pagesize)) { $pagesize = 10;}
 	if(empty($datacount)){
 		$sql = 'select count(*) from {pre}'.$tab.'_topic where t_hide=0 ';
 		$datacount = $db->getOne($sql);
@@ -386,7 +386,7 @@ elseif($method=='topic')
 		$datacount=$p['datacount'];
 		$start=intval($p['start']);
 	}
-	if(!isNum($start)) { $start = 1;}
+	if(!is_numeric($start)) { $start = 1;}
 	
 	$arr = explode(',',$ids);
 	$len = count($arr);
@@ -397,7 +397,7 @@ elseif($method=='topic')
 	$tpl->H = loadFile(MAC_ROOT_TEMPLATE."/".$tpl->T['t_tpl']);
 	
 	if(empty($pagesize)){ $pagesize = $tpl->getPageListSizeByCache($tab,'topic'); }
-	if(!isNum($pagesize)) { $pagesize = 10;}
+	if(!is_numeric($pagesize)) { $pagesize = 10;}
 	if(empty($datacount)){
 		$sql = 'select count(*) from {pre}'.$tab.' where '.$pre.'_id IN ( select r_b from {pre}'.$tab.'_relation where r_type=2 and r_a='.$id.')';
 		$datacount = $db->getOne($sql);

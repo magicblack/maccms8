@@ -172,7 +172,7 @@ elseif($method=='save')
         return;
     }
 
-	if(isN($path)){
+	if(empty($path)){
 		if (substring($file,11)!='../template' || count( explode('../',$file) ) > 2) {
 			showErr('System','非法目录请求');
 			return;

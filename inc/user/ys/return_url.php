@@ -1,7 +1,7 @@
 <?php
 include ("../../../inc/conn.php");
 if($MAC['user']['status'] == 0){ showErr('System','会员系统关闭中'); }
-if(isN($_SESSION["userid"])) { showErr('System','用户登录状态已失效'); }
+if(empty($_SESSION["userid"])) { showErr('System','用户登录状态已失效'); }
 
 $RespCode = $_POST['RespCode']; 	//应答返回码
 $TrxId = $_POST['TrxId'];  			//银支付交易唯一标识

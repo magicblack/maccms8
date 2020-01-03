@@ -10,7 +10,7 @@
 	$id=be("get","id");
 	$path=be("get","path");
 	
-	if(isN($id)){$id="pic";}
+	if(empty($id)){$id="pic";}
 	$exts= explode(';',$MAC['upload']['filter']); //array('jpg','gif','bmp','png',"jpeg","rar","txt","zip","torrent");
 	$showdir = "upload/". $path . "/" . getSavePicPath($path) . "/";
 	$thumbdir = "upload/". $path . "thumb/" . getSavePicPath($path.'thumb') . "/";

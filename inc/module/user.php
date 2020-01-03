@@ -76,7 +76,7 @@ elseif($method=='check')
 	$u_password = md5(be("post","u_password"));
 	$flag = be("all","flag");
 	$backurl = be("all","backurl");
-	if (isN($flag)){ $flag = "iframe";}
+	if (empty($flag)){ $flag = "iframe";}
 	
 	$row = $db->getRow("SELECT u_id,u_name,u_flag,u_start,u_end,u_group,u_loginnum FROM {pre}user where u_name='".$u_name."' and u_password= '".$u_password."' and u_status=1");
 	
@@ -123,7 +123,7 @@ elseif($method=='check')
 				$ucsynlogin = uc_user_synlogin($uid);
 			}
 		}
-		if (isN($backurl)){
+		if (empty($backurl)){
 			if ($flag=="iframe"){
 				showMsg($ucsynlogin.'登录成功','index.php?m=user-iframe.html');
 				//redirect('index.php?m=user-iframe.html');
@@ -427,8 +427,8 @@ elseif($method=='paysave')
 	chkLogin();
 	$cardnum = be("post","cardnum"); $cardnum = chkSql($cardnum);
 	$cardpwd = be("post","cardpwd"); $cardpwd = chkSql($cardpwd);
-	if (isN($cardnum)){ alert ("卡号不能为空！" );exit;}
-	if (isN($cardpwd)) { alert ("卡号密码不能为空" ); exit;}
+	if (empty($cardnum)){ alert ("卡号不能为空！" );exit;}
+	if (empty($cardpwd)) { alert ("卡号密码不能为空" ); exit;}
 	
 	$sql = "SELECT * FROM {pre}user_card WHERE c_number='". $cardnum ."'and c_pass='". $cardpwd ."'";
     $row = $db->getRow($sql);
@@ -462,7 +462,7 @@ elseif($method=='paysave2')
 {
 	chkLogin();
 	$buynum = be("post","buynum"); 
-	if (!isNum($buynum)){ alert ("充值金额必须是数字！" );exit; } else { $buynum=intval($buynum); }
+	if (!is_numeric($buynum)){ alert ("充值金额必须是数字！" );exit; } else { $buynum=intval($buynum); }
 	if ($buynum < app_buymin) { alert ("最小充值金额是".app_buymin."元，请重填！" );exit; }
 }
 
@@ -471,8 +471,8 @@ elseif($method=='paysave')
 	chkLogin();
 	$cardnum = be("post","cardnum"); $cardnum = chkSql($cardnum);
 	$cardpwd = be("post","cardpwd"); $cardpwd = chkSql($cardpwd);
-	if (isN($cardnum)){ alert ("卡号不能为空！" );exit;}
-	if (isN($cardpwd)) { alert ("卡号密码不能为空" ); exit;}
+	if (empty($cardnum)){ alert ("卡号不能为空！" );exit;}
+	if (empty($cardpwd)) { alert ("卡号密码不能为空" ); exit;}
 	
 	$sql = "SELECT * FROM {pre}user_card WHERE c_number='". $cardnum ."'and c_pass='". $cardpwd ."'";
     $row = $db->getRow($sql);
@@ -506,7 +506,7 @@ elseif($method=='paysave2')
 {
 	chkLogin();
 	$buynum = be("post","buynum");
-	if (!isNum($buynum)){ alert ("充值金额必须是数字！" );exit; } else { $buynum=intval($buynum); }
+	if (!is_numeric($buynum)){ alert ("充值金额必须是数字！" );exit; } else { $buynum=intval($buynum); }
 	if ($buynum < app_buymin) { alert ("最小充值金额是".app_buymin."元，请重填！" );exit; }
 }
 

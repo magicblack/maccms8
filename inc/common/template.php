@@ -257,7 +257,7 @@ class AppTpl
 				$psize=$arr[1][$i];
 				break;
 			}
-			if(!isNum($psize)) { $psize=10; }
+			if(!is_numeric($psize)) { $psize=10; }
 			setCache($cp,$cn,$psize);
         }
         return $psize;
@@ -335,9 +335,9 @@ class AppTpl
         if($lp['order']!='asc' && $lp['order']!='desc') { $lp['order'] = 'asc'; }
 		unset($matches);
 		
-		if(!isNum($lp['start'])) { $lp['start']=0; } else { $lp['start']=intval($lp['start']); }
+		if(!is_numeric($lp['start'])) { $lp['start']=0; } else { $lp['start']=intval($lp['start']); }
     	if($lp['start']>0){ $lp['start']--; }
-    	if(!isNum($lp['num'])){ $lp['num']=12;} else { $lp['limit']='true';$lp['num']=intval($lp['num']); }
+    	if(!is_numeric($lp['num'])){ $lp['num']=12;} else { $lp['limit']='true';$lp['num']=intval($lp['num']); }
     	if(!empty($lp['label'])){ $this->P['label']=$lp['label']; }
     	if(!empty($lp["pagesize"])){ $auto='';$lp['num']=intval($lp['pagesize']); } else { $auto='false'; }
     	
@@ -608,7 +608,7 @@ class AppTpl
 		        if ($lp['state']=='series'){ 
 		        	$where .= ' and d_state > 0';
 		        }
-		        elseif(isNum($lp['state']) ){
+		        elseif(is_numeric($lp['state']) ){
 		        	$where .=  ' and d_state = ' . $lp['state'] ;
 		        }
 		        
@@ -1219,8 +1219,8 @@ class AppTpl
 				break;
 			case 'year':
 				$str = "-year-{year}";
-				if(!isNum($this->L['start'])){ $this->L['start']=2000; } else { $this->L['start']=intval($this->L['start']); }
-				if(!isNum($this->L['end'])){ $this->L['end']=date('Y',time()); }else { $this->L['end']=intval($this->L['end']); }
+				if(!is_numeric($this->L['start'])){ $this->L['start']=2000; } else { $this->L['start']=intval($this->L['start']); }
+				if(!is_numeric($this->L['end'])){ $this->L['end']=date('Y',time()); }else { $this->L['end']=intval($this->L['end']); }
 				$arr=array();
 				for($i=$this->L['start']+1;$i<=$this->L['end'];$i++){
 					array_push($arr,$i);

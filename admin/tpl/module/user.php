@@ -250,8 +250,8 @@ elseif($method=='list')
 	$page = intval($p['pg']);
 	if ($page < 1) { $page = 1; }
 	
-	$group=$p['group']; if(isN($group)){ $group=999; } else { $group=intval($group); }
-	$status=$p['status']; if(isN($status)){ $status=999; } else { $status=intval($status); }
+	$group=$p['group']; if(empty($group)){ $group=999; } else { $group=intval($group); }
+	$status=$p['status']; if(empty($status)){ $status=999; } else { $status=intval($status); }
 	$wd=$p['wd'];
 	
 	if($group!=999){
@@ -437,8 +437,8 @@ elseif($method=='card')
 	$page = intval($p['pg']);
 	if ($page < 1) { $page = 1; }
 	
-	$used=$p['used']; if(isN($used)){ $used=999; } else { $used=intval($used); }
-	$sale=$p['sale']; if(isN($sale)){ $sale=999; } else { $sale=intval($sale); }
+	$used=$p['used']; if(empty($used)){ $used=999; } else { $used=intval($used); }
+	$sale=$p['sale']; if(empty($sale)){ $sale=999; } else { $sale=intval($sale); }
 	$wd=$p['wd'];
 	
 	if($used!=999){

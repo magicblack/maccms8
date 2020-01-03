@@ -40,7 +40,7 @@ elseif($method=='save')
     	$c_type=16;
     }
     
-    if (isN($c_name) || isN($c_content)){ echo '请输入昵称和内容'; exit; }
+    if (empty($c_name) || empty($c_content)){ echo '请输入昵称和内容'; exit; }
     if ($MAC['other']['commentverify']==1 && $_SESSION["code_comment"] != $c_code){ echo '验证码错误'; exit; }
     if (getTimeSpan("last_commenttime") < $MAC['other']['commenttime']){ echo '请不要频繁操作';exit; }
     $pattern = '/[^\x00-\x80]/'; 

@@ -8,7 +8,7 @@
 		$num=rand(0,$l-1); 
 		$authnum_session.= $str[$num]; 
 	}
-	$sname = "code_" . $_REQUEST["a"]; 
+	$sname = "code_" . $_GET["a"];
 	$_SESSION[$sname] = $authnum_session;
 	//session_register("authnum_session");
 	srand((double)microtime()*1000000);

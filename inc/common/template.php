@@ -998,9 +998,8 @@ class AppTpl
         if (!strpos(",".$this->H,"{if-")) { return; }
 		$labelRule = buildregx('{if-([\s\S]*?):([\s\S]+?)}([\s\S]*?){endif-\1}',"is");
 		preg_match_all($labelRule,$this->H,$iar);
-		
 		$arlen=count($iar[2]);
-		
+
 		for($m=0;$m<$arlen;$m++){
 			$strn = $iar[1][$m];
 			$strif= asp2phpif( $iar[2][$m] ) ;
@@ -1009,47 +1008,56 @@ class AppTpl
 			
 			$labelRule2="{elseif-".$strn."";
 			$labelRule3="{else-".$strn."}";
-			try{
-			if (strpos(",".$strThen,$labelRule2)>0){
-				$elseifArray=explode($labelRule2,$strThen);
-				$elseifArrayLen=count($elseifArray);
-				$elseifSubArray=explode($labelRule3,$elseifArray[$elseifArrayLen-1]);
-				$resultStr=$elseifSubArray[1];
-				$ee = @eval("if($strif){\$resultStr='$elseifArray[0]';\$elseifFlag=true;}");
-				if(!$elseifFlag){
-					for($elseifLen=1;$elseifLen<$elseifArrayLen-1;$elseifLen++){
-						$strElseif=getSubStrByFromAndEnd($elseifArray[$elseifLen],":","}","");
-						$strElseif=asp2phpif($strElseif);
-						$strElseifThen=getSubStrByFromAndEnd($elseifArray[$elseifLen],"}","","start");
-						$strElseifThen=str_replace("'","\'",$strElseifThen);
-						@eval("if($strElseif){\$resultStr='$strElseifThen'; \$elseifFlag=true;}");
-						if ($elseifFlag) {break;}
-					}
-				}
-				if(!$elseifFlag){
-					$strElseif0=getSubStrByFromAndEnd($elseifSubArray[0],":","}","");
-					$strElseif0=asp2phpif($strElseif0);
-					$strElseifThen0=getSubStrByFromAndEnd($elseifSubArray[0],"}","","start");
-					$strElseifThen0=str_replace("'","\'",$strElseifThen0);
-					@eval("if($strElseif0){\$resultStr='$strElseifThen0';\$elseifFlag=true;}");
-				}
-				$this->H=str_replace($iar[0][$m],$resultStr,$this->H);
-			}
-			else{
-				$ifFlag = false;
-				if (strpos(",".$strThen,$labelRule3)>0){
-					$elsearray=explode($labelRule3,$strThen);
-					$strThen1=$elsearray[0];
-					$strElse1=$elsearray[1];
-					@eval("if($strif){\$ifFlag=true;}else{\$ifFlag=false;}");
-					if ($ifFlag){ $this->H=str_replace($iar[0][$m],$strThen1,$this->H);} else {$this->H=str_replace($iar[0][$m],$strElse1,$this->H);}
-				}
-				else{
-					@eval("if($strif){\$ifFlag=true;}else{\$ifFlag=false;}");
-					if ($ifFlag){ $this->H=str_replace($iar[0][$m],$strThen,$this->H);} else { $this->H=str_replace($iar[0][$m],"",$this->H); }
-				 }
-			}
-			}
+			try {
+                if (strpos("," . $strThen, $labelRule2) > 0) {
+
+                    $elseifArray = explode($labelRule2, $strThen);
+                    $elseifArrayLen = count($elseifArray);
+                    $elseifSubArray = explode($labelRule3, $elseifArray[$elseifArrayLen - 1]);
+                    $resultStr = $elseifSubArray[1];
+                    $ee = @eval("if($strif){\$resultStr='$elseifArray[0]';\$elseifFlag=true;}");
+                    if (!$elseifFlag) {
+                        for ($elseifLen = 1; $elseifLen < $elseifArrayLen - 1; $elseifLen++) {
+                            $strElseif = getSubStrByFromAndEnd($elseifArray[$elseifLen], ":", "}", "");
+                            $strElseif = asp2phpif($strElseif);
+                            $strElseifThen = getSubStrByFromAndEnd($elseifArray[$elseifLen], "}", "", "start");
+                            $strElseifThen = str_replace("'", "\'", $strElseifThen);
+                            @eval("if($strElseif){\$resultStr='$strElseifThen'; \$elseifFlag=true;}");
+                            if ($elseifFlag) {
+                                break;
+                            }
+                        }
+                    }
+                    if (!$elseifFlag) {
+                        $strElseif0 = getSubStrByFromAndEnd($elseifSubArray[0], ":", "}", "");
+                        $strElseif0 = asp2phpif($strElseif0);
+                        $strElseifThen0 = getSubStrByFromAndEnd($elseifSubArray[0], "}", "", "start");
+                        $strElseifThen0 = str_replace("'", "\'", $strElseifThen0);
+                        @eval("if($strElseif0){\$resultStr='$strElseifThen0';\$elseifFlag=true;}");
+                    }
+                    $this->H = str_replace($iar[0][$m], $resultStr, $this->H);
+                } else {
+                    $ifFlag = false;
+                    if (strpos("," . $strThen, $labelRule3) > 0) {
+                        $elsearray = explode($labelRule3, $strThen);
+                        $strThen1 = $elsearray[0];
+                        $strElse1 = $elsearray[1];
+                        @eval("if($strif){\$ifFlag=true;}else{\$ifFlag=false;}");
+                        if ($ifFlag) {
+                            $this->H = str_replace($iar[0][$m], $strThen1, $this->H);
+                        } else {
+                            $this->H = str_replace($iar[0][$m], $strElse1, $this->H);
+                        }
+                    } else {
+                        @eval("if($strif){\$ifFlag=true;}else{\$ifFlag=false;}");
+                        if ($ifFlag) {
+                            $this->H = str_replace($iar[0][$m], $strThen, $this->H);
+                        } else {
+                            $this->H = str_replace($iar[0][$m], "", $this->H);
+                        }
+                    }
+                }
+            }
 			catch(Exception $e){ 
 				$this->H=str_replace($iar[0][$m],"",$this->H);
 			}
@@ -1060,7 +1068,7 @@ class AppTpl
 		unset($elsearray);
 		unset($elseifArray);
 		unset($iar);
-		if (strpos(",".$this->H,"{if-")) { $this->ifex(); }
+		if (strpos(",".$this->H,"{endif-")) { $this->ifex(); }
     }
     
     function mark()
@@ -1367,7 +1375,7 @@ class AppTpl
         if($mnum<10){ $numfill="0".$mnum; } else{ $numfill=$mnum;}
 		$val=$m1;
 
-        if($GLOBALS['MAC']['app']['filtertags'] == '1'){
+        if($GLOBALS['MAC']['app']['filtertags'] != '2'){
             $mrs = filter_tags($mrs);
         }
 
@@ -2281,7 +2289,7 @@ class AppTpl
     
     function replaceVod()
     {
-        if($GLOBALS['MAC']['app']['filtertags'] == '1') {
+        if($GLOBALS['MAC']['app']['filtertags'] != '2') {
             $this->D = filter_tags($this->D);
         }
     	$id = $this->D['d_id'];
@@ -2358,7 +2366,7 @@ class AppTpl
     
     function replaceArt()
     {
-        if($GLOBALS['MAC']['app']['filtertags'] == '1'){
+        if($GLOBALS['MAC']['app']['filtertags'] != '2'){
             $this->D = filter_tags($this->D);
         }
     	$id = $this->D['a_id'];

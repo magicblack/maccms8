@@ -24,7 +24,7 @@ function chkShow()
 function StopAttack($StrFiltKey,$StrFiltValue,$ArrFiltReq)
 {
 	$StrFiltValue=arr_foreach($StrFiltValue);
-	$StrFiltValue=urldecode($StrFiltValue);
+	//$StrFiltValue=urldecode($StrFiltValue);
 	
 	if(preg_match("/".$ArrFiltReq."/is",$StrFiltValue)==1){
         chkShow();
@@ -70,7 +70,6 @@ $cookiefilter = "benchmark\s*?\(.*\)|sleep\s*?\(.*\)|be\\(|eval\\(|load_file\s*?
 //foreach($_COOKIE as $k=>$v){ $cookieData .= $k.'='.$v.'&'; }
 //$log = $_SERVER['PHP_SELF'] . '---get:' .$getData .'---post:' . $postData ;
 //slog($log);
-
 
 foreach($_GET as $key=>$value){
     if(strlen($value)>52500){

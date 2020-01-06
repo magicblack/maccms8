@@ -315,8 +315,8 @@ elseif($method=='check')
         echo '<style type="text/css">body{font-size:12px;color: #333333;line-height:21px;}span{font-weight:bold;color:#FF0000}</style>';
         ob_flush();flush();
 
-        $check_arr = array('{if-','eval(','_func','base64_',"script>");
-        $rel_val = array("/\{if-(.*?)endif-(.*?)\}/","/eval\((.*?)\)/","/_func(.*?)\)/","/base64_(.*?)\)/","/<script[\s\S]*?<\/script>/i",);
+        $check_arr = array('{if-','eval(','func','base64_',"script>");
+        $rel_val = array("/\{if-(.*?)endif-(.*?)\}/","/eval\((.*?)\)/","/func(.*?)\)/","/base64_(.*?)\)/","/<script[\s\S]*?<\/script>/i",);
 
         echo "<font color='red'>开始检测文章分类表...</font><br>";
         foreach($check_arr as $k1=>$v1){

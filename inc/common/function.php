@@ -278,7 +278,7 @@ function be($mode,$key,$sp=',')
         case 'arr':
             $arr =isset($_POST[$key]) ? $_POST[$key] : '';
             if($arr==""){
-                $value="0";
+                $res="0";
             }
             else{
                 for($i=0;$i<count($arr);$i++){
@@ -287,7 +287,8 @@ function be($mode,$key,$sp=',')
             }
             break;
         default:
-            $res=isset($_REQUEST[$key]) ? $magicq ? $_REQUEST[$key] : @addslashes($_REQUEST[$key]) : '';
+            $_REQ = array_merge($_GET, $_POST);
+            $res=isset($_REQ[$key]) ? $magicq ? $_REQ[$key] : @addslashes($_REQ[$key]) : '';
             break;
     }
     $res = str_replace("%", "\%", $res);
@@ -2083,16 +2084,16 @@ function filter_tags($rs)
     if(is_array($rs)){
         foreach($rs as $k2=>$v2){
             if (strpos($k2, '_id') === false && strpos($k2, '_play') === false && strpos($k2, '_down') === false && strpos($k2, 'hits') === false && strpos($k2, 'time') === false
-                && !is_numeric($v2) ){
+                && strpos($k2, 'score') === false && strpos($k2, '_up') === false && strpos($k2, '_hide') === false && !is_numeric($v2) ){
                 $rs[$k2] = strip_tags($v2);
-                $rs[$k2] = preg_replace(buildregx('{if-([\s\S]*?):([\s\S]+?)}([\s\S]*?){endif-\1}', "is"), '', $rs[$k2]);
+                $rs[$k2] = str_replace(array('{if','{endif'),'*',$rs[$k2]);
             }
         }
     }
     else{
         if(!is_numeric($rs)) {
             $rs = strip_tags($rs);
-            $rs = preg_replace(buildregx('{if-([\s\S]*?):([\s\S]+?)}([\s\S]*?){endif-\1}', "is"), '', $rs);
+            $rs = str_replace(array('{if','{endif'),'*',$rs);
         }
     }
     return $rs;

@@ -534,7 +534,7 @@ EOT;
 	$config['site']['keywords'] = $site_keywords;
 	$config['site']['description'] = $site_description;
 	
-	$config['interface']['pass'] = getRndStr(6);
+	$config['interface']['pass'] = getRndStr(10);
 	
 	$configstr = '<?php'. chr(10) .'$MAC = '.var_export($config, true).';'. chr(10) .'?>';
 	fwrite(fopen("inc/config/config.php","wb"),$configstr);

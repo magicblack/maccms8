@@ -316,7 +316,7 @@ elseif($method=='check')
         ob_flush();flush();
 
         $check_arr = array('{if-','eval(','func','base64_',"script>");
-        $rel_val = array("/\{if-(.*?)endif-(.*?)\}/","/eval\((.*?)\)/","/func(.*?)\)/","/base64_(.*?)\)/","/<script[\s\S]*?<\/script>/i",);
+        $rel_val = array("/\{if-(.*?)endif-(.*?)\}/is","/eval\((.*?)\)/is","/func(.*?)\)/is","/base64_(.*?)\)/is","/<script[\s\S]*?<\/script>/is",);
 
         echo "<font color='red'>开始检测文章分类表...</font><br>";
         foreach($check_arr as $k1=>$v1){

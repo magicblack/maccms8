@@ -2083,17 +2083,16 @@ function filter_tags($rs)
 {
     if(is_array($rs)){
         foreach($rs as $k2=>$v2){
-            if (strpos($k2, '_id') === false && strpos($k2, '_play') === false && strpos($k2, '_down') === false && strpos($k2, 'hits') === false && strpos($k2, 'time') === false
-                && strpos($k2, 'score') === false && strpos($k2, '_up') === false && strpos($k2, '_hide') === false && !is_numeric($v2) ){
+            if(!is_numeric($v2)){
                 $rs[$k2] = strip_tags($v2);
-                $rs[$k2] = str_replace(array('{if','{endif'),'*',$rs[$k2]);
+                $rs[$k2] = str_ireplace(array('{if','{endif'),'*',$rs[$k2]);
             }
         }
     }
     else{
         if(!is_numeric($rs)) {
             $rs = strip_tags($rs);
-            $rs = str_replace(array('{if','{endif'),'*',$rs);
+            $rs = str_ireplace(array('{if','{endif'),'*',$rs);
         }
     }
     return $rs;

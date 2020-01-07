@@ -97,5 +97,4 @@ foreach($_COOKIE as $key=>$value){
 foreach($referer as $key=>$value){
 	//StopAttack($key,$value,$postfilter);
 }
-echo ini_get('pcre.backtrack_limit');die;
 ?>

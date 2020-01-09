@@ -17,7 +17,7 @@ var menu = {
 
 	"mi":{"text":"采集","default":"coll","children":{"coll":{"text":"自定义资源","url":"?m=coll-list"}}},
 
-	"mj":{"text":"数据库","default":"database","children":{"database":{"text":"数据库管理","url":"?m=db-list"},"sql":{"text":"执行SQL语句","url":"?m=db-sql"},"datarep":{"text":"数据批量替换","url":"?m=db-datarep"},"check":{"text":"挂马检测","url":"?m=db-check"} }}
+	"mj":{"text":"数据库","default":"database","children":{"database":{"text":"数据库管理","url":"?m=db-list"},"sql":{"text":"执行SQL语句","url":"?m=db-sql"},"datarep":{"text":"数据批量替换","url":"?m=db-datarep"},"inspect":{"text":"挂马检测","url":"?m=db-inspect"} }}
 };
 var currTab = 'ma';
 var firstOpen = [];

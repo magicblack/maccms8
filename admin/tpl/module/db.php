@@ -308,7 +308,7 @@ elseif($method=='bak')
 	showMsg('备份成功','?m=db-list');
 }
 
-elseif($method=='check')
+elseif($method=='inspect')
 {
     if($_SERVER['REQUEST_METHOD']=="POST"){
 

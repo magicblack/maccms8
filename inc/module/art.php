@@ -97,6 +97,15 @@ elseif($method=='search')
 		showMsg("请不要频繁操作，时间间隔为".$MAC['app']['searchtime']."秒",MAC_PATH);
 		exit;
 	}
+
+    if(intval($MAC['app']['searchlen'])<1){
+        $MAC['app']['searchlen'] = 10;
+    }
+
+	if(mb_strlen($wd) > $MAC['app']['searchlen']){
+	    $wd = substring($wd,$MAC['app']['searchlen']);
+        $tpl->P["wd"] = $wd;
+    }
 	
 	//if (empty($tpl->P["wd"]) && empty($tpl->P["ids"]) && empty($tpl->P["pinyin"]) && empty($tpl->P["letter"]) && empty($tpl->P["tag"]) && empty($tpl->P["type"]) ){ alert ("搜索参数不正确"); }
 	

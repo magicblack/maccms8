@@ -95,15 +95,22 @@ elseif($method=='search')
 	$tpl->C["siteaid"] = 15;
 	$wd = trim(be("all", "wd")); $wd = chkSql($wd);
 	if(!empty($wd)){ $tpl->P["wd"] = $wd; }
-	
-	
+
 	//if(empty($tpl->P["wd"]) && empty($tpl->P["ids"]) && empty($tpl->P["pinyin"]) && empty($tpl->P["starring"]) && empty($tpl->P["directed"]) && empty($tpl->P["area"]) && empty($tpl->P["lang"]) && empty($tpl->P["year"]) && empty($tpl->P["letter"]) && empty($tpl->P["tag"]) && empty($tpl->P["type"]) && empty($tpl->P["typeid"]) && empty($tpl->P["classid"]) ){ alert ("搜索参数不正确"); }
 	
 	if ( $tpl->P['pg']==1 && getTimeSpan("last_searchtime") < $MAC['app']['searchtime']){ 
 		showMsg("请不要频繁操作，时间间隔为".$MAC['app']['searchtime']."秒",MAC_PATH);
 		exit;
 	}
-	
+
+    if(intval($MAC['app']['searchlen'])<1){
+        $MAC['app']['searchlen'] = 10;
+    }
+
+    if(mb_strlen($wd) > $MAC['app']['searchlen']){
+        $wd = substring($wd,$MAC['app']['searchlen']);
+        $tpl->P["wd"] = $wd;
+    }
 	
     $tpl->P['cp'] = 'vodsearch';
 	$tpl->P['cn'] = urlencode($tpl->P['wd']).'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'].'-'.$tpl->P['ids']. '-'.$tpl->P['pinyin']. '-'.$tpl->P['type'].  '-'.$tpl->P['year']. '-'.$tpl->P['letter'].'-'.$tpl->P['typeid'].'-'.$tpl->P['classid'].'-'.urlencode($tpl->P['area']) .'-'.urlencode($tpl->P['lang'])  .'-'.urlencode($tpl->P['tag']) .'-'.urlencode($tpl->P['starring']) .'-'.urlencode($tpl->P['directed']) ;

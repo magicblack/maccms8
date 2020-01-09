@@ -288,7 +288,7 @@ EOT;
 </tr>
 EOT;
 	
-	$arr=array("curl_init","curl_exec","mb_convert_encoding","dom_import_simplexml");
+	$arr=array("curl_init","curl_exec","mb_convert_encoding","mb_strlen","dom_import_simplexml");
 	foreach($arr as $f){
 		$st="支持";
 		$cs="w";

@@ -77,6 +77,7 @@ if($method=='configsave')
     $config['app']['filtertags'] = intval(trim(be('post','app_filtertags')));
 
 	$config['app']['searchtime'] = !is_numeric(be('post','app_searchtime')) ? 5 : intval(trim(be('post','app_searchtime')));
+    $config['app']['searchlen'] = !is_numeric(be('post','app_searchlen')) ? 10 : intval(trim(be('post','app_searchlen')));
 	$config['app']['cachetime'] = !is_numeric(be('post','app_cachetime')) ? 60 : intval(trim(be('post','app_cachetime')));
 	$config['app']['cacheid'] = trim(be('post','app_cacheid'));
 	$config['app']['memcachedhost'] = trim(be('post','app_memcachedhost'));

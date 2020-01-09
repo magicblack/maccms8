@@ -426,12 +426,12 @@ elseif($method=='topicdata')
 	if ($page < 1) { $page = 1; }
 	$wd=$p['wd'];
 	
-	if(!empty($wd) && $wd!='可搜索(视频名称,视频主演)'){
-		$where .= ' and (instr(d_name,\''.$wd.'\')>0  or instr(d_starring,\''.$wd.'\')>0) ';
+	if(!empty($wd) && $wd!='可搜索(名称、主演、副标)'){
+		$where .= ' and (instr(d_name,\''.$wd.'\')>0  or instr(d_starring,\''.$wd.'\')>0)  or instr(d_subname,\''.$wd.'\')>0) ';
 		$plt->set_var('wd',$wd);
 	}
 	else{
-		$plt->set_var('wd','可搜索(视频名称,视频主演)');
+		$plt->set_var('wd','可搜索(名称、主演、副标)');
 	}
 	$plt->set_var('tid',$tid);
 	
@@ -840,7 +840,7 @@ elseif($method=='batch')
 	    }
 	}
     
-	if(!empty($wd) && $wd!='可搜索(视频名称、视频主演)'){
+	if(!empty($wd) && $wd!='可搜索(名称、主演、副标)'){
 		$where .= ' and ( instr(d_name,\''.$wd.'\')>0 or instr(d_starring,\''.$wd.'\')>0 ) ';
 	}
 	
@@ -1119,12 +1119,12 @@ elseif($method=='list')
     }
     $plt->set_var('repeatlen',$repeatlen);
     
-	if(!empty($wd) && $wd!='可搜索(视频名称、视频主演)'){
-		$where .= ' and ( instr(d_name,\''.$wd.'\')>0 or instr(d_starring,\''.$wd.'\')>0 ) ';
+	if(!empty($wd) && $wd!='可搜索(名称、主演、副标)'){
+		$where .= ' and ( instr(d_name,\''.$wd.'\')>0 or instr(d_starring,\''.$wd.'\')>0 ) or instr(d_subname,\''.$wd.'\')>0 ) ';
 		$plt->set_var('wd',$wd);
 	}
 	else{
-		$plt->set_var('wd','可搜索(视频名称、视频主演)');
+		$plt->set_var('wd','可搜索(名称、主演、副标)');
 	}
 	
 	$topicarr = $MAC_CACHE['vodtopic'];

@@ -159,6 +159,7 @@ exit;
 function debuginfo()
 {
 	$arr = debug_backtrace();
+    $show='';
 	krsort($arr);
 	foreach ($arr as $k => $error) {
 		$file = str_replace(MAC_ROOT,'',$error['file']);
@@ -171,9 +172,9 @@ function debuginfo()
 		
 		$func .= isset($error['function']) ? $error['function'] : '';
 		
-		$error[line] = sprintf('%04d', $error['line']);
+		$error['line'] = sprintf('%04d', $error['line']);
 		
-		$show .= "<li>[Line: $error[line]]".$file."($func)</li>";
+		$show .= "<li>[Line:".$error['line']."]".$file."(".$func.")</li>";
 	}
 	unset($arr);
 	return $show;

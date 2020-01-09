@@ -427,7 +427,7 @@ elseif($method=='topicdata')
 	$wd=$p['wd'];
 	
 	if(!empty($wd) && $wd!='可搜索(名称、主演、副标)'){
-		$where .= ' and (instr(d_name,\''.$wd.'\')>0  or instr(d_starring,\''.$wd.'\')>0)  or instr(d_subname,\''.$wd.'\')>0) ';
+		$where .= ' and (instr(d_name,\''.$wd.'\')>0  or instr(d_starring,\''.$wd.'\')>0  or instr(d_subname,\''.$wd.'\')>0) ';
 		$plt->set_var('wd',$wd);
 	}
 	else{
@@ -1120,7 +1120,7 @@ elseif($method=='list')
     $plt->set_var('repeatlen',$repeatlen);
     
 	if(!empty($wd) && $wd!='可搜索(名称、主演、副标)'){
-		$where .= ' and ( instr(d_name,\''.$wd.'\')>0 or instr(d_starring,\''.$wd.'\')>0 ) or instr(d_subname,\''.$wd.'\')>0 ) ';
+		$where .= ' and ( instr(d_name,\''.$wd.'\')>0 or instr(d_starring,\''.$wd.'\')>0  or instr(d_subname,\''.$wd.'\')>0 ) ';
 		$plt->set_var('wd',$wd);
 	}
 	else{

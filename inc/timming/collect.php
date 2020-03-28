@@ -145,7 +145,7 @@ function cj(){
         $rc = false;
         $d_id = (string)$video->id;
         $d_name = format_vodname(filter_tags((string)$video->name)); $d_name = str_replace("'", "''",$d_name);
-        $d_subname = filter_tags((string)$video->subname); $d_remarks = str_replace("'", "''",$d_subname);
+        $d_subname = filter_tags((string)$video->subname); $d_subname = str_replace("'", "''",$d_subname);
         $d_remarks = filter_tags((string)$video->note); $d_remarks = str_replace("'", "''",$d_remarks);
         $d_state = intval((string)$video->state);
         $d_type = $xt=='0'? (string)$video->tid : $flag.(string)$video->tid;

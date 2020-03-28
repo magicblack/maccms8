@@ -17,7 +17,7 @@ $(function(){
 		}
 	});
 	$("#btnMemCached").click(function(){
-		$.get("admin_data.php?ac=memcached&host="+$("#app_memcachedhost").val()+"&port="+$("#app_memcachedport").val(),function(r){
+		$.get("admin_data.php?ac=memcached&host="+$("#app_memcachedhost").val()+"&port="+$("#app_memcachedport").val()+"&user="+$("#app_memcacheduser").val()+"&pass="+$("#app_memcachedpass").val()+"&type="+$("input[@type=radio][name=app_cachetype]").val(),function(r){
 			if(r=='ok'){alert('恭喜测试可用');}else{alert('不可用请检查配置项');}
 		});
 	});
@@ -35,7 +35,7 @@ $(function(){
 	var upload_watermark_val = $("input[@type=radio][name=upload_watermark][checked]").val();
 	if(upload_watermark_val==1){ $("#opw").show(); }
 	var app_cachetype_val = $("input[@type=radio][name=app_cachetype][checked]").val();
-	if(app_cachetype_val==1){ $("#memcachedinfo").show(); }
+	if(app_cachetype_val!=0){ $("#memcachedinfo").show(); }
 	
 });
 
@@ -155,12 +155,21 @@ function sethtmldir(id,value){
 		<input type="radio" name="app_cachetype" value="{v}" {c} />{n}&nbsp;
 		<!-- END list_app_cachetype -->
 		<font id="memcachedinfo" style="display:none;">&nbsp;
-			服务器IP：<input id="app_memcachedhost" name="app_memcachedhost" value="{app_memcachedhost}" size=30>
-			&nbsp;端口：<input id="app_memcachedport" name="app_memcachedport" value="{app_memcachedport}" size=30>
+			服务器IP：<input id="app_memcachedhost" name="app_memcachedhost" value="{app_memcachedhost}" size=15>
+			&nbsp;端口：<input id="app_memcachedport" name="app_memcachedport" value="{app_memcachedport}" size=15>
+            &nbsp;用户：<input id="app_memcacheduser" name="app_memcacheduser" value="{app_memcacheduser}" size=15>
+            &nbsp;密码：<input id="app_memcachedpass" name="app_memcachedpass" value="{app_memcachedpass}" size=15>
 			&nbsp;<input class="input" type="button" id="btnMemCached" value="测试">
 		</font>
 	  </td>
     </tr>
+        <tr>
+            <td>缓存标识：</td>
+            <td>
+                <input name="app_cacheid" value="{app_cacheid}" size="10">
+                <font color="#FF0000">＊</font>
+            </td>
+        </tr>
     <tr>
       <td>常用资源缓存：</td>
       <td>

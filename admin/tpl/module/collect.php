@@ -284,7 +284,7 @@ elseif($method=='cj'){
         $rc = false;
         $d_id = (string)$video->id;
         $d_name = format_vodname(filter_tags((string)$video->name)); $d_name = str_replace("'", "''",$d_name);
-        $d_subname = filter_tags((string)$video->subname); $d_remarks = str_replace("'", "''",$d_subname);
+        $d_subname = filter_tags((string)$video->subname); $d_subname = str_replace("'", "''",$d_subname);
         $d_remarks = filter_tags((string)$video->note); $d_remarks = str_replace("'", "''",$d_remarks);
         $d_state = intval((string)$video->state);
         $d_type = $xt=='0'? (string)$video->tid : $flag.(string)$video->tid;
@@ -764,6 +764,7 @@ elseif($method=='cjjson'){
             $d_id = $one['vod_id'];
             $d_name = format_vodname(filter_tags($one['vod_name']));
             $d_name = str_replace("'", "''", $d_name);
+            $d_subname = filter_tags($one['vod_sub']); $d_remarks = str_replace("'", "''",$d_subname);
             $d_remarks = filter_tags($one['vod_remarks']); $d_remarks = str_replace("'", "''", $d_remarks);
             $d_state = intval($one['vod_serial']);
             $d_type = $xt == '0' ? $one['type_id'] : $flag . $one['type_id'];
@@ -848,7 +849,6 @@ elseif($method=='cjjson'){
 
             $d_type_expand = '';
             $d_class = '';
-            $d_subname = '';
             $d_color = '';
             $d_picslide = '';
             $d_lock = 0;

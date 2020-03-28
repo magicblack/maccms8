@@ -1088,9 +1088,23 @@ function chkCache($cp,$cn)
 				$status=true;
 			}
 			$mem->close();
-	    };
+	    }
 		return $status;
 	}
+    elseif($GLOBALS['MAC']['app']['cachetype']==2){
+        $status = false;
+        $mem=new Memcached;
+        if($mem->addServer($GLOBALS['MAC']['app']['memcachedhost'],$GLOBALS['MAC']['app']['memcachedport'])){
+            if($mem->setSaslAuthData($GLOBALS['MAC']['app']['memcacheduser'],$GLOBALS['MAC']['app']['memcachedpass'])){
+                $v = $mem->get(MAC_MOB.'_'.$cp.'_'.$cn);
+                if(!empty($v)){
+                    $status=true;
+                }
+            }
+            $mem->quit();
+        }
+        return $status;
+    }
 }
 
 function setCache($cp,$cn,$cv,$ct='txt')
@@ -1111,8 +1125,18 @@ function setCache($cp,$cn,$cv,$ct='txt')
 			$mem->set(MAC_MOB.'_'.$cp.'_'.$cn,$cv,0,$GLOBALS['MAC']['app']['cachetime']*60);
 			//$mem->replace($cn,$cv,MEMCACHE_COMPRESSED,$GLOBALS['MAC']['app']['cachetime']*60);
 			$mem->close();
-	    };
+	    }
 	}
+    elseif($GLOBALS['MAC']['app']['cachetype']==2){
+        $mem=new Memcached;
+        if($mem->addServer($GLOBALS['MAC']['app']['memcachedhost'],$GLOBALS['MAC']['app']['memcachedport'])){
+            if($mem->setSaslAuthData($GLOBALS['MAC']['app']['memcacheduser'],$GLOBALS['MAC']['app']['memcachedpass'])) {
+                $mem->set(MAC_MOB . '_' . $cp . '_' . $cn, $cv, 0, $GLOBALS['MAC']['app']['cachetime'] * 60);
+                //$mem->replace($cn,$cv,MEMCACHE_COMPRESSED,$GLOBALS['MAC']['app']['cachetime']*60);
+            }
+            $mem->quit();
+        }
+    }
 }
 
 function getCache($cp,$cn,$ct='txt')
@@ -1131,8 +1155,17 @@ function getCache($cp,$cn,$ct='txt')
 		if($mem->connect($GLOBALS['MAC']['app']['memcachedhost'],$GLOBALS['MAC']['app']['memcachedport'])){
 			$res = $mem->get(MAC_MOB.'_'.$cp.'_'.$cn);
 			$mem->close();
-	    };
+	    }
 	}
+    elseif($GLOBALS['MAC']['app']['cachetype']==2){
+        $mem=new Memcached;
+        if($mem->addServer($GLOBALS['MAC']['app']['memcachedhost'],$GLOBALS['MAC']['app']['memcachedport'])){
+            if($mem->setSaslAuthData($GLOBALS['MAC']['app']['memcacheduser'],$GLOBALS['MAC']['app']['memcachedpass'])) {
+                $res = $mem->get(MAC_MOB.'_'.$cp.'_'.$cn);
+            }
+            $mem->quit();
+        }
+    }
 	return $res;
 }
 

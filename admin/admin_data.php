@@ -978,14 +978,37 @@ elseif($ac=='memcached')
 {
 	$host = be("all","host");
 	$port = be("all","port");
+    $user = be("all","user");
+    $pass = be("all","pass");
+    $type = be("all","type");
 	try{
-		$mem=new Memcache;
-		if(!$mem->connect($host,$port)){
-			echo '连接失败!';
-		}
-		else{
-			echo 'ok';
-		}
+	    if($type=='1'){
+            $mem=new Memcache;
+            if(!$mem->connect($host,$port)){
+                echo '连接失败!';
+            }
+            else{
+                echo 'ok';
+            }
+        }
+	    elseif($type=='2'){
+            $mem=new Memcached;
+            if(!$mem->addServer($host,$port)){
+                echo '连接失败!';
+            }
+            else{
+                if(!$mem->setSaslAuthData($user,$pass)){
+                    echo '连接成功但用户密码验证失败!';
+                }
+                else{
+                    echo 'ok';
+                }
+            }
+        }
+	    else{
+            echo 'err';
+            exit;
+        }
 	}
 	catch(Exception $e){ 
 		echo 'err';

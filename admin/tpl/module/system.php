@@ -82,6 +82,9 @@ if($method=='configsave')
 	$config['app']['cacheid'] = trim(be('post','app_cacheid'));
 	$config['app']['memcachedhost'] = trim(be('post','app_memcachedhost'));
 	$config['app']['memcachedport'] = trim(be('post','app_memcachedport'));
+    $config['app']['memcacheduser'] = trim(be('post','app_memcacheduser'));
+    $config['app']['memcachedpass'] = trim(be('post','app_memcachedpass'));
+
 	$config['app']['safecode'] = trim(be('post','app_safecode'));
 	$config['app']['pagesize'] = !is_numeric(be('post','app_pagesize')) ? 20 : intval(trim(be('post','app_pagesize')));
 	$config['app']['expandtype'] = intval(trim(be('post','app_expandtype')));
@@ -271,7 +274,7 @@ elseif($method=='config')
 	
 	
 	$arr=array(
-		array('p'=>'app','a'=>'cachetype','c'=>$MAC['app']['cachetype'],'t'=>0,'n'=>array('文件缓存','Memcached缓存'),'v'=>array(0,1)),
+		array('p'=>'app','a'=>'cachetype','c'=>$MAC['app']['cachetype'],'t'=>0,'n'=>array('文件缓存','Memcache','Memcached'),'v'=>array(0,1,2)),
 		array('p'=>'app','a'=>'cache','c'=>$MAC['app']['cache'],'t'=>0),
 		array('p'=>'app','a'=>'dynamiccache','c'=>$MAC['app']['dynamiccache'],'t'=>0),
 		array('p'=>'app','a'=>'compress','c'=>$MAC['app']['compress'],'t'=>0),

@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>后台管理中心 - 请勿泄露后台地址 - Copyright by 苹果CMS内容管理系统</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/index.css" />
+<link rel="stylesheet" type="text/css" href="../images/jq/jquery.webox.css" />
+</head>
+<body>
+<noscript>
+	<div style="position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
+	<img src="../images/noscript.gif" alt='抱歉，请开启浏览器的javascript脚本支持！' />
+	</div>
+</noscript>
+<div id="loading-mask" style=""></div>
+<div id="loading">
+	<div class="loading-indicator">
+		<img src="../images/loading2.gif" width="32" height="32" style="margin-right:8px;float:left;vertical-align:top;"/>苹果CMS
+		<br /><span id="loading-msg"> Loading styles and images...</span>
+	</div>
+</div>
+<div id="loadingtip">
+	Loading...<img src="../images/loading.gif" />
+</div>
+<div class="back_nav">
+    <div class="back_nav_list">
+        <dl>
+            <dt></dt>
+            <dd><a href="javascript:;" onclick="openItem('','');none_fn();"></a></dd>
+        </dl>
+    </div>
+    <div class="shadow"></div>
+    <div class="close_float"> </div>
+</div>
+<div id="head">
+    <div id="logo" style="width:150px;"><b style="font-size: 20px;color:#369;line-height: 60px;text-indent: 20px;">超级控制台</b></div>
+    <div id="menu"><span>[您好：<strong>{MAC_ADMINNAME}</strong>，欢迎进入管理后台] </span>
+    <a href="?m=admin-logout" class="menu_btn1">注销登陆</a>
+    <a href="javascript:void(0)" class="menu_btn1" id="iframe_refresh">刷新页面</a>
+    <a href="../" target="_blank" class="menu_btn1">网站首页</a>
+    </div>
+    <div id="menu1">
+    	&nbsp;<font id="msg_cache" style="color:red;"></font>
+    	&nbsp;<a href="javascript:void(0)" id="tool_htmltojs">[HTML互转JS]</a>
+    	&nbsp;<a href="javascript:void(0)" id="tool_urlencode">[URL汉字编码]</a>
+    	&nbsp;<a href="javascript:void(0)" id="tool_cache_index">[删除静态首页]</a>
+    	&nbsp;<a href="javascript:void(0)" id="tool_cache_data">[更新数据缓存]</a>
+    	&nbsp;<a href="javascript:void(0)" id="tool_cache_mem">[更新常用资源缓存]</a>
+		&nbsp;<a href="javascript:void(0)" id="tool_cache_file">[更新动态页面缓存]</a>
+    </div>
+    <ul id="nav"></ul>
+    <div id="headBg"></div>
+</div>
+<div id="content">
+    <div id="left">
+        <div id="leftMenus">
+            <dl id="submenu">
+                <dt><a class="ico1" id="submenuTitle" href="javascript:;"></a></dt>
+            </dl>
+         </div>
+		<div class="copyright">
+			<p>&copy; MacCMS Inc.</p>
+		</div>
+    </div>
+    <div id="right">
+        <iframe hspace="0" vspace="0" frameborder="0" scrolling="auto" style="display:none;" width="100%" id="workspace" name="workspace"></iframe>
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="code-load" style="display:none;">
+<script type="text/javascript">document.getElementById('loading-msg').innerHTML = 'Loading Core API...';</script>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.pngFix.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.webox.js"></script>
+<script type="text/javascript">document.getElementById('loading-msg').innerHTML = 'Loading UI Components...';</script>
+<script type="text/javascript">document.getElementById('loading-msg').innerHTML = 'Initializing...';</script>	
+<script type="text/javascript" src="tpl/config/quickmenu.js"></script>
+<script type="text/javascript">
+if($.cookie("adminlevels")==null){
+	levels = 'a,{levels}';
+}
+<!-- BEGIN list_quickmenu -->
+menu.ma.children['{quickid}'] = { "text":"{quickname}","url":"{quickurl}" };
+<!-- END list_quickmenu -->
+</script>
+<script type="text/javascript" src="tpl/js/init.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+CREATE TABLE `{pre}collect` (
+`c_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`c_name` varchar(30) NOT NULL DEFAULT '',
+`c_url` varchar(255) NOT NULL DEFAULT '',
+`c_type` tinyint(1) unsigned NOT NULL DEFAULT '1',
+`c_mid` tinyint(1) unsigned NOT NULL DEFAULT '1',
+`c_appid` varchar(30) NOT NULL DEFAULT '',
+`c_appkey` varchar(30) NOT NULL DEFAULT '',
+`c_param` varchar(100) NOT NULL DEFAULT '', 
+PRIMARY KEY (`c_id`)
+) 
+ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

@@ -1103,7 +1103,7 @@ function chkCache($cp,$cn)
 
 function setCache($cp,$cn,$cv,$ct='txt')
 {
-    $key = $GLOBALS['MAC']['app']['cacheid'].'_'.MAC_MOB.'_'.$cp.'_'.$cn;
+    $key = $_SERVER['HTTP_HOST']. '_'. MAC_MOB . '_'.$GLOBALS['MAC']['app']['cacheid'].'_'.$cn;
 	if($GLOBALS['MAC']['app']['cache'] ==0){ return false; }
 	if($GLOBALS['MAC']['app']['cachetype']==0){
 		$cf = MAC_ROOT.'/cache/'.$cp.'/'.$key.'.inc';
@@ -1137,7 +1137,7 @@ function setCache($cp,$cn,$cv,$ct='txt')
 
 function getCache($cp,$cn,$ct='txt')
 {
-    $key = $GLOBALS['MAC']['app']['cacheid'].'_'.MAC_MOB.'_'.$cp.'_'.$cn;
+    $key = $_SERVER['HTTP_HOST']. '_'. MAC_MOB . '_'. $GLOBALS['MAC']['app']['cacheid'].'_'.$cn;
 	if($GLOBALS['MAC']['app']['cachetype']==0){
 		$cf = MAC_ROOT.'/cache/'.$cp.'/'.$key.'.inc';
 		if($ct=='arr'){
@@ -1170,7 +1170,7 @@ function getCache($cp,$cn,$ct='txt')
 function echoPageCache($cp,$cn)
 {
 	if($GLOBALS['MAC']['app']['dynamiccache'] ==0){ return false; }
-	$cf = MAC_ROOT.'/cache/'.$cp.'/'.MAC_MOB.'_'.$cn.'.html';
+	$cf = MAC_ROOT.'/cache/'.$cp.'/'.$_SERVER['HTTP_HOST']. '_'. MAC_MOB .'_'.$cn.'.html';
 	$mintime = time() - $GLOBALS['MAC']['app']['cachetime']*60;
 	if (file_exists($cf) && ($mintime < filemtime($cf))){
 		$html = loadFile($cf);
@@ -1182,7 +1182,7 @@ function echoPageCache($cp,$cn)
 function setPageCache($cp,$cn,$cv)
 {
 	if($GLOBALS['MAC']['app']['dynamiccache'] ==0){ return false; }
-	$cf = MAC_ROOT.'/cache/'.$cp.'/'.MAC_MOB.'_'.$cn.'.html';
+	$cf = MAC_ROOT.'/cache/'.$cp.'/'.$_SERVER['HTTP_HOST']. '_'. MAC_MOB .'_'.$cn.'.html';
 	$path = dirname($cf);
 	mkdirs($path);
 	@fwrite(fopen($cf,'wb'),$cv);

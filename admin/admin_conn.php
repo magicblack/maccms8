@@ -2,7 +2,7 @@
 define('MAC_ADMIN', preg_replace("|[/\\\]{1,}|",'/',dirname(__FILE__) ) );
 require(MAC_ADMIN."/../inc/conn.php");
 require(MAC_ADMIN.'/../inc/common/phplib.php');
-define('MAC_VERSION','2019.1020');
+define('MAC_VERSION','2020.1021');
 
 
 if(strpos($_SERVER["SCRIPT_NAME"],'/admin/')>0){

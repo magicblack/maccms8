@@ -2,8 +2,8 @@
 define('MAC_ADMIN', preg_replace("|[/\\\]{1,}|",'/',dirname(__FILE__) ) );
 require(MAC_ADMIN."/../inc/conn.php");
 require(MAC_ADMIN.'/../inc/common/phplib.php');
-define('MAC_VERSION','2020.1021');
-
+define('MAC_VERSION','2020.1022');
+define('MAC_MODULE','admin');
 
 if(strpos($_SERVER["SCRIPT_NAME"],'/admin/')>0){
 	echo '请将文件夹admin改名,避免被黑客入侵攻击';

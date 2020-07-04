@@ -31,9 +31,9 @@ $(function(){
 	$("input[type=radio][name=app_cachetype]").bind("click",function(){
 		$(this).val() == 0 ? $("#memcachedinfo").hide() :$("#memcachedinfo").show();
 	});
-	var upload_thumb_val = $("input[type=radio][name=upload_thumb][checked]").val();
+	var upload_thumb_val = $("input[type=radio][name=upload_thumb]:checked").val();
 	if(upload_thumb_val==1){ $("#thumbop").show(); }
-	var upload_watermark_val = $("input[type=radio][name=upload_watermark][checked]").val();
+	var upload_watermark_val = $("input[type=radio][name=upload_watermark]:checked").val();
 	if(upload_watermark_val==1){ $("#opw").show(); }
 	var app_cachetype_val = $("input[type=radio][name=app_cachetype]:checked").val();
 	if(app_cachetype_val!=0){ $("#memcachedinfo").show(); }

@@ -31,8 +31,8 @@ template/user/   为系统会员中心的模版及相关css和js
 MAC.Url         当前网页的链接
 MAC.Title       当前网页的标题
 MAC.Copy(s)     复制内容到剪切板; s=字符串
-MAC.Home(o,u)   设置默认主页;      <a target="_self" href="javascript:void(0)" onclick="MAC.Home(this,'http://www.maccms.com');">设置主页</a>
-MAC.Fav(u,s)    加入浏览器收藏夹;  <a target="_self" href="javascript:void(0)" onclick="MAC.FAV('http://www.maccms.com','苹果CMS');">加入收藏</a>
+MAC.Home(o,u)   设置默认主页;      <a target="_self" href="javascript:void(0)" onclick="MAC.Home(this,'http://www.baidu.com');">设置主页</a>
+MAC.Fav(u,s)    加入浏览器收藏夹;  <a target="_self" href="javascript:void(0)" onclick="MAC.FAV('http://www.baidu.com','百度');">加入收藏</a>
 MAC.Open(u,w,h)  弹出网页;u=网址,w=宽度,h=高度
 MAC.Cookie.Set(name,value,days)   设置cookie的值; name=cookie名称,value=cookie值,days=过期时间
 MAC.Cookie.Get(name)              获取cookie的值; name=cookie名称

@@ -1063,10 +1063,10 @@ function checkTable($tableName)
 	}
 }
 
-function chkCache($cp,$cn)
+function chkCache($cp,$cn,$cx=0)
 {
-    $key = $GLOBALS['MAC']['app']['cacheid'].'_'.MAC_MOB.'_'.$cp.'_'.$cn;
-	if($GLOBALS['MAC']['app']['cache'] ==0){ return false; }
+    $key = $_SERVER['HTTP_HOST']. '_'. MAC_MOB . '_'. $GLOBALS['MAC']['app']['cacheid'].'_'.$cn;
+	if($GLOBALS['MAC']['app']['cache'] ==0 && $cx==0){ return false; }
 	if($GLOBALS['MAC']['app']['cachetype']==0){
 		$cf = MAC_ROOT.'/cache/'.$cp.'/'.$key.'.inc';
 		$mintime = time() - $GLOBALS['MAC']['app']['cachetime']*60;
@@ -1101,10 +1101,10 @@ function chkCache($cp,$cn)
     }
 }
 
-function setCache($cp,$cn,$cv,$ct='txt')
+function setCache($cp,$cn,$cv,$ct='txt',$cx=0)
 {
-    $key = $_SERVER['HTTP_HOST']. '_'. MAC_MOB . '_'.$GLOBALS['MAC']['app']['cacheid'].'_'.$cn;
-	if($GLOBALS['MAC']['app']['cache'] ==0){ return false; }
+    $key = $_SERVER['HTTP_HOST']. '_'. MAC_MOB . '_'. $GLOBALS['MAC']['app']['cacheid'].'_'.$cn;
+	if($GLOBALS['MAC']['app']['cache'] ==0 && $cx==0){ return false; }
 	if($GLOBALS['MAC']['app']['cachetype']==0){
 		$cf = MAC_ROOT.'/cache/'.$cp.'/'.$key.'.inc';
 		$path = dirname($cf);
@@ -1170,22 +1170,17 @@ function getCache($cp,$cn,$ct='txt')
 function echoPageCache($cp,$cn)
 {
 	if($GLOBALS['MAC']['app']['dynamiccache'] ==0){ return false; }
-	$cf = MAC_ROOT.'/cache/'.$cp.'/'.$_SERVER['HTTP_HOST']. '_'. MAC_MOB .'_'.$cn.'.html';
-	$mintime = time() - $GLOBALS['MAC']['app']['cachetime']*60;
-	if (file_exists($cf) && ($mintime < filemtime($cf))){
-		$html = loadFile($cf);
-		$html = str_replace("{maccms:runtime}",getRunTime(),$html);
-		echo $html;
-		exit;
-	}
+    if (chkCache($cp,$cn,1)){
+        $html = getCache($cp,$cn);
+        $html = str_replace("{maccms:runtime}",getRunTime(),$html);
+        echo $html;
+        exit;
+    }
 }
 function setPageCache($cp,$cn,$cv)
 {
 	if($GLOBALS['MAC']['app']['dynamiccache'] ==0){ return false; }
-	$cf = MAC_ROOT.'/cache/'.$cp.'/'.$_SERVER['HTTP_HOST']. '_'. MAC_MOB .'_'.$cn.'.html';
-	$path = dirname($cf);
-	mkdirs($path);
-	@fwrite(fopen($cf,'wb'),$cv);
+    setCache($cp,$cn,$cv,'',1);
 }
 
 function repPseRnd($tab,$txt,$id)

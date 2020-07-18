@@ -739,7 +739,7 @@ function Hanzi2PinYin($str){
 	if($slen<2){
 		return $str;
 	}
-	if(count($pinyins)==0){
+	if(count((array)$pinyins)==0){
 		$fp = fopen(MAC_ROOT .'/inc/common/pinyin.dat','r');
 		while(!feof($fp)){
 			$line = trim(fgets($fp));

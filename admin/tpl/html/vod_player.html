@@ -26,7 +26,7 @@ function showwin()
 		width:330,
 		height:150,
 		bgvisibel:true,
-		title:'导入视频播放器代码',
+		title:'导入播放器代码',
 		html: $("#win1").html()
 	});
 }
@@ -40,12 +40,13 @@ function showwin()
 		<th>名称</th>
 		<th width="100">序号</th>
 		<th width="100">状态</th>
+		<th width="100">接口状态</th>
 		<th>地址</th>
 		<th>备注</th>
 		<th width="120">操作</th>
 	</tr>
 <!-- IF isnull -->
-<tr><td colspan=7 align=center>未查询到任何数据</td></tr>
+<tr><td colspan=8 align=center>未查询到任何数据</td></tr>
 <!-- ELSE isnull -->
 	<!-- BEGIN list_player -->
 	<tr>
@@ -53,6 +54,7 @@ function showwin()
 	  <td>{show}</td>
 	  <td>{sort}</td>
 	  <td>{status}</td>
+	  <td>{ps}</td>
 	  <td>{des}</td>
 	  <td>{tip}</td>
       <td>
@@ -62,7 +64,7 @@ function showwin()
     </tr>
 	<!-- END list_player -->
 <!-- ENDIF isnull -->
-	<tr><td colspan="7">
+	<tr><td colspan="8">
     <input type="button" id="btnAdd" value="添加" class="input" />
     <input type="button" id="btnImport" value="导入" class="input" />
     </td></tr>

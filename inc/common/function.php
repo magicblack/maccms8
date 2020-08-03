@@ -739,7 +739,7 @@ function Hanzi2PinYin($str){
 	if($slen<2){
 		return $str;
 	}
-	if(count((array)$pinyins)==0){
+	if(!is_array($pinyins)){
 		$fp = fopen(MAC_ROOT .'/inc/common/pinyin.dat','r');
 		while(!feof($fp)){
 			$line = trim(fgets($fp));
@@ -978,13 +978,16 @@ function getVodXml($name,$path)
 		$from = $node->attributes->item(2)->nodeValue;
 		$show = $node->attributes->item(3)->nodeValue;
 		$des = $node->attributes->item(4)->nodeValue;
+        $ps = $node->attributes->item(5)->nodeValue;
+        $parse = $node->attributes->item(6)->nodeValue;
+
 		$tip = $node->getElementsByTagName("tip")->item(0)->nodeValue;
 		$status=intval($status);
 		$sort=intval($sort);
 		if($status==0){
 			$show.='【禁用】';
 		}
-		$arr[$from] = array('status'=>$status,'sort'=>$sort,'show'=>$show,'des'=>$des,'tip'=>str_replace('\'','\\\'',$tip));
+		$arr[$from] = array('status'=>$status,'sort'=>$sort,'show'=>$show,'des'=>$des,'ps'=>$ps,'parse'=>$parse,'tip'=>str_replace('\'','\\\'',$tip));
 	}
 	unset($nodes);
 	unset($xmlnode);
@@ -1614,13 +1617,10 @@ function updateCacheFile()
 	fwrite(fopen(MAC_ROOT.'/inc/config/cache.php','wb'),$cacheValue);
 
 
+	$plays = 'var mac_play_list='.json_encode($arr['vodplay']) .';';
+    $plays .= 'var mac_down_list='.json_encode($arr['voddown']) .';';
+    $plays .= 'var mac_server_list='.json_encode($arr['vodserver']) .';';
 
-	foreach($arr['vodplay'] as $k=>$v){
-		$plays.= 'mac_show["'.$k.'"]="'.$v['show'].'";';
-	}
-	foreach($arr['vodserver'] as $k=>$v){
-		$plays.= 'mac_show_server["'.$k.'"]="'.$v['des'].'";';
-	}
 
 	$fp = MAC_ROOT.'/js/playerconfig.js';
 	if(!file_exists($fp)){ $fp .= '.bak'; }

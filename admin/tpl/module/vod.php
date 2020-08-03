@@ -611,7 +611,7 @@ elseif($method=='player')
 	
 	$rn='player';
 	$plt->set_block('main', 'list_'.$rn, 'rows_'.$rn);
-	$colarr=array('status','sort','from','show','des','tip');
+	$colarr=array('status','sort','from','show','des','ps','parse','tip');
 	$num=0;
 	foreach($nodes as $node){
 		$num++;
@@ -621,10 +621,13 @@ elseif($method=='player')
 		$from = $node->attributes->item(2)->nodeValue;
 		$show = $node->attributes->item(3)->nodeValue;
 		$des = $node->attributes->item(4)->nodeValue;
+        $ps = $node->attributes->item(5)->nodeValue;
+        $parse = $node->attributes->item(6)->nodeValue;
 		$tip = $node->getElementsByTagName('tip')->item(0)->nodeValue;
 		$status = $status=='1' ? '<font color=green>启用</font>' : '<font color=red>禁用</font>';
-		
-		$valarr=array($status,$sort,$from,$show,$des,$tip);
+        $ps = $ps=='1' ? '<font color=green>启用</font>' : '<font color=red>禁用</font>';
+
+		$valarr=array($status,$sort,$from,$show,$des,$ps,$parse,$tip);
 		for($i=0;$i<count($colarr);$i++){
 			$n = $colarr[$i];
 			$v = $valarr[$i];
@@ -709,6 +712,8 @@ elseif($method=='playerinfo')
 				$sort = $node->attributes->item(1)->nodeValue;
 				$show = $node->attributes->item(3)->nodeValue;
 				$des = $node->attributes->item(4)->nodeValue;
+                $ps = $node->attributes->item(5)->nodeValue;
+                $parse = $node->attributes->item(6)->nodeValue;
 				$tip = $node->getElementsByTagName('tip')->item(0)->nodeValue;
 				break;
 			}
@@ -718,28 +723,33 @@ elseif($method=='playerinfo')
     	unset($doc);
 	}
 	
-	$colarr=array('flag','backurl','status','sort','from','show','des','tip');
-	$valarr=array($flag,$backurl,$status,$sort,$from,$show,$des,$tip);
+	$colarr=array('flag','backurl','status','sort','from','show','des','ps','parse','tip');
+	$valarr=array($flag,$backurl,$status,$sort,$from,$show,$des,$ps,$parse,$tip);
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];
 		$v = $valarr[$i];
 		$plt->set_var($n, $v );
 	}
-	
-	$colarr=array('禁用','启用');
-	$valarr=array('0','1');
-	$rn='status';
-	$plt->set_block('main', 'list_'.$rn, 'rows_'.$rn);
-	for($i=0;$i<count($colarr);$i++){
-		$n = $colarr[$i];
-		$v = $valarr[$i];
-		
-		$c = $v==$status ? 'selected': '';
-		$plt->set_var('v', $v );
-		$plt->set_var('n', $n );
-		$plt->set_var('c', $c );
-		$plt->parse('rows_'.$rn,'list_'.$rn,true);
-	}
+
+    $arr=array(
+        array('a'=>'status','c'=>$status,'n'=>array('关闭','开启'),'v'=>array(0,1)),
+        array('a'=>'ps','c'=>$ps,'n'=>array('关闭','开启'),'v'=>array(0,1)),
+    );
+    foreach($arr as $a){
+        $colarr=$a['n'];
+        $valarr=$a['v'];
+        $rn=$a['a'];
+        $plt->set_block('main', 'list_'.$rn, 'rows_'.$rn);
+        for($i=0;$i<count($colarr);$i++){
+            $n = $colarr[$i];
+            $v = $valarr[$i];
+            $c = $a['c']==$v ? 'selected': '';
+            $plt->set_var('v', $v );
+            $plt->set_var('n', $n );
+            $plt->set_var('c', $c );
+            $plt->parse('rows_'.$rn,'list_'.$rn,true);
+        }
+    }
 	
 	unset($colarr);
 	unset($valarr);

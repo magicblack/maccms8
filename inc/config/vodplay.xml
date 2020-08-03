@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plays>
-	<play status="1" sort="908" from="dplayer" show="DPlayer-H5播放器" des="dplayer.js.org"><tip><![CDATA[无需安装任何插件]]></tip></play>
-	<play status="1" sort="907" from="videojs" show="Videojs-H5播放器" des="videojs.com"><tip><![CDATA[无需安装任何插件]]></tip></play>
-	<play status="1" sort="906" from="iva" show="iva-H5播放器" des="videojj.com"><tip><![CDATA[无需安装任何插件]]></tip></play>
-	<play status="1" sort="905" from="iframe" show="iframe外链数据" des="iframe嵌入"><tip><![CDATA[无需安装任何插件]]></tip></play>
-	<play status="1" sort="904" from="link" show="外链数据" des="外部网站播放链接"><tip><![CDATA[无需安装任何插件]]></tip></play>
-	<play status="1" sort="903" from="swf" show="Flash文件" des="swf"><tip><![CDATA[无需安装任何插件]]></tip></play>
-	<play status="1" sort="902" from="flv" show="flv文件" des="flv"><tip><![CDATA[无需安装任何插件]]></tip></play>
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<play status="1" sort="908" from="dplayer" show="DPlayer_H5播放器" des="dplayer.js.org" ps="0" parse=""><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="907" from="videojs" show="Videojs-H5播放器" des="videojs.com" ps="0" parse=""><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="906" from="iva" show="iva-H5播放器" des="videojj.com" ps="0" parse=""><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="905" from="iframe" show="iframe外链数据" des="iframe嵌入" ps="0" parse=""><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="904" from="link" show="外链数据" des="外部网站播放链接" ps="0" parse=""><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="903" from="swf" show="Flash文件" des="swf" ps="0" parse=""><tip><![CDATA[无需安装任何插件]]></tip></play>
+	<play status="1" sort="902" from="flv" show="flv文件" des="flv" ps="0" parse=""><tip><![CDATA[无需安装任何插件]]></tip></play>
 	
 </plays>

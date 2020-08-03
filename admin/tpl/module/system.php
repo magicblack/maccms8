@@ -430,6 +430,7 @@ elseif($method=='configplaysave')
 	$mac_autofull = intval(be('post','mac_autofull'));
 	$mac_buffer = be('post','mac_buffer');
 	$mac_prestrain = be('post','mac_prestrain');
+    $mac_parse = be('post','mac_parse');
 	$mac_colors = be('post','mac_colors');
 	
 	
@@ -449,9 +450,13 @@ elseif($method=='configplaysave')
 	$fc = regReplace($fc,"var\smac_autofull\=(\d+?)\;","var mac_autofull=".$mac_autofull.";");
 	$fc = regReplace($fc,"var\smac_buffer\=*\"*(\S+?)'*\"*\;","var mac_buffer=\"".$mac_buffer."\";");
 	$fc = regReplace($fc,"var\smac_prestrain\=*\"*(\S+?)'*\"*\;","var mac_prestrain=\"".$mac_prestrain."\";");
+    $fc = regReplace($fc,"var\smac_parse\=*\"*(\S+?)'*\"*\;","var mac_parse=\"".$mac_parse."\";");
 	$fc = regReplace($fc,"var\smac_colors\=*\"*(\S+?)'*\"*\;","var mac_colors=\"".$mac_colors."\";");
 	
 	fwrite(fopen('../js/playerconfig.js','wb'),$fc);
+
+    updateCacheFile();
+
     redirect('?m=system-configplay');
 }
 
@@ -474,10 +479,11 @@ elseif($method=='configplay')
 	$mac_autofull=regMatch($fc,"var\smac_autofull\=(\d+?)\;");
 	$mac_buffer=regMatch($fc,"var\smac_buffer\=*\"*(\S+?)'*\"*\;");
 	$mac_prestrain=regMatch($fc,"var\smac_prestrain\=*\"*(\S+?)'*\"*\;");
+    $mac_parse=regMatch($fc,"var\smac_parse\=*\"*(\S+?)'*\"*\;");
 	$mac_colors=regMatch($fc,"var\smac_colors\=*\"*(\S+?)'*\"*\;");
 	
-	$colarr=array('mac_second','mac_width','mac_height','mac_widthmob','mac_heightmob','mac_widthpop','mac_heightpop','mac_buffer','mac_prestrain','mac_colors');
-	$valarr=array($mac_second,$mac_width,$mac_height,$mac_widthmob,$mac_heightmob,$mac_widthpop,$mac_heightpop,$mac_buffer,$mac_prestrain,$mac_colors);
+	$colarr=array('mac_second','mac_width','mac_height','mac_widthmob','mac_heightmob','mac_widthpop','mac_heightpop','mac_buffer','mac_prestrain','mac_parse','mac_colors');
+	$valarr=array($mac_second,$mac_width,$mac_height,$mac_widthmob,$mac_heightmob,$mac_widthpop,$mac_heightpop,$mac_buffer,$mac_prestrain,$mac_parse,$mac_colors);
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];
 		$v = $valarr[$i];

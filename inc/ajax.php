@@ -61,34 +61,40 @@ elseif($ac=='hits')
 	
 	$row = $db->getRow($sql);
 	if($row){
-		$hits=$row[$col_hits];
-		$dayhits=$row[$col_dayhits];
-		$weekhits=$row[$col_weekhits];
-		$monthhits=$row[$col_monthhits];
-		$path=MAC_ROOT."/inc/config/hitstime_".$tab.".txt";
-		if(file_exists($path)){
-			$hitstime = @file_get_contents($path);
-		}
-		if(!empty($hitstime)){
-			if ( date('m',time()) != date('m',$hitstime) ){
-				$db->Update ("{pre}".$tab,array($col_monthhits),array(0),$col_id.">0");
-				$monthhits=0; 
-			}
-			if ( date('W',time()) != date('W',$hitstime) ){
-				$db->Update ("{pre}".$tab,array($col_weekhits),array(0),$col_id.">0");
-				$weekhits=0;
-			}
-			if ( date('d',time()) != date('d',$hitstime) ){
-				$db->Update ("{pre}".$tab,array($col_dayhits),array(0),$col_id.">0");
-				$dayhit=0;
-			}
-		}
-		$res = $hits + 1;
-		$res1 = $dayhits + 1;
-		$res2 = $weekhits + 1;
-		$res3 = $monthhits + 1;
-		$db->Update ('{pre}'.$tab,array($col_hitstime,$col_hits,$col_dayhits,$col_weekhits,$col_monthhits),array(time(),$res,$res1,$res2,$res3),$col_id.'='.$id);
-		@fwrite(fopen($path,"wb"),time());
+        //初始化值
+        $update[0] = time();
+        $update[1] = $row[$col_hits];
+        $update[2] = $row[$col_dayhits];
+        $update[3] = $row[$col_weekhits];
+        $update[4] = $row[$col_monthhits];
+
+        $new = getdate();
+        $old = getdate($row[$col_hitstime]);
+
+        //总
+        $update[1] = $update[1]+1;
+        //日
+        if($new['year'] == $old['year'] && $new['mon'] == $old['mon'] && $new['mday'] == $old['mday']){
+            $update[2] ++;
+        }else{
+            $update[2] = 1;
+        }
+        //周
+        $weekStart = mktime(0,0,0,$new["mon"],$new["mday"],$new["year"]) - ($new["wday"] * 86400);
+        $weekEnd = mktime(23,59,59,$new["mon"],$new["mday"],$new["year"]) + ((6 - $new["wday"]) * 86400);
+        if($row[$col_hitstime] >= $weekStart && $row[$col_hitstime] <= $weekEnd){
+            $update[3] ++;
+        }else{
+            $update[3] = 1;
+        }
+        //月
+        if($new['year'] == $old['year'] && $new['mon'] == $old['mon']){
+            $update[4] ++;
+        }else{
+            $update[4] = 1;
+        }
+        $res = $update[1];
+		$db->Update ('{pre}'.$tab,array($col_hitstime,$col_hits,$col_dayhits,$col_weekhits,$col_monthhits),$update,$col_id.'='.$id);
 	}
 	unset($row);
 	echo $res;

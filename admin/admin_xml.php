@@ -167,6 +167,9 @@ elseif($ac=='savexml')
 			$tip = stripslashes(be("post","tip"));
 			$sort = be("post","sort");
 			$show = be("post","show");
+            $ps = be("post","ps");
+            $parse = be("post","parse");
+
 			if ($tab=="vodplay"){
 				$path="play";
 			}
@@ -181,7 +184,8 @@ elseif($ac=='savexml')
 			$doc -> loadXML($xml);
 			$xmlnode = $doc -> documentElement;
 			$nodes = $xmlnode->getElementsByTagName($path);
-			
+
+
 			if ($flag=="edit"){
 				foreach($nodes as $node){
 					if ($from == $node->attributes->item(2)->nodeValue){
@@ -189,6 +193,26 @@ elseif($ac=='savexml')
 						$node->attributes->item(1)->nodeValue = $sort;
 						$node->attributes->item(3)->nodeValue = $show;
 						$node->attributes->item(4)->nodeValue = $des;
+
+						if($tab = 'vodplay' || $tab=='voddown') {
+                            if (empty($node->attributes->item(5))) {
+                                $nodeps1 = $doc->createAttribute("ps");
+                                $nodeps2 = $doc->createTextNode($ps);
+                                $nodeps1->appendChild($nodeps2);
+                                $node->appendChild($nodeps1);
+                            } else {
+                                $node->attributes->item(5)->nodeValue = $ps;
+                            }
+                            if (empty($node->attributes->item(6))) {
+                                $nodeparse1 = $doc->createAttribute("parse");
+                                $nodeparse2 = $doc->createTextNode($parse);
+                                $nodeparse1->appendChild($nodeparse2);
+                                $node->appendChild($nodeparse1);
+                            } else {
+                                $node->attributes->item(6)->nodeValue = $parse;
+                            }
+                        }
+
 						$node->getElementsByTagName("tip")->item(0)->nodeValue = "";
 						$node->getElementsByTagName("tip")->item(0)->appendChild($doc->createCDATASection($tip));
 						break;
@@ -220,7 +244,15 @@ elseif($ac=='savexml')
 				$nodedes1 =  $doc -> createAttribute("des");
 				$nodedes2 =  $doc -> createTextNode($des);
 				$nodedes1 -> appendChild($nodedes2);
-				
+
+                $nodeps1 =  $doc -> createAttribute("ps");
+                $nodeps2 =  $doc -> createTextNode($ps);
+                $nodeps1 -> appendChild($nodeps2);
+
+                $nodeparse1 =  $doc -> createAttribute("parse");
+                $nodeparse2 =  $doc -> createTextNode($parse);
+                $nodeparse1 -> appendChild($nodeparse2);
+
 				$nodetip1 = $doc -> createElement("tip");
 				$nodetip2 = $doc -> createCDATASection($tip);
 				$nodetip1 -> appendChild($nodetip2);
@@ -230,6 +262,9 @@ elseif($ac=='savexml')
 				$nodenew -> appendChild($nodefrom1);
 				$nodenew -> appendChild($nodeshow1);
 				$nodenew -> appendChild($nodedes1);
+                $nodenew -> appendChild($nodeps1);
+                $nodenew -> appendChild($nodeparse1);
+
 				$nodenew -> appendChild($nodetip1);
 				
 				$doc->getElementsByTagName($path."s")-> item(0)  -> appendChild($nodenew);

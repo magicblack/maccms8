@@ -21,6 +21,7 @@ $(function(){
     $('input[name="mac_second"]').val('5');
     $('input[name="mac_prestrain"]').val('//union.maccms.com/html/prestrain.html');
     $('input[name="mac_buffer"]').val('//union.maccms.com/html/buffer.html');
+    $('input[name="mac_parse"]').val('//api.maccms.com/parse/?url=');
     $('input[name="mac_autofull"]').eq(0).attr('checked', 'true');
     $('input[name="mac_showtop"]').eq(1).attr('checked', 'true');
     $('input[name="mac_showlist"]').eq(1).attr('checked', 'true');
@@ -93,6 +94,12 @@ function setColor(v)
       <td>
           <input name="mac_buffer" value="{mac_buffer}" size="70">
            <font color="#FF0000">＊</font>不要出现" ' 等特殊字符号</td>
+    </tr>
+    <tr>
+      <td>接口地址：</td>
+      <td>
+        <input name="mac_parse" value="{mac_parse}" size="70">
+        <font color="#FF0000">＊</font>不要出现" ' 等特殊字符号</td>
     </tr>
     <tr>
       <td>自动全屏播放：</td>

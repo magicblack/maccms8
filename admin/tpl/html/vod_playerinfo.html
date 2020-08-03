@@ -71,6 +71,21 @@ $(function(){
 	</select>
 	</td>
 	</tr>
+	<tr>
+		<td>接口状态：</td>
+		<td>
+			<select id="ps" name="ps" style="width:100px;">
+				<!-- BEGIN list_ps -->
+				<option value="{v}" {c}>{n}</option>
+				<!-- END list_ps -->
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>接口地址：</td>
+		<td><input id="parse" size="50" name="parse" value="{parse}" placeholder="独立接口地址，权重高于全局播放器设置的接口">
+		</td>
+	</tr>
     <tr>
      <td>排序：</td>
       <td><input id="sort" size="8" value="{sort}" name="sort" >

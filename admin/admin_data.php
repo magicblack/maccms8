@@ -52,6 +52,12 @@ else if($ac=='save')
 {
 	$tab = be("all","tab");
 	$flag = be("all","flag");
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+    
 	$upcache=false;
 	$ismake=false;
 	$js='';

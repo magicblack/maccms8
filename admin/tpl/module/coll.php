@@ -66,7 +66,7 @@ elseif($method=='info')
 	$backurl=getReferer();
 	
 	$colarr=$col_lect;
-	array_push($colarr,'flag','backurl');
+	array_push($colarr,'flag','backurl','__token__');
 	
 	if($flag=='edit'){
 		$row=$db->getRow('select * from {pre}collect where c_id='.$id);
@@ -82,6 +82,8 @@ elseif($method=='info')
 	
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $valarr['__token__'] = $_SESSION['__token__'];
 
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];

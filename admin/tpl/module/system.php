@@ -18,6 +18,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 if($method=='configsave')
 {
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	$tempcacheid= time();
 	$suffix = trim(be('post','app_suffix'));
 	if($suffix!='htm' && $suffix!='shtml') { $suffix='html'; }
@@ -48,8 +54,7 @@ if($method=='configsave')
 		alert('请输入后台登录安全码');
 		exit;
 	}
-	
-	
+
 	$config['site']['name'] = trim(be('post','site_name'));
 	$config['site']['installdir'] = trim(be('post','site_installdir'));
 	$config['site']['url'] = trim(be('post','site_url'));
@@ -151,6 +156,12 @@ if($method=='configsave')
 
 elseif($method=='configurlsave')
 {
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	$config = $MAC;
 	$config['view']['vodindex'] = intval(trim(be('post','view_vodindex')));
 	$config['view']['vodmap'] = intval(trim(be('post','view_vodmap')));
@@ -221,7 +232,11 @@ elseif($method=='configurlsave')
 elseif($method=='config')
 {
 	$plt->set_file('main', $ac.'_'.$method.'.html');
-	
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+    $plt->set_var('__token__', $token);
+
 	foreach($GLOBALS['MAC'] as $k1=>$v1){
 		foreach($GLOBALS['MAC'][$k1] as $k2=>$v2){
 			if($k1=='app' && $k2=='tj'){
@@ -339,7 +354,11 @@ elseif($method=='config')
 elseif($method=='configurl')
 {
 	$plt->set_file('main', $ac.'_'.$method.'.html');
-	
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+    $plt->set_var('__token__', $token);
+
 	foreach($GLOBALS['MAC'] as $k1=>$v1){
 		foreach($GLOBALS['MAC'][$k1] as $k2=>$v2){
 			if($k1=='app' && $k2=='tj'){
@@ -412,6 +431,12 @@ elseif($method=='configurl')
 
 elseif($method=='configplaysave')
 {
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	if( trim(be('post','mac_width'))=='' ){
 		alert('请输入播放器宽度');
 		exit;
@@ -489,7 +514,11 @@ elseif($method=='configplay')
 		$v = $valarr[$i];
 		$plt->set_var($n, $v );
 	}
-	
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+    $plt->set_var('__token__', $token);
+
 	$arr=array(
 		array('p'=>'mac','a'=>'autofull','c'=>$mac_autofull,'t'=>0),
 		array('p'=>'mac','a'=>'showtop','c'=>$mac_showtop,'t'=>0),
@@ -530,6 +559,12 @@ elseif($method=='configplay')
 
 elseif($method=='configconnectsave')
 {
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	$config = $MAC;
 	$config['connect']['qq']['status'] = intval(trim(be('post','qq_status')));
 	$config['connect']['qq']['id'] = trim(be('post','qq_id'));
@@ -554,7 +589,11 @@ elseif($method=='configconnectsave')
 elseif($method=='configconnect')
 {
 	$plt->set_file('main', $ac.'_'.$method.'.html');
-	
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+    $plt->set_var('__token__', $token);
+
 	foreach($MAC['connect'] as $k1=>$v1){
 		foreach($MAC['connect'][$k1] as $k2=>$v2){
 			$plt->set_var($k1.'_'.$k2,$v2);
@@ -597,6 +636,12 @@ elseif($method=='configconnect')
 
 elseif($method=='configapisave')
 {
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	$config = $MAC;
 	$auth = trim(be('post','vod_auth'));;
 	$auth_art = trim(be('post','art_auth'));;
@@ -636,7 +681,11 @@ elseif($method=='configapisave')
 elseif($method=='configapi')
 {
 	$plt->set_file('main', $ac.'_'.$method.'.html');
-	
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+    $plt->set_var('__token__', $token);
+
 	foreach($MAC['api'] as $k1=>$v1){
 		foreach($MAC['api'][$k1] as $k2=>$v2){
 			if($k2=='auth'){
@@ -696,6 +745,12 @@ elseif($method=='configapi')
 
 elseif($method=='configpaysave')
 {
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	$config = $MAC;
 	$config['pay']['app']['min'] = !is_numeric(be('post','app_min')) ? 10 : intval(trim(be('post','app_min')));
 	$config['pay']['app']['exc'] = !is_numeric(be('post','app_exc')) ? 1 : intval(trim(be('post','app_exc')));
@@ -712,6 +767,11 @@ elseif($method=='configpaysave')
 elseif($method=='configpay')
 {
 	$plt->set_file('main', $ac.'_'.$method.'.html');
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+    $plt->set_var('__token__', $token);
+
 	foreach($MAC['pay'] as $k1=>$v1){
 		foreach($MAC['pay'][$k1] as $k2=>$v2){
 			$plt->set_var($k1.'_'.$k2,$v2);
@@ -721,6 +781,12 @@ elseif($method=='configpay')
 
 elseif($method=='configcollectsave')
 {
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	$config = $MAC;
 	
 	$config['collect']['vod']['key'] = trim(be('post','vod_key'));
@@ -756,7 +822,11 @@ elseif($method=='configcollectsave')
 elseif($method=='configcollect')
 {
 	$plt->set_file('main', $ac.'_'.$method.'.html');
-	
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+    $plt->set_var('__token__', $token);
+
 	foreach($MAC['collect'] as $k1=>$v1){
 		foreach($MAC['collect'][$k1] as $k2=>$v2){
 			$plt->set_var($k1.'_'.$k2,$v2);
@@ -821,6 +891,12 @@ elseif($method=='configcollect')
 
 elseif($method=='configinterfacesave')
 {
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	$vodtype = be("post", "vodtype");
     $arttype = be("post", "arttype");
     
@@ -840,7 +916,11 @@ elseif($method=='configinterface')
 	$plt->set_file('main', $ac.'_'.$method.'.html');
 	$fc1 = file_get_contents("../inc/config/interface_vodtype.txt");
     $fc2 = file_get_contents("../inc/config/interface_arttype.txt");
-    
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+    $plt->set_var('__token__', $token);
+
     $colarr=array('vodtype','arttype','pass');
     $valarr=array($fc1,$fc2,$MAC['interface']['pass']);
     for($i=0;$i<count($colarr);$i++){
@@ -853,6 +933,12 @@ elseif($method=='configinterface')
 }
 
 elseif($method=='configweixinsave'){
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	$config = $MAC;
 	
 	$config['weixin']['duijie'] = trim(be('post','weixin_duijie'));
@@ -892,6 +978,11 @@ elseif($method=='configweixinsave'){
 
 elseif($method=='configweixin'){
 	$plt->set_file('main', $ac.'_'.$method.'.html');
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+    $plt->set_var('__token__', $token);
+
 	foreach($GLOBALS['MAC'] as $k1=>$v1){
 		foreach($GLOBALS['MAC'][$k1] as $k2=>$v2){
 			if($k1=='app' && $k2=='tj'){
@@ -942,10 +1033,14 @@ elseif($method=='configweixin'){
 	
 }
 
-	
 elseif($method=='timminginfo')
 {
 	$plt->set_file('main', $ac.'_'.$method.'.html');
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+    $plt->set_var('__token__', $token);
+
 	$xp = '../inc/config/timmingset.xml';
 	
 	$flag=empty($p['name']) ? 'add' : 'edit';
@@ -1120,7 +1215,13 @@ elseif($method=='configpsesave')
 {
 	$flag = be("post","flag");
 	if(empty($flag)){$flag='vod'; }
-	
+
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	$psernd = be("post", "psernd");
     $psesyn = be("post", "psesyn");
     @fwrite(fopen('../inc/config/pse_'.$flag.'rnd.txt','wb'),$psernd);
@@ -1133,6 +1234,11 @@ elseif($method=='configpse')
 	$flag = $p['flag'];
 	if(empty($flag)){$flag='vod'; }
 	$plt->set_file('main', $ac.'_'.$method.'.html');
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+    $plt->set_var('__token__', $token);
+
 	$psernd = @file_get_contents('../inc/config/pse_'.$flag.'rnd.txt');
 	$psesyn = @file_get_contents('../inc/config/pse_'.$flag.'syn.txt');
 	$colarr=array('psernd','psesyn','flag');

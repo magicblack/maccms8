@@ -149,9 +149,12 @@ elseif($method=='info')
 		$filecontent = htmlspecialchars(@file_get_contents($file));
 		$readonly = 'readonly';
 	}
-	
-	$colarr=array('backurl','filename','filecontent','path','file','readonly');
-	$valarr=array($backurl,$filename,$filecontent,$path,$file,$readonly);
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+
+	$colarr=array('backurl','filename','filecontent','path','file','readonly','__token__');
+	$valarr=array($backurl,$filename,$filecontent,$path,$file,$readonly,$token);
 	for($i=0;$i<count($colarr);$i++){
 		$plt->set_var($colarr[$i],$valarr[$i]);
 	}
@@ -171,7 +174,11 @@ elseif($method=='save')
         showErr('System','为了系统安全在线编辑模板不允许模板中出现php代码和if标签');
         return;
     }
-
+    $token = be('post','__token__');
+	if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
 	if(empty($path)){
 		if (substring($file,11)!='../template' || count( explode('../',$file) ) > 2) {
 			showErr('System','非法目录请求');
@@ -268,8 +275,13 @@ elseif($method=='adsinfo')
 		$readonly = 'readonly="readonly"';
 	}
 	$plt->set_file('main', $ac.'_'.$method.'.html');
-	$colarr=array('readonly','backurl','file','filecontent');
-	$valarr=array($readonly,$backurl,$file,$filecontent);
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+
+
+	$colarr=array('readonly','backurl','file','filecontent','__token__');
+	$valarr=array($readonly,$backurl,$file,$filecontent,$token);
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];
 		$v = $valarr[$i];
@@ -297,6 +309,12 @@ elseif($method=='adssave')
 	$path = '../template/'.$MAC['site']['templatedir'] .'/'.$MAC['site']['adsdir'].'/';
 	$file = be('post','file');
 	$filecontent = stripslashes(be('post','filecontent'));
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	if(!is_dir($path)){
 		mkdir($path);
 	}

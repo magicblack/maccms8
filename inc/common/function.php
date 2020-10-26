@@ -237,7 +237,7 @@ function getRndNum($length)
 {
 	$pattern = "1234567890";
 	for($i=0; $i<$length; $i++){
-		$res .= $pattern{mt_rand(0,10)};
+		$res .= $pattern[mt_rand(0,10)];
 	}
 	return $res;
 }
@@ -251,7 +251,7 @@ function getRndStr($length)
 {
 	$pattern = "1234567890ABCDEFGHIJKLOMNOPQRSTUVWXYZ";
 	for($i=0; $i<$length; $i++){
-		$res .= $pattern{mt_rand(0,36)};
+		$res .= $pattern[mt_rand(0,36)];
 	}
 	return $res;
 }
@@ -300,14 +300,23 @@ function mkdirs($path)
 
 function getIP()
 {
-	if(!empty($_SERVER["HTTP_CLIENT_IP"])){
+	if(!empty($_SERVER["REMOTE_ADDR"])){
+		$cip = $_SERVER["REMOTE_ADDR"];
+	}
+	elseif(!empty($_SERVER["HTTP_CLIENT_IP"])){
 		$cip = $_SERVER["HTTP_CLIENT_IP"];
 	}
 	else if(!empty($_SERVER["HTTP_X_FORWARDED_FOR"])){
 		$cip = $_SERVER["HTTP_X_FORWARDED_FOR"];
 	}
-	else if(!empty($_SERVER["REMOTE_ADDR"])){
-		$cip = $_SERVER["REMOTE_ADDR"];
+	else if(!empty($_SERVER["HTTP_X_FORWARDED"])){
+		$cip = $_SERVER["HTTP_X_FORWARDED"];
+	}
+	else if(!empty($_SERVER["HTTP_FORWARDED_FOR"])){
+		$cip = $_SERVER["HTTP_FORWARDED_FOR"];
+	}
+	else if(!empty($_SERVER["HTTP_FORWARDED"])){
+		$cip = $_SERVER["HTTP_FORWARDED"];
 	}
 	else{
 		$cip = '0.0.0.0';
@@ -1703,7 +1712,7 @@ function getVUrl($u)
 }
 
 function getTag($title,$content){
-	$url =  base64_decode('aHR0cDovL2FwaS5tYWNjbXMuY29t').'/keyword/index?txt='.rawurlencode($title).rawurlencode(substring(strip_tags($content),200));
+	$url =  base64_decode('aHR0cDovL2FwaS5tYWNjbXMuY29t').'/keyword/index?name='.rawurlencode($title).'&txt='.rawurlencode($title).rawurlencode(substring(strip_tags($content),200));
 	$data = getPage($url,'utf-8');
 	$json = @json_decode($data,true);
 	if($json){

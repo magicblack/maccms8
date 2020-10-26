@@ -113,7 +113,7 @@ elseif($method=='typeinfo')
 	$backurl=getReferer();
 	
 	$colarr=$col_type;
-	array_push($colarr,'flag','backurl');
+	array_push($colarr,'flag','backurl','__token__');
 	$valarr['t_tpl']='art_type.html';
 	$valarr['t_tpl_list']='art_list.html';
 	$valarr['t_tpl_art']='art_detail.html';
@@ -134,6 +134,8 @@ elseif($method=='typeinfo')
 	}
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $valarr['__token__'] = $_SESSION['__token__'];
 	
 	$rn='ptype';
 	$plt->set_block('main', 'list_'.$rn, 'rows_'.$rn);
@@ -215,7 +217,7 @@ elseif($method=='topicinfo')
 	$backurl=getReferer();
 	
 	$colarr=$col_topic;
-	array_push($colarr,'flag','backurl');
+	array_push($colarr,'flag','backurl','__token__');
 	$valarr['t_tpl']='art_topiclist.html';
 	
 	if($flag=='edit'){
@@ -234,6 +236,8 @@ elseif($method=='topicinfo')
 	}
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $valarr['__token__'] = $_SESSION['__token__'];
 	
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];
@@ -535,7 +539,7 @@ elseif($method=='info')
 	$backurl=getReferer();
 	
 	$colarr=$col_art;
-	array_push($colarr,'flag','backurl');
+	array_push($colarr,'flag','backurl','__token__');
 	
 	if($flag=='edit'){
 		$row=$db->getRow('select * from {pre}art where a_id='.$id);
@@ -551,6 +555,9 @@ elseif($method=='info')
 	
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $valarr['__token__'] = $_SESSION['__token__'];
+
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];
 		$v = $valarr[$n];

@@ -152,7 +152,12 @@ elseif($ac=='savexml')
 	$tab = be("all","tab");
 	$flag = be("all","flag");
 	$backurl = be("all","backurl");
-	
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	$cache=true;
 	$doc = new DOMDocument();
 	$doc -> formatOutput = true;

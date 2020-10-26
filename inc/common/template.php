@@ -2082,7 +2082,7 @@ class AppTpl
     
     function getUrlInfo($flag)
 	{
-	    $res= "var mac_flag='".$flag."',mac_link='".$this->getLink('vod',$flag,$this->T,$this->D)."', mac_name='".str_replace("'","\'",$this->D['d_name'])."',mac_from='".$this->D['d_'.$flag.'from']."',mac_server='".$this->D['d_'.$flag.'server']."',mac_note='".$this->D['d_'.$flag.'note']."',mac_url={list}";
+	    $res= "var mac_flag='".$flag."',mac_link='".$this->getLink('vod',$flag,$this->T,$this->D)."', mac_name='".str_replace("'","\'",$this->D['d_name'])."',mac_from='".$this->D['d_'.$flag.'from']."',mac_server='".$this->D['d_'.$flag.'server']."',mac_note='".$this->D['d_'.$flag.'note']."',mac_urlx10d26={list}";
 	    
 	    $url = str_replace("'","\'",$this->D['d_'.$flag.'url']);
 	    if ($GLOBALS['MAC']['app']['encrypt'] == 1){

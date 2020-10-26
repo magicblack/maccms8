@@ -63,7 +63,7 @@ elseif($method=='managerinfo')
 	$backurl=getReferer();
 	
 	$colarr=$col_manager;
-	array_push($colarr,'flag','backurl');
+	array_push($colarr,'flag','backurl','__token__');
 	
 	if($flag=='edit'){
 		$row=$db->getRow('select * from {pre}manager where m_id='.$m_id);
@@ -79,7 +79,8 @@ elseif($method=='managerinfo')
 	
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
-	
+    $_SESSION['__token__'] = md5(getRndStr(16));
+	$valarr['__token__'] = $_SESSION['__token__'];
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];
 		$v = $valarr[$n];
@@ -176,7 +177,7 @@ elseif($method=='groupinfo')
 	$backurl=getReferer();
 	
 	$colarr=$col_group;
-	array_push($colarr,'flag','backurl');
+	array_push($colarr,'flag','backurl','__token__');
 	
 	if($flag=='edit'){
 		$row=$db->getRow('select * from {pre}user_group where ug_id='.$ug_id);
@@ -192,6 +193,8 @@ elseif($method=='groupinfo')
 	
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $valarr['__token__'] = $_SESSION['__token__'];
 	
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];
@@ -361,7 +364,7 @@ elseif($method=='info')
 	$backurl=getReferer();
 	
 	$colarr=$col_user;
-	array_push($colarr,'flag','backurl','u_starttime','u_endtime','u_startip','u_endip');
+	array_push($colarr,'flag','backurl','u_starttime','u_endtime','u_startip','u_endip','__token__');
 	
 	if($flag=='edit'){
 		$row=$db->getRow('select * from {pre}user where u_id='.$id);
@@ -377,6 +380,8 @@ elseif($method=='info')
 	
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $valarr['__token__'] = $_SESSION['__token__'];
 	
 	if($valarr['u_flag']==1){
 		

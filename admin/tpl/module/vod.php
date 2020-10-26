@@ -121,7 +121,7 @@ elseif($method=='typeinfo')
 	$backurl=getReferer();
 	
 	$colarr=$col_type;
-	array_push($colarr,'flag','backurl');
+	array_push($colarr,'flag','backurl','__token__');
 	
 	$valarr['t_tpl']='vod_type.html';
 	$valarr['t_tpl_list']='vod_list.html';
@@ -144,7 +144,8 @@ elseif($method=='typeinfo')
 	}
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
-	
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $valarr['__token__'] = $_SESSION['__token__'];
 	
 	$rn='ptype';
 	$plt->set_block('main', 'list_'.$rn, 'rows_'.$rn);
@@ -266,7 +267,7 @@ elseif($method=='classinfo')
 	$backurl=getReferer();
 	
 	$colarr=$col_class;
-	array_push($colarr,'flag','backurl');
+	array_push($colarr,'flag','backurl','__token__');
 	
 	if($flag=='edit'){
 		$row=$db->getRow('select * from {pre}vod_class where c_id='.$c_id);
@@ -283,8 +284,9 @@ elseif($method=='classinfo')
 	}
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
-	
-	
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $valarr['__token__'] = $_SESSION['__token__'];
+
 	$rn='ptype';
 	$plt->set_block('main', 'list_'.$rn, 'rows_'.$rn);
 	foreach($MAC_CACHE['vodtype'] as $a){
@@ -365,7 +367,7 @@ elseif($method=='topicinfo')
 	$backurl=getReferer();
 	
 	$colarr=$col_topic;
-	array_push($colarr,'flag','backurl');
+	array_push($colarr,'flag','backurl','__token__');
 	
 	$valarr['t_tpl']='vod_topiclist.html';
 	
@@ -384,7 +386,9 @@ elseif($method=='topicinfo')
 	}
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
-	
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $valarr['__token__'] = $_SESSION['__token__'];
+
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];
 		$v = $valarr[$n];
@@ -562,9 +566,12 @@ elseif($method=='serverinfo')
     	unset($nodes);
     	unset($doc);
 	}
-	
-	$colarr=array('flag','backurl','status','sort','from','show','des','tip');
-	$valarr=array($flag,$backurl,$status,$sort,$from,$show,$des,$tip);
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+
+	$colarr=array('flag','backurl','status','sort','from','show','des','tip','__token__');
+	$valarr=array($flag,$backurl,$status,$sort,$from,$show,$des,$tip,$token);
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];
 		$v = $valarr[$i];
@@ -722,9 +729,12 @@ elseif($method=='playerinfo')
     	unset($nodes);
     	unset($doc);
 	}
-	
-	$colarr=array('flag','backurl','status','sort','from','show','des','ps','parse','tip');
-	$valarr=array($flag,$backurl,$status,$sort,$from,$show,$des,$ps,$parse,$tip);
+
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $token = $_SESSION['__token__'];
+
+	$colarr=array('flag','backurl','status','sort','from','show','des','ps','parse','tip','__token__');
+	$valarr=array($flag,$backurl,$status,$sort,$from,$show,$des,$ps,$parse,$tip,$token);
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];
 		$v = $valarr[$i];
@@ -1318,7 +1328,7 @@ elseif($method=='info')
 	$backurl=getReferer();
 	
 	$colarr=$col_vod;
-	array_push($colarr,'flag','backurl');
+	array_push($colarr,'flag','backurl','__token__');
 	
 	if($flag=='edit'){
 		$row=$db->getRow('select * from {pre}vod where d_id='.$id);
@@ -1333,6 +1343,9 @@ elseif($method=='info')
 	}
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $valarr['__token__'] = $_SESSION['__token__'];
+
 	if($valarr['d_time']!=''){ $valarr['d_time']=date('Y-m-d H:i:s',$valarr['d_time']); }
 	
 	for($i=0;$i<count($colarr);$i++){

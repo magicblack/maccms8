@@ -2,7 +2,7 @@
 define('MAC_ADMIN', preg_replace("|[/\\\]{1,}|",'/',dirname(__FILE__) ) );
 require(MAC_ADMIN."/../inc/conn.php");
 require(MAC_ADMIN.'/../inc/common/phplib.php');
-define('MAC_VERSION','2020.1023');
+define('MAC_VERSION','2020.1024');
 define('MAC_MODULE','admin');
 
 if(strpos($_SERVER["SCRIPT_NAME"],'/admin/')>0){
@@ -11,7 +11,6 @@ if(strpos($_SERVER["SCRIPT_NAME"],'/admin/')>0){
 }
 
 $MAC['upload']['filter'] = '*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.zip;*.rar;*.txt;*.torrent';
-
 getDbConnect();
 
 function chkLogin()
@@ -40,7 +39,7 @@ function chkLogin2()
 	if (!empty($m_name) && !is_numeric($m_id)){
 		$row = $db->getRow('SELECT * FROM {pre}manager WHERE m_name=\'' . $m_name .'\' AND m_id= \''.$m_id .'\' AND m_status=1');
 		if($row){
-			$loginValidate = md5($row['m_random'] . $row['m_name'] . $row['m_id']);
+			$loginValidate = md5($row['m_random'] . '-'.$row['m_name'] .'-'. $row['m_id'].'-'.getIP());
 			if ($m_check != $loginValidate){ 
 			   sCookie ('admincheck','');
 			   redirect($index.'?m=admin-login','top.');

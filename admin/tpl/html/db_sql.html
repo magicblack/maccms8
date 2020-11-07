@@ -20,7 +20,9 @@ $(function(){
 </script>
 </head>
 <body>
-<form action="?m=db-sqlexe" method="post" name="form1" id="form1"><table class="tb">
+<form action="?m=db-sqlexe" method="post" name="form1" id="form1">
+    <input id="__token__" name="__token__" type="hidden" value="{__token__}">
+    <table class="tb">
 <tr><td><textarea name="sql" type="text" id="sql" rows="20" style="width:100%"></textarea></td></tr><tr><td><input class="input" type="submit" value="执行" name="Submit"></td></tr><tr><td valign="top" ><strong><br>常用语句对照<br></strong><br><strong>1.查询数据</strong><br>
 SELECT * FROM {pre}vod&nbsp;&nbsp; 查询所有数据<br>
 SELECT * FROM {pre}vod WHERE d_id=1000&nbsp;&nbsp; 查询指定ID数据<br>

@@ -252,9 +252,7 @@ else if($ac=='save')
 			$colarr = array("ug_name","ug_type","ug_popedom","ug_upgrade","ug_popvalue");
 			for($i=0;$i<count($colarr);$i++){
 				$n=$colarr[$i];
-				if($n!='ug_type' && $n!='ug_popedom'){
-					$valarr[$n]=be("all",$n);
-				}
+				$valarr[$n]=be("all",$n);
 			}
 			
 			$str=be("arr","ug_type");
@@ -283,7 +281,7 @@ else if($ac=='save')
 			$valarr['ug_popedom'] = $ug_popedom;
 			$valarr['ug_upgrade'] = intval( $valarr['ug_upgrade']);
 			$valarr['ug_popvalue'] = intval( $valarr['ug_popvalue']);
-			
+
 			$where = "ug_id=".$id;
 			$upcache=true;
 			break;

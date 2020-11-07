@@ -9,12 +9,20 @@ $backurl=getReferer();
 
 if($method=='sql')
 {
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $plt->set_var('__token__',$_SESSION['__token__']);
 	$plt->set_file('main', $ac.'_'.$method.'.html');
 	
 }
 
 elseif($method=='sqlexe')
 {
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	$rn='sql';
 	$plt->set_file('main', $ac.'_'.$method.'.html');
 	
@@ -69,6 +77,9 @@ elseif($method=='sqlexe')
 
 elseif($method=='datarep')
 {
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $plt->set_var('__token__',$_SESSION['__token__']);
+
 	$plt->set_file('main', $ac.'_'.$method.'.html');
 	
 	$colarr=array('v','n');
@@ -97,6 +108,12 @@ elseif($method=='datarep')
 
 elseif($method=='datarepexe')
 {
+    $token = be('post','__token__');
+    if($token != $_SESSION['__token__']){
+        showErr('System','token失效请刷新页面重试');
+        return;
+    }
+
 	$page = intval($p['pg']);
 	if ($page < 1) { $page = 1; }
 	

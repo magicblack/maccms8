@@ -438,6 +438,9 @@ elseif($method=='info')
 
 elseif($method=='card')
 {
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $plt->set_var('__token__',$_SESSION['__token__']);
+
 	$plt->set_file('main', $ac.'_'.$method.'.html');
 	$page = intval($p['pg']);
 	if ($page < 1) { $page = 1; }

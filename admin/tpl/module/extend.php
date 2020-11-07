@@ -422,8 +422,8 @@ elseif($method=='linkinfo')
 	
 	$plt->set_file('main', $ac.'_'.$method.'.html');
 	$colarr=$col_link;
-	array_push($colarr,'flag','backurl','l_type_c0','l_type_c1');
-	
+	array_push($colarr,'flag','backurl','l_type_c0','l_type_c1','__token__');
+
 	if($flag=='edit'){
 		$row=$db->getRow('select * from {pre}link where l_id='.$l_id);
 		if($row){
@@ -441,7 +441,9 @@ elseif($method=='linkinfo')
 	$valarr['l_type_c1'] = $l_type_c1;
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
-	
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $valarr['__token__'] = $_SESSION['__token__'];
+
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];
 		$v = $valarr[$n];
@@ -566,8 +568,8 @@ elseif($method=='gbookinfo')
 	
 	$plt->set_file('main', $ac.'_'.$method.'.html');
 	$colarr=$col_gbook;
-	array_push($colarr,'flag','backurl');
-	
+	array_push($colarr,'flag','backurl','__token__');
+
 	if($flag=='edit'){
 		$row=$db->getRow('select * from {pre}gbook where g_id='.$g_id);
 		if($row){
@@ -581,7 +583,9 @@ elseif($method=='gbookinfo')
 	}
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
-	
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $valarr['__token__'] = $_SESSION['__token__'];
+
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];
 		$v = $valarr[$n];
@@ -686,8 +690,8 @@ elseif($method=='commentinfo')
 	
 	$plt->set_file('main', $ac.'_'.$method.'.html');
 	$colarr=$col_comment;
-	array_push($colarr,'flag','backurl');
-	
+	array_push($colarr,'flag','backurl','__token__');
+
 	if($flag=='edit'){
 		$row=$db->getRow('select * from {pre}comment where c_id='.$c_id);
 		if($row){
@@ -701,6 +705,9 @@ elseif($method=='commentinfo')
 	}
 	$valarr['flag']=$flag;
 	$valarr['backurl']=$backurl;
+    $_SESSION['__token__'] = md5(getRndStr(16));
+    $valarr['__token__'] = $_SESSION['__token__'];
+
 	for($i=0;$i<count($colarr);$i++){
 		$n = $colarr[$i];
 		$v = $valarr[$n];

@@ -327,471 +327,106 @@ elseif($method=='bak')
 
 elseif($method=='inspect')
 {
-    if($_SERVER['REQUEST_METHOD']=="POST"){
-
+    $ck = be('all','ck');
+    if(empty($ck)){
+        $ck = $p['ck'];
+    }
+    if($ck!=''){
         echo '<style type="text/css">body{font-size:12px;color: #333333;line-height:21px;}span{font-weight:bold;color:#FF0000}</style>';
         ob_flush();flush();
+
+        $sql = 'select * from information_schema.columns where table_schema =\''.$GLOBALS['MAC']['db']['name'].'\' ';
+        $schema = $db->queryArray($sql);
+
+        $col_list = array();
+        $sql='';
+        $pre = $GLOBALS['MAC']['db']['tablepre'];
+        foreach($schema as $k=>$v){
+            $col_list[$v['TABLE_NAME']][$v['COLUMN_NAME']] = $v;
+        }
+
+        $tables = array('art','art_topic','art_type','comment','gbook','link','user','vod','vod_class','vod_topic','vod_type');
+        $cols = array('a','t','t','c','g','l','u','d','c','t','t');
+
+        $tbi = intval($p['tbi']);
+        if ($tbi >= count($tables)) {
+            echo '清理结束,可以多次执行,以免有漏掉的数据<br>';
+            die;
+        }
 
         $check_arr = array('{if-','eval(','func','base64_',"script>");
         $rel_val = array("/\{if-(.*?)endif-(.*?)\}/is","/eval\((.*?)\)/is","/func(.*?)\)/is","/base64_(.*?)\)/is","/<script[\s\S]*?<\/script>/is",);
 
-        echo "<font color='red'>开始检测文章分类表...</font><br>";
-        foreach($check_arr as $k1=>$v1){
-            $tab='{pre}art_type';
-            $col_id = 't_id';
-            $col_name ='t_name';
-            $col_arr = array('t_name','t_enname','t_key','t_des','t_title','t_union','t_tpl','t_tpl_art');
-            $col_str = join(',',$col_arr);
 
-            $sql= "select $col_id,$col_str from $tab where ";
-            $rc=false;
-            foreach($col_arr as $b){
-                if($rc){ $sql.=' or '; }
-                $sql .= $b." like '%" . $v1 ."%'";
-                $rc=true;
-            }
-            $sql = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql);
-            echo $sql.'<br>';
-            $rs = $db->queryArray($sql);
-            if(!$rs){
-                echo '未发现<br>';
+        foreach ($col_list as $k1 => $v1) {
+            $pre_tb = str_replace($pre, '', $k1);
+            $si = array_search($pre_tb, $tables);
+
+            if ($pre_tb !== $tables[$tbi]){
                 continue;
             }
-            foreach ($rs as $k2=>$v2){
-                $id = $v2[$col_id];
-                $name = $v2[$col_name];
-                foreach($col_arr as $b){
-                    $v2[$b] = preg_replace( $rel_val[$k1],"",$v2[$b]);
-                    $v2[$b] = str_replace( array("'","\\"),"",$v2[$b]);
-                }
-                $where = "$col_id=".$id;
-                unset($v2[$col_id]);
-                $db->Update($tab,$col_arr,$v2,$where,1);
-                echo $id.'、'. $name .' ok<br>';
-                ob_flush();flush();
-            }
-        }
 
-
-        echo "<font color='red'>开始检测视频分类表...</font><br>";
-        foreach($check_arr as $k1=>$v1){
-            $tab='{pre}vod_type';
-            $col_id = 't_id';
-            $col_name ='t_name';
-            $col_arr = array('t_name','t_enname','t_key','t_des','t_title','t_union','t_tpl','t_tpl_list','t_tpl_vod','t_tpl_play','t_tpl_down');
-            $col_str = join(',',$col_arr);
-
-            $sql= "select $col_id,$col_str from $tab where ";
-            $rc=false;
-            foreach($col_arr as $b){
-                if($rc){ $sql.=' or '; }
-                $sql .= $b." like '%" . $v1 ."%'";
-                $rc=true;
-            }
-            $sql = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql);
-            echo $sql.'<br>';
-            $rs = $db->queryArray($sql);
-            if(!$rs){
-                echo '未发现<br>';
-                continue;
-            }
-            foreach ($rs as $k2=>$v2){
-                $id = $v2[$col_id];
-                $name = $v2[$col_name];
-                foreach($col_arr as $b){
-                    $v2[$b] = preg_replace( $rel_val[$k1],"",$v2[$b]);
-                    $v2[$b] = str_replace( array("'","\\"),"",$v2[$b]);
-                }
-                $where = "$col_id=".$id;
-                unset($v2[$col_id]);
-                $db->Update($tab,$col_arr,$v2,$where,1);
-                echo $id.'、'. $name .' ok<br>';
-                ob_flush();flush();
-            }
-        }
-
-
-        echo "<font color='red'>开始检测文章专题表...</font><br>";
-        foreach($check_arr as $k1=>$v1){
-            $tab='{pre}art_topic';
-            $col_id = 't_id';
-            $col_name ='t_name';
-            $col_arr = array('t_name','t_enname','t_tpl','t_pic','t_content','t_key','t_des','t_title');
-            $col_str = join(',',$col_arr);
-
-            $sql= "select $col_id,$col_str from $tab where ";
-            $rc=false;
-            foreach($col_arr as $b){
-                if($rc){ $sql.=' or '; }
-                $sql .= $b." like '%" . $v1 ."%'";
-                $rc=true;
-            }
-            $sql = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql);
-            echo $sql.'<br>';
-            $rs = $db->queryArray($sql);
-            if(!$rs){
-                echo '未发现<br>';
-                continue;
-            }
-            foreach ($rs as $k2=>$v2){
-                $id = $v2[$col_id];
-                $name = $v2[$col_name];
-                foreach($col_arr as $b){
-                    $v2[$b] = preg_replace( $rel_val[$k1],"",$v2[$b]);
-                    $v2[$b] = str_replace( array("'","\\"),"",$v2[$b]);
-                }
-                $where = "$col_id=".$id;
-                unset($v2[$col_id]);
-                $db->Update($tab,$col_arr,$v2,$where,1);
-                echo $id.'、'. $name .' ok<br>';
-                ob_flush();flush();
-            }
-        }
-
-
-        echo "<font color='red'>开始检测视频专题表...</font><br>";
-        foreach($check_arr as $k1=>$v1){
-            $tab='{pre}vod_topic';
-            $col_id = 't_id';
-            $col_name ='t_name';
-            $col_arr = array('t_name','t_enname','t_tpl','t_pic','t_content','t_key','t_des','t_title');
-            $col_str = join(',',$col_arr);
-
-            $sql= "select $col_id,$col_str from $tab where ";
-            $rc=false;
-            foreach($col_arr as $b){
-                if($rc){ $sql.=' or '; }
-                $sql .= $b." like '%" . $v1 ."%'";
-                $rc=true;
-            }
-            $sql = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql);
-            echo $sql.'<br>';
-            $rs = $db->queryArray($sql);
-            if(!$rs){
-                echo '未发现<br>';
-                continue;
-            }
-            foreach ($rs as $k2=>$v2){
-                $id = $v2[$col_id];
-                $name = $v2[$col_name];
-                foreach($col_arr as $b){
-                    $v2[$b] = preg_replace( $rel_val[$k1],"",$v2[$b]);
-                    $v2[$b] = str_replace( array("'","\\"),"",$v2[$b]);
-                }
-                $where = "$col_id=".$id;
-                unset($v2[$col_id]);
-                $db->Update($tab,$col_arr,$v2,$where,1);
-                echo $id.'、'. $name .' ok<br>';
-                ob_flush();flush();
-            }
-        }
-
-
-        echo "<font color='red'>开始检测视频扩展分类表...</font><br>";
-        foreach($check_arr as $k1=>$v1){
-            $tab='{pre}vod_class';
-            $col_id = 'c_id';
-            $col_name ='c_name';
-            $col_arr = array('c_name');
-            $col_str = join(',',$col_arr);
-
-            $sql= "select $col_id,$col_str from $tab where ";
-            $rc=false;
-            foreach($col_arr as $b){
-                if($rc){ $sql.=' or '; }
-                $sql .= $b." like '%" . $v1 ."%'";
-                $rc=true;
-            }
-            $sql = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql);
-            echo $sql.'<br>';
-            $rs = $db->queryArray($sql);
-            if(!$rs){
-                echo '未发现<br>';
-                continue;
-            }
-            foreach ($rs as $k2=>$v2){
-                $id = $v2[$col_id];
-                $name = $v2[$col_name];
-                foreach($col_arr as $b){
-                    $v2[$b] = preg_replace( $rel_val[$k1],"",$v2[$b]);
-                    $v2[$b] = str_replace( array("'","\\"),"",$v2[$b]);
-                }
-                $where = "$col_id=".$id;
-                unset($v2[$col_id]);
-                $db->Update($tab,$col_arr,$v2,$where,1);
-                echo $id.'、'. $name .' ok<br>';
-                ob_flush();flush();
-            }
-        }
-
-
-        echo "<font color='red'>开始检测评论表...</font><br>";
-        foreach($check_arr as $k1=>$v1){
-            $tab='{pre}comment';
-            $col_id = 'c_id';
-            $col_name ='c_name';
-            $col_arr = array('c_name','c_ip','c_content');
-            $col_str = join(',',$col_arr);
-
-            $sql= "select $col_id,$col_str from $tab where ";
-            $rc=false;
-            foreach($col_arr as $b){
-                if($rc){ $sql.=' or '; }
-                $sql .= $b." like '%" . $v1 ."%'";
-                $rc=true;
-            }
-            $sql = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql);
-            echo $sql.'<br>';
-            $rs = $db->queryArray($sql);
-            if(!$rs){
-                echo '未发现<br>';
-                continue;
-            }
-            foreach ($rs as $k2=>$v2){
-                $id = $v2[$col_id];
-                $name = $v2[$col_name];
-                foreach($col_arr as $b){
-                    $v2[$b] = preg_replace( $rel_val[$k1],"",$v2[$b]);
-                    $v2[$b] = str_replace( array("'","\\"),"",$v2[$b]);
-                }
-                $where = "$col_id=".$id;
-                unset($v2[$col_id]);
-                $db->Update($tab,$col_arr,$v2,$where,1);
-                echo $id.'、'. $name .' ok<br>';
-                ob_flush();flush();
-            }
-        }
-
-
-
-        echo "<font color='red'>开始检测留言表...</font><br>";
-        foreach($check_arr as $k1=>$v1){
-            $tab='{pre}gbook';
-            $col_id = 'g_id';
-            $col_name ='g_name';
-            $col_arr = array('g_name','g_content','g_reply');
-            $col_str = join(',',$col_arr);
-
-            $sql= "select $col_id,$col_str from $tab where ";
-            $rc=false;
-            foreach($col_arr as $b){
-                if($rc){ $sql.=' or '; }
-                $sql .= $b." like '%" . $v1 ."%'";
-                $rc=true;
-            }
-            $sql = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql);
-            echo $sql.'<br>';
-            $rs = $db->queryArray($sql);
-            if(!$rs){
-                echo '未发现<br>';
-                continue;
-            }
-            foreach ($rs as $k2=>$v2){
-                $id = $v2[$col_id];
-                $name = $v2[$col_name];
-                foreach($col_arr as $b){
-                    $v2[$b] = preg_replace( $rel_val[$k1],"",$v2[$b]);
-                    $v2[$b] = str_replace( array("'","\\"),"",$v2[$b]);
-                }
-                $where = "$col_id=".$id;
-                unset($v2[$col_id]);
-                $db->Update($tab,$col_arr,$v2,$where,1);
-                echo $id.'、'. $name .' ok<br>';
-                ob_flush();flush();
-            }
-        }
-
-
-        echo "<font color='red'>开始检测友情链接表...</font><br>";
-        foreach($check_arr as $k1=>$v1){
-            $tab='{pre}link';
-            $col_id = 'l_id';
-            $col_name ='l_name';
-            $col_arr = array('l_name','l_url','l_logo');
-            $col_str = join(',',$col_arr);
-
-            $sql= "select $col_id,$col_str from $tab where ";
-            $rc=false;
-            foreach($col_arr as $b){
-                if($rc){ $sql.=' or '; }
-                $sql .= $b." like '%" . $v1 ."%'";
-                $rc=true;
-            }
-            $sql = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql);
-            echo $sql.'<br>';
-            $rs = $db->queryArray($sql);
-            if(!$rs){
-                echo '未发现<br>';
-                continue;
-            }
-            foreach ($rs as $k2=>$v2){
-                $id = $v2[$col_id];
-                $name = $v2[$col_name];
-                foreach($col_arr as $b){
-                    $v2[$b] = preg_replace( $rel_val[$k1],"",$v2[$b]);
-                    $v2[$b] = str_replace( array("'","\\"),"",$v2[$b]);
-                }
-                $where = "$col_id=".$id;
-                unset($v2[$col_id]);
-                $db->Update($tab,$col_arr,$v2,$where,1);
-                echo $id.'、'. $name .' ok<br>';
-                ob_flush();flush();
-            }
-        }
-
-        echo "<font color='red'>开始检测用户表...</font><br>";
-        foreach($check_arr as $k1=>$v1){
-            $tab='{pre}user';
-            $col_id = 'u_id';
-            $col_name ='u_name';
-            $col_arr = array('u_name','u_qid','u_password','u_qq','u_email','u_phone','u_question','u_answer','u_random','u_fav','u_plays');
-            $col_str = join(',',$col_arr);
-
-            $sql= "select $col_id,$col_str from $tab where ";
-            $rc=false;
-            foreach($col_arr as $b){
-                if($rc){ $sql.=' or '; }
-                $sql .= $b." like '%" . $v1 ."%'";
-                $rc=true;
-            }
-            $sql = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql);
-            echo $sql.'<br>';
-            $rs = $db->queryArray($sql);
-            if(!$rs){
-                echo '未发现<br>';
-                continue;
-            }
-            foreach ($rs as $k2=>$v2){
-                $id = $v2[$col_id];
-                $name = $v2[$col_name];
-                
-                foreach($col_arr as $b){
-                    $v2[$b] = preg_replace( $rel_val[$k1],"",$v2[$b]);
-                    $v2[$b] = str_replace( array("'","\\"),"",$v2[$b]);
-                }
-                
-                $where = "$col_id=".$id;
-                unset($v2[$col_id]);
-                
-                $db->Update($tab,$col_arr,$v2,$where,1);
-                echo $id.'、'. $name .' ok<br>';
-                ob_flush();flush();
-            }
-        }
-
-        echo "<font color='red'>开始检测文章表...</font><br>";
-        foreach($check_arr as $k1=>$v1){
-            $tab='{pre}art';
-            $col_id = 'a_id';
-            $col_name ='a_name';
-            $col_arr = array('a_name','a_subname','a_enname','a_from','a_author','a_tag','a_pic','a_topic','a_remarks','a_content');
-            $col_str = join(',',$col_arr);
-
-            $sql= "select $col_id,$col_str from $tab where ";
-            $sql2 = "select count(*) from $tab where ";
-            
-            $rc=false;
-            foreach($col_arr as $b){
-                if($rc){ $sql.=' or '; $sql2 .=' or '; }
-                $sql .= $b." like '%" . $v1 ."%'";
-                $sql2 .= $b." like '%" . $v1 ."%'";
-                $rc=true;
-            }
-            $sql .= 'limit 1000';
-            $sql = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql);
-            $sql2 = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql2);
-            
-            $cc = $db->getOne($sql2);
-            $ps = 1000;
-            $pc = ceil($cc / $ps);
-            
-            echo $sql.'<br>';
-            echo '共查询到'.$cc.'条数据,分'.$pc.'次处理<br>';
+            echo '开始检测' . $k1 . '表...<br>';
             ob_flush();flush();
-                  
-            for($n=0;$n<$pc;$n++){
-            
-              $rs = $db->queryArray($sql);
-              if(!$rs){
-                  echo '未发现<br>';
-                  continue;
-              }
-              foreach ($rs as $k2=>$v2){
-                  $id = $v2[$col_id];
-                  $name = $v2[$col_name];
-                  foreach($col_arr as $b){
-                      $v2[$b] = preg_replace( $rel_val[$k1],"",$v2[$b]);
-                      $v2[$b] = str_replace( array("'","\\"),"",$v2[$b]);
-                  }
-                  $where = "$col_id=".$id;
-                  unset($v2[$col_id]);
-                  $db->Update($tab,$col_arr,$v2,$where,1);
-                  echo $id.'、'. $name .' ok<br>';
-                  ob_flush();flush();
-              }
+
+            $where = [];
+            foreach ($v1 as $k2 => $v2) {
+                if (strpos($v2['DATA_TYPE'], 'int') === false) {
+                    $where[$k2] = mac_like_arr($k2,join(',', $check_arr));
+                }
+            }
+
+            if (!empty($where)) {
+                $field = array_keys($where);
+                $where = array_values($where);
+                $field[] = $cols[$si] . '_id';
+                $sql = 'select '.join(',',$field) . ' from {pre}' . $tables[$tbi] . ' where ' . join('or',$where);
+                $sql = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql);
+                echo $sql.'<br>';
+                ob_flush();flush();
+
+                $list = $db->queryArray($sql);
+
+                echo '共检测到' . count($list) . '条危险数据...<br>';
+                ob_flush();flush();
+                foreach ($list as $k3 => $v3) {
+                    $update = [];
+                    $col_id = $cols[$si] . '_id';
+                    $col_name = $cols[$si] . '_name';
+                    $val_id = $v3[$col_id];;
+                    $val_name = strip_tags($v3[$col_name]);
+                    $ck = false;
+                    $where2 = ''.$col_id.'='.$val_id;
+                    $field=[];
+                    foreach ($v3 as $k4 => $v4) {
+
+                        if ($k4 != $col_id) {
+                            $val = $v4;
+                            foreach ($check_arr as $kk => $vv) {
+                                $val = preg_replace($rel_val[$kk], "", $val);
+                            }
+                            if ($val !== $v4) {
+                                $val = str_replace( array("'","\\"),"",$val);
+                                $field[] = $k4;
+                                $update[$k4] = $val;
+                                $ck = true;
+                            }
+                        }
+                    }
+                    if ($ck) {
+                        $r = $db->Update('{pre}'.$tables[$tbi],$field,$update,$where2,1);
+                        echo $val_id . '、' . $val_name . ' ok<br>';
+                        ob_flush();flush();
+                    }
+                }
             }
         }
 
-
-        echo "<font color='red'>开始检测视频表...</font><br>";
-        foreach($check_arr as $k1=>$v1){
-            $tab='{pre}vod';
-            $col_id = 'd_id';
-            $col_name ='d_name';
-            $col_arr = array('d_name','d_subname','d_enname','d_pic','d_picthumb','d_picslide','d_starring','d_directed','d_tag','d_remarks','d_area','d_lang','d_type_expand','d_class','d_duration','d_content','d_playfrom','d_playserver','d_playnote','d_playurl','d_downfrom','d_downserver','d_downnote','d_downurl');
-            $col_str = join(',',$col_arr);
-
-            $sql= "select $col_id,$col_str from $tab where ";
-            $sql2 = "select count(*) from $tab where ";
-            
-            $rc=false;
-            foreach($col_arr as $b){
-                if($rc){ $sql.=' or '; $sql2 .=' or ';  }
-                $sql .= $b." like '%" . $v1 ."%'";
-                $sql2 .= $b." like '%" . $v1 ."%'";
-                $rc=true;
-            }
-            $sql .= 'limit 1000';
-            $sql = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql);
-            $sql2 = str_replace("{pre}",$GLOBALS['MAC']['db']['tablepre'],$sql2);
-            
-            $cc = $db->getOne($sql2);
-            $ps = 1000;
-            $pc = ceil($cc / $ps);
-            
-            echo $sql.'<br>';
-            echo '共查询到'.$cc.'条数据,分'.$pc.'次处理<br>';
-            ob_flush();flush();
-            
-            for($n=0;$n<$pc;$n++){
-           
-              $rs = $db->queryArray($sql);
-              if(!$rs){
-                  echo '未发现<br>';
-                  continue;
-              }
-              foreach ($rs as $k2=>$v2){
-                  $id = $v2[$col_id];
-                  $name = $v2[$col_name];
-                  foreach($col_arr as $b){
-                      $v2[$b] = preg_replace( $rel_val[$k1],"",$v2[$b]);
-                      $v2[$b] = str_replace( array("'","\\"),"",$v2[$b]);
-                  }
-                  $where = "$col_id=".$id;
-                  unset($v2[$col_id]);
-                  $db->Update($tab,$col_arr,$v2,$where,1);
-                  echo $id.'、'. $name .' ok<br>';
-                  ob_flush();flush();
-              }
-            }
-        }
-
-        echo '清理结束。请再次执行，以免有漏掉的数据<br>';
-        ob_flush();flush();
-
-        die;
-
+        $tbi++;
+        jump('?m=db-inspect-ck-1-tbi-'.$tbi,$MAC['app']['maketime']);
+        exit;
     }
+
     $plt->set_file('main', $ac.'_'.$method.'.html');
 }
 

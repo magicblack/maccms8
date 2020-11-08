@@ -94,7 +94,7 @@ elseif($method=='list')
     $plt->set_block('main', 'list_'.$rn, 'rows_'.$rn);
     foreach($xml->class->ty as $ty){
         $typeid = (string)@$ty->attributes()->id;
-        $typename = filter_tags((string)$ty);
+        $typename = htmlspecialchars((string)$ty);
         $isbind = false;
         $uid = intval( $bindcache[$flag.$typeid] );
         if ($uid>0){
@@ -125,9 +125,9 @@ elseif($method=='list')
     $key=0;
     foreach($xml->list->video as $video){
         $id = (string)$video->id;
-        $name = filter_tags((string)$video->name);
+        $name = htmlspecialchars((string)$video->name);
         $nameencode = urlencode(substring($name,4));
-        $typename = filter_tags((string)$video->type);
+        $typename = htmlspecialchars((string)$video->type);
         $now = date('Y-m-d',time());
 
         $time = (string)$video->last;
@@ -135,7 +135,7 @@ elseif($method=='list')
         if($sc==1){ $time = date('Y-',time()).$time; }
         $time = getColorDay(strtotime($time));
         $chk = strpos(','.$time,$now)>0 ? 'checked' : '';
-        $from = filter_tags((string)$video->dt);
+        $from = htmlspecialchars((string)$video->dt);
         $valarr=array($id,$name,$typename,$from,$time,$chk,$nameencode);
         for($i=0;$i<count($colarr);$i++){
             $n = $colarr[$i];

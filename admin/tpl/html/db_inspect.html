@@ -21,9 +21,10 @@ $(function(){
 </head>
 <body>
 <form action="?m=db-inspect" method="post" name="form1" id="form1">
+    <input type="hidden" name="ck" value="1">
     <table class="tb">
 <tr><td>
-    <strong>挂马检测2018-10-23版本</strong><br>
+    <strong>挂马检测2.0版本</strong><br>
     1，将对分类表，视频表，文章表，会员表等表结构进行检查。<br>
     2，检测包含script，{if-，eval，_func，base64_，等特殊字符串。<br>
     3，将自动清除挂马代码。<br>

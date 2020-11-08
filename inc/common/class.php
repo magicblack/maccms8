@@ -443,7 +443,7 @@ class AppMysqli
 		if (chkArray($arrFieldName,$arrValue)){
 			$sqlval = "";
 			$rc=false;
-			
+
 			for($i=0;$i<count($arrFieldName);$i++){
 				if($rc){ $sqlval.=",";}
 				if($f==0){
@@ -455,7 +455,7 @@ class AppMysqli
 				$rc=true;
 			}
 			$sql = " UPDATE " . $tabName." SET ".$sqlval." WHERE ".$KeyStr."";
-			//echo $sql."<br>";
+			//echo $sql."<br>";die;
 			$res = $this->query($sql);
 			if($res){
 				//echo "ok";

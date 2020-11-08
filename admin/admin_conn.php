@@ -2,7 +2,7 @@
 define('MAC_ADMIN', preg_replace("|[/\\\]{1,}|",'/',dirname(__FILE__) ) );
 require(MAC_ADMIN."/../inc/conn.php");
 require(MAC_ADMIN.'/../inc/common/phplib.php');
-define('MAC_VERSION','2020.1025');
+define('MAC_VERSION','2020.1026');
 define('MAC_MODULE','admin');
 
 if(strpos($_SERVER["SCRIPT_NAME"],'/admin/')>0){
@@ -57,8 +57,12 @@ function chkLogin2()
 
 function ckSql($v)
 {
+    $pcre_limit = ini_get('pcre.backtrack_limit');
+    if(empty($pcre_limit)){
+        $pcre_limit = 10000;
+    }
 	$cookiefilter = "benchmark\s*?\\(\d+?|sleep\s*?\\([\d\.]+?\\)|load_file\s*?\\(|\\b(and|or)\\b\\s*?([\\(\\)'\"\\d]+?=[\\(\\)'\"\\d]+?|[\\(\\)'\"a-zA-Z]+?=[\\(\\)'\"a-zA-Z]+?|>|<|\s+?[\\w]+?\\s+?\\bin\\b\\s*?\(|\\blike\\b\\s+?[\"'])|\\/\\*.+?\\*\\/|<\\s*script\\b|\\bEXEC\\b|UNION.+?SELECT(\\(.+\\)|\\s+?.+?)|UPDATE(\\(.+\\)|\\s+?.+?)SET|INSERT\\s+INTO.+?VALUES|(SELECT|DELETE)(\\(.+\\)|\\s+?.+?\\s+?)FROM(\\(.+\\)|\\s+?.+?)|(CREATE|ALTER|DROP|TRUNCATE)\\s+(TABLE|DATABASE)";
-	if(preg_match("/".$cookiefilter."/is",$v)==1){
+	if(strlen($v)>$pcre_limit || preg_match("/".$cookiefilter."/is",$v)==1){
 		print "<div style=\"position:fixed;top:0px;width:100%;height:100%;background-color:white;color:green;font-weight:bold;border-bottom:5px solid #999;\"><br>您的提交带有不合法参数,谢谢合作!<br>操作IP: ".$_SERVER["REMOTE_ADDR"]."<br>操作时间: ".strftime("%Y-%m-%d %H:%M:%S")."<br>操作页面:".$_SERVER["PHP_SELF"]."<br>提交方式: ".$_SERVER["REQUEST_METHOD"]."</div>";
 		exit();
 	}
@@ -298,5 +302,19 @@ function getTemplateFlag($f)
 		default: $str="自定义文件";break;
 	}
 	return $str;
+}
+function mac_like_arr($c,$s)
+{
+    $tmp = explode(',',$s);
+    $rc = false;
+    $where='';
+    foreach($tmp as $k=>$v){
+        if($rc){
+            $where .= ' or ';
+        }
+        $where .= $c ." like '%" . $v ."%' ";
+        $rc = true;
+    }
+    return ' ('. $where .') ';
 }
 ?>

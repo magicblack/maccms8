@@ -139,9 +139,6 @@ else
 	$xml .= "<rss version=\"5.1\">";
 	
 	//视频列表开始
-	if (maccms_field_vod_source !="") {
-		$tempmaccms_field_vod_source = ",".maccms_table_vod.".".maccms_field_vod_source;
-	}
 	
 	$sql = "select d_id,d_name,d_enname,d_type,d_time,d_remarks,d_playfrom,d_addtime from {pre}vod where 1=1 ";
 	$sql1 = "select count(*) from {pre}vod where 1=1 ";

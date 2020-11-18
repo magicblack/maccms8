@@ -1139,7 +1139,7 @@ function setCache($cp,$cn,$cv,$ct='txt',$cx=0)
         if($mem->addServer($GLOBALS['MAC']['app']['memcachedhost'],$GLOBALS['MAC']['app']['memcachedport'])){
             $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
             if($mem->setSaslAuthData($GLOBALS['MAC']['app']['memcacheduser'],$GLOBALS['MAC']['app']['memcachedpass'])) {
-                $mem->set($key, $cv, 0, $GLOBALS['MAC']['app']['cachetime'] * 60);
+                $mem->set($key, $cv, $GLOBALS['MAC']['app']['cachetime'] * 60);
                 //$mem->replace($cn,$cv,MEMCACHE_COMPRESSED,$GLOBALS['MAC']['app']['cachetime']*60);
             }
             $mem->quit();

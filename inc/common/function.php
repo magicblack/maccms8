@@ -1099,14 +1099,14 @@ function chkCache($cp,$cn,$cx=0)
     elseif($GLOBALS['MAC']['app']['cachetype']==2){
         $status = false;
         $mem=new Memcached;
+        $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
         if($mem->addServer($GLOBALS['MAC']['app']['memcachedhost'],$GLOBALS['MAC']['app']['memcachedport'])){
-            $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
-            if($mem->setSaslAuthData($GLOBALS['MAC']['app']['memcacheduser'],$GLOBALS['MAC']['app']['memcachedpass'])){
+            //if($mem->setSaslAuthData($GLOBALS['MAC']['app']['memcacheduser'],$GLOBALS['MAC']['app']['memcachedpass'])){
                 $v = $mem->get($key);
                 if(!empty($v)){
                     $status=true;
                 }
-            }
+            //}
             $mem->quit();
         }
         return $status;
@@ -1136,12 +1136,12 @@ function setCache($cp,$cn,$cv,$ct='txt',$cx=0)
 	}
     elseif($GLOBALS['MAC']['app']['cachetype']==2){
         $mem=new Memcached;
+        $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
         if($mem->addServer($GLOBALS['MAC']['app']['memcachedhost'],$GLOBALS['MAC']['app']['memcachedport'])){
-            $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
-            if($mem->setSaslAuthData($GLOBALS['MAC']['app']['memcacheduser'],$GLOBALS['MAC']['app']['memcachedpass'])) {
+            //if($mem->setSaslAuthData($GLOBALS['MAC']['app']['memcacheduser'],$GLOBALS['MAC']['app']['memcachedpass'])) {
                 $mem->set($key, $cv, $GLOBALS['MAC']['app']['cachetime'] * 60);
                 //$mem->replace($cn,$cv,MEMCACHE_COMPRESSED,$GLOBALS['MAC']['app']['cachetime']*60);
-            }
+            //}
             $mem->quit();
         }
     }
@@ -1168,11 +1168,11 @@ function getCache($cp,$cn,$ct='txt')
 	}
     elseif($GLOBALS['MAC']['app']['cachetype']==2){
         $mem=new Memcached;
+        $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
         if($mem->addServer($GLOBALS['MAC']['app']['memcachedhost'],$GLOBALS['MAC']['app']['memcachedport'])){
-            $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
-            if($mem->setSaslAuthData($GLOBALS['MAC']['app']['memcacheduser'],$GLOBALS['MAC']['app']['memcachedpass'])) {
+            //if($mem->setSaslAuthData($GLOBALS['MAC']['app']['memcacheduser'],$GLOBALS['MAC']['app']['memcachedpass'])) {
                 $res = $mem->get($key);
-            }
+            //}
             $mem->quit();
         }
     }

@@ -997,17 +997,17 @@ elseif($ac=='memcached')
         }
 	    elseif($type=='2'){
             $mem=new Memcached;
+            $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
             if(!$mem->addServer($host,$port)){
                 echo '连接失败!';
             }
             else{
-                $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
-                if(!$mem->setSaslAuthData($user,$pass)){
-                    echo '连接成功但用户密码验证失败!';
-                }
-                else{
+                //if(!$mem->setSaslAuthData($user,$pass)){
+                    //echo '连接成功但用户密码验证失败!';
+                //}
+                //else{
                     echo 'ok';
-                }
+                //}
             }
         }
 	    else{

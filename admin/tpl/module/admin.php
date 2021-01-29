@@ -18,10 +18,10 @@ if($method=='check')
 		$_SESSION['adminname'] = $row['m_name'];
 		session_regenerate_id();
 		$randnum = md5(rand(1,99999999));
-		sCookie ('adminid',$row['m_id']);
-		sCookie ('adminname',$row['m_name']);
+		//sCookie ('adminid',$row['m_id']);
+		//sCookie ('adminname',$row['m_name']);
 		sCookie ('adminlevels',$row['m_levels']);
-		sCookie ('admincheck',md5($randnum . '-'.$row['m_name'] .'-'.$row['m_id'].'-'.getIP()));
+		//sCookie ('admincheck',md5($randnum . '-'.$row['m_name'] .'-'.$row['m_id'].'-'.getIP()));
 		$db->Update('{pre}manager',array('m_logintime','m_loginip','m_random'),array(time(),ip2long(getIP()),$randnum),' m_id='. $row['m_id']);
 		redirect('?m=admin-index');
 	}

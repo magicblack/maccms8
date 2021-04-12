@@ -1,1 +1,0 @@
-﻿MAC.AdsWrap(960,90,'index901广告位');

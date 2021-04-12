@@ -1,1 +1,0 @@
-﻿document.writeln('sou预留 搜搜关键字位');

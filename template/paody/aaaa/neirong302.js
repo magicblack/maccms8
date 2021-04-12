@@ -1,1 +1,0 @@
-﻿MAC.AdsWrap(300,250,'neirong302广告位');

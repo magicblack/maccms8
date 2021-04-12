@@ -1,1 +1,0 @@
-﻿document.write('<img src=\''+SitePath+'template/paody/images/950x90.jpg\' />')

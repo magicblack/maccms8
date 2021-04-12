@@ -2,7 +2,7 @@
 $MAC = array (
   'db' => 
   array (
-    'type' => 'mysql',
+    'type' => 'mysqli',
     'path' => '',
     'server' => '127.0.0.1',
     'port' => '3306',
@@ -13,20 +13,20 @@ $MAC = array (
   ),
   'site' => 
   array (
-    'name' => '免费短视频分享平台',
-    'installdir' => '/v8/',
-    'url' => 'a.cn',
-    'keywords' => '免费在线短视频',
-    'description' => '提供最新最快的短视频信息',
-    'templatedir' => 'paody',
+    'name' => '免费短视频分享大全 - 大中国',
+    'installdir' => '/',
+    'url' => 'www.test.cn',
+    'keywords' => '短视频,搞笑视频,视频分享,免费视频,在线视频,预告片',
+    'description' => '提供最新最快的视频分享数据',
+    'templatedir' => 'default',
     'htmldir' => 'html',
-    'adsdir' => 'aaaa',
+    'adsdir' => 'ads',
     'icp' => 'icp123',
     'email' => '123456@test.com',
     'qq' => '123456',
     'tj' => '统计代码',
     'mobstatus' => '1',
-    'mobtemplatedir' => 'paody',
+    'mobtemplatedir' => 'default',
     'mobhtmldir' => 'html',
   ),
   'app' => 
@@ -78,7 +78,7 @@ $MAC = array (
     'artsearch' => 0,
     'gbook' => 0,
     'rss' => 0,
-    'label' => 2,
+    'label' => 0,
   ),
   'path' => 
   array (
@@ -157,11 +157,11 @@ $MAC = array (
     'picpath' => 0,
     'watermark' => 0,
     'waterlocation' => 0,
-    'waterfont' => 'maccms.com',
+    'waterfont' => 'test',
     'remote' => 0,
-    'remoteurl' => 'http://license.maccms.com/',
+    'remoteurl' => 'http://img.test.com/',
     'ftp' => 0,
-    'ftphost' => 'img.maccms.com',
+    'ftphost' => 'img.test.com',
     'ftpuser' => 'user',
     'ftppass' => 'pass',
     'ftpdir' => '/wwwroot/',
@@ -171,7 +171,7 @@ $MAC = array (
   ),
   'interface' => 
   array (
-    'pass' => 'M60EMJ',
+    'pass' => 'EN13PNZP6C',
   ),
   'pay' => 
   array (
@@ -182,7 +182,7 @@ $MAC = array (
     ),
     'alipay' => 
     array (
-      'no' => 'master@maccms.com',
+      'no' => 'master@test.com',
       'id' => '888888',
       'key' => '000000',
     ),
@@ -203,8 +203,8 @@ $MAC = array (
       'pic' => 0,
       'psernd' => 0,
       'psesyn' => 0,
-      'inrule' => ',',
-      'uprule' => ',a',
+      'inrule' => ',0',
+      'uprule' => ',a,j',
       'filter' => '色戒,色即是空',
       'tag' => 0,
       'score' => 0,
@@ -218,7 +218,7 @@ $MAC = array (
       'pic' => 0,
       'psernd' => 0,
       'psesyn' => 0,
-      'inrule' => ',',
+      'inrule' => ',0',
       'uprule' => ',a',
       'filter' => '无奈的人',
       'tag' => 1,
@@ -228,49 +228,57 @@ $MAC = array (
   array (
     'vod' => 
     array (
-      'status' => 1,
-      'imgurl' => 'http://img.maccms.com/',
+      'status' => 0,
+      'imgurl' => 'http://img.test.com/',
       'typefilter' => 'and t_hide=0',
       'vodfilter' => 'and d_hide=0',
       'pagesize' => 20,
       'cjflag' => '',
       'charge' => '0',
-      'auth' => 'maccms.com#163.com',
+      'auth' => 'test.com#163.com',
     ),
     'art' => 
     array (
+      'status' => 0,
+      'cjflag' => '',
+      'imgurl' => '{art_imgurl}',
+      'typefilter' => '{art_typefilter}',
+      'vodfilter' => '{art_vodfilter}',
+      'pagesize' => 20,
+      'charge' => '0',
+      'auth' => '{art_auth}',
     ),
   ),
   'connect' => 
   array (
     'qq' => 
     array (
-      'status' => 1,
+      'status' => 0,
       'id' => '11',
       'key' => '22',
     ),
     'uc' => 
     array (
       'status' => 0,
-      'id' => '2',
-      'key' => 'maccms',
-      'url' => 'http://127.0.0.1/other/discuz/uc_server',
-      'dbhost' => '127.0.0.1',
-      'dbuser' => 'root',
-      'dbpass' => '123456',
-      'dbname' => 'discuz',
-      'dbpre' => '`ultrax`.pre_ucenter_',
+      'id' => '',
+      'key' => '',
+      'url' => '',
+      'dbhost' => '',
+      'dbuser' => '',
+      'dbpass' => '',
+      'dbname' => '',
+      'dbpre' => '',
       'ip' => '',
     ),
   ),
   'weixin' => 
   array (
-    'duijie' => 'wx.maccms.com',
-    'sousuo' => 'wx.maccms.com',
+    'duijie' => 'wx.test.com',
+    'sousuo' => 'wx.test.com',
     'token' => 'qweqwe',
     'guanzhu' => '欢迎关注',
     'wuziyuan' => '没找到资源，请更换关键词或等待更新',
-    'wuziyuanlink' => 'demo.maccms.com',
+    'wuziyuanlink' => 'demo.test.com',
     'bofang' => '1',
     'gjc1' => '关键词1',
     'gjcm1' => '长城',

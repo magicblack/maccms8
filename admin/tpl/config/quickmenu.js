@@ -15,7 +15,7 @@ var menu = {
 	
 	"mh":{"text":"生成","default":"make","children":{"make":{"text":"生成选项","url":"?m=make-option"},"makeindex":{"text":"生成首页","url":"?m=make-index"},"makemap":{"text":"生成地图","url":"?m=make-map"},"makeartindex":{"text":"生成文章首页","url":"?m=make-index-tab-art"},"makeartmap":{"text":"生成文章地图","url":"?m=make-map-tab-art"}}},
 
-	"mi":{"text":"采集","default":"coll","children":{"coll":{"text":"自定义资源","url":"?m=coll-list"}}},
+	"mi":{"text":"采集","default":"coll","children":{"coll":{"text":"自定义接口","url":"?m=coll-list"}}},
 
 	"mj":{"text":"数据库","default":"database","children":{"database":{"text":"数据库管理","url":"?m=db-list"},"sql":{"text":"执行SQL语句","url":"?m=db-sql"},"datarep":{"text":"数据批量替换","url":"?m=db-datarep"},"inspect":{"text":"挂马检测","url":"?m=db-inspect"} }}
 };

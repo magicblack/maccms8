@@ -169,7 +169,7 @@ class AppTpl
 				}
 				break;
 			case 'comment':
-				$str = 'index.php?m=comment-show-aid-'.$this->C["siteaid"].'-vid-'. ($f=='art' ? $d['a_id']:$d['d_id']);
+				$str = 'index.php?m=comment-show-aid-'.$this->C["siteaid"].'-vid-'. $this->P['vid'];
 				if($v>0){
 					$str = $r;
 				}
@@ -1818,7 +1818,7 @@ class AppTpl
         if($this->P['pagesize']==0){ $this->P['pagesize']=1; }
         $this->P['pagecount'] = ceil($this->P['datacount']/$this->P['pagesize']);
         if ($this->P['pagecount']<1){ $this->P['pagecount']=1;}
-        
+
         if(!empty($pl)){
         	$pageurl = $pl;
         }

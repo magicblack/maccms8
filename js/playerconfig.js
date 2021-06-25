@@ -9,8 +9,8 @@ var mac_heightpop=560;  //弹窗窗口高度
 var mac_showtop=1;     //美化版播放器是否显示头部
 var mac_showlist=1;     //美化版播放器是否显示列表
 var mac_autofull=0;     //是否自动全屏,0否,1是
-var mac_buffer="//union.maccms.com/html/buffer.html";     //缓冲广告地址
-var mac_prestrain="//union.maccms.com/html/prestrain.html";  //预加载提示地址
+var mac_buffer="//union.maccms.la/html/buffer.html";     //缓冲广告地址
+var mac_prestrain="//union.maccms.la/html/prestrain.html";  //预加载提示地址
 var mac_parse="";  //接口地址
 var mac_colors="000000,F6F6F6,F6F6F6,333333,666666,FFFFF,FF0000,2c2c2c,ffffff,a3a3a3,2c2c2c,adadad,adadad,48486c,fcfcfc";   //背景色，文字颜色，链接颜色，分组标题背景色，分组标题颜色，当前分组标题颜色，当前集数颜色，集数列表滚动条凸出部分的颜色，滚动条上下按钮上三角箭头的颜色，滚动条的背景颜色，滚动条空白部分的颜色，滚动条立体滚动条阴影的颜色 ，滚动条亮边的颜色，滚动条强阴影的颜色，滚动条的基本颜色
 //缓存开始

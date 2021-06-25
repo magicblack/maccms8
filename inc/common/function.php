@@ -1712,7 +1712,7 @@ function getVUrl($u)
 }
 
 function getTag($title,$content){
-	$url =  base64_decode('aHR0cDovL2FwaS5tYWNjbXMuY29t').'/keyword/index?name='.rawurlencode($title).'&txt='.rawurlencode($title).rawurlencode(substring(strip_tags($content),200));
+	$url =  base64_decode('aHR0cDovL2FwaS5tYWNjbXMubGE=').'/keyword/index?name='.rawurlencode($title).'&txt='.rawurlencode($title).rawurlencode(substring(strip_tags($content),200));
 	$data = getPage($url,'utf-8');
 	$json = @json_decode($data,true);
 	if($json){

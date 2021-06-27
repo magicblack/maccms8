@@ -172,43 +172,42 @@ elseif($method=='updatecache')
 
 elseif($method=='update')
 {
+	require(MAC_ROOT.'/inc/common/PclzZip.php');
 	headAdmin2('在线更新');
 	$arr=explode('/',$_SERVER["SCRIPT_NAME"]);
 	$adpath=$arr[count($arr)-2];
 	
 	echo "<div class='Update'><h1>在线升级进行中第一步【文件升级】,请稍后......</h1><textarea rows=\"25\" readonly>正在下载升级文件包...\n";
 	ob_flush();flush();
-	sleep(2);
+	sleep(1);
 	
 	$url = base64_decode('aHR0cDovL3VwZGF0ZS5tYWNjbXMubGEvdjgv');
 	$f = !empty($p['file']) ? $p['file'] : MAC_VERSION;
 	$url .= $f.'.zip';
-	$html = getPage($url,'utf-8');
+	//$html = getPage($url,'utf-8');
 	$path = 'bak/'.MAC_VERSION.'.zip';
-	@fwrite(@fopen($path,'wb'),$html);
+	//@fwrite(@fopen($path,'wb'),$html);
 	
 	echo "下载升级包完毕...\n";
 	ob_flush();flush();
-	sleep(2);
+	sleep(1);
 	
-	$z = new AppZip;
 	if(is_file($path)){
 		echo "正在处理升级包的文件...\n\n";
 		ob_flush();flush();
-		
-		$result=$z->Extract($path,'../');
-		if($result==-1){
-			echo "文件 $path 错误...\n";
-			ob_flush();flush();
-		}
-		else{
-			echo "\n文件部分处理完成,共处理 $z->total_folders 个目录,$z->total_files 个文件...\n";
-			
+		  $archive = new PclZip($path);
+	        $archive->PclZip($path);
+	        if(!$archive->extract(PCLZIP_OPT_PATH, '../', PCLZIP_OPT_REPLACE_NEWER)) {
+	           echo "文件 $path 错误...\n";
+		    ob_flush();flush();
+	           exit;
+	        }
+	        else{
+			echo "\n文件部分处理完毕...\n";
 			echo "\n稍后进入升级数据部分...\n";
-			
 			ob_flush();flush();
 			@unlink($path);
-		}
+	        }
 	}
 	else{
 		echo "升级文件列表为空，退出升级程序...\n";

@@ -184,9 +184,9 @@ elseif($method=='update')
 	$url = base64_decode('aHR0cDovL3VwZGF0ZS5tYWNjbXMubGEvdjgv');
 	$f = !empty($p['file']) ? $p['file'] : MAC_VERSION;
 	$url .= $f.'.zip';
-	//$html = getPage($url,'utf-8');
+	$html = getPage($url,'utf-8');
 	$path = 'bak/'.MAC_VERSION.'.zip';
-	//@fwrite(@fopen($path,'wb'),$html);
+	@fwrite(@fopen($path,'wb'),$html);
 	
 	echo "下载升级包完毕...\n";
 	ob_flush();flush();

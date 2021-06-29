@@ -1,4 +1,11 @@
 <?php
+	/*
+	'软件名称：苹果CMS   源码库：https://github.com/magicblack
+	'--------------------------------------------------------
+	'Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+	'遵循Apache2开源协议发布，并提供免费使用。
+	'--------------------------------------------------------
+	*/
 	require("inc/conn.php");
 	$action = be("all","action");
 	$db;
@@ -406,11 +413,11 @@ function checkdb(){
 	<td>根目录/，/二级目录/</td>
 	</tr>
 	<tr><th class="tbopt" align="left">&nbsp;网站关键字:</th>
-	<td><input class="txt" type="text" name="site_keywords" id="site_keywords" value="免费在线电影" /></td>
+	<td><input class="txt" type="text" name="site_keywords" id="site_keywords" value="" /></td>
 	<td>网站的关键字利于seo优化</td>
 	</tr>
 	<tr><th class="tbopt" align="left">&nbsp;网站描述:</th>
-	<td><input class="txt" type="text" name="site_description" id="site_description" value="提供最新最快的影视资讯和在线播放" /></td>
+	<td><input class="txt" type="text" name="site_description" id="site_description" value="" /></td>
 	<td>网站的描述信息利于seo优化</td>
 	</tr>
 	</table>
@@ -1117,21 +1124,21 @@ EOT;
 	
 	
 	$db->query( "INSERT INTO `".$db_tablepre."vod_type` (`t_id`, `t_name`, `t_enname`, `t_pid`, `t_sort`, `t_hide`, `t_tpl`, `t_tpl_list`, `t_tpl_vod`, `t_tpl_play`, `t_tpl_down`, `t_key`, `t_des`, `t_title`, `t_union`) VALUES
-(1, '电影', 'dianying', 0, 1, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(2, '连续剧', 'lianxuju', 0, 2, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(3, '综艺', 'zongyi', 0, 3, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(4, '动漫', 'dongman', 0, 4, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(5, '动作片', 'dongzuopian', 1, 11, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(6, '喜剧片', 'xijupian', 1, 12, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(7, '爱情片', 'aiqingpian', 1, 13, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(8, '科幻片', 'kehuanpian', 1, 14, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(9, '恐怖片', 'kongbupian', 1, 14, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(10, '剧情片', 'juqingpian', 1, 16, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(11, '战争片', 'zhanzhengpian', 1, 17, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(12, '国产剧', 'guochanju', 2, 21, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(13, '港台剧', 'gangtaiju', 2, 22, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(14, '日韩剧', 'rihanju', 2, 23, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
-(15, '欧美剧', 'oumeiju', 2, 24, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', '');
+(1, '分类1', 'dianying', 0, 1, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(2, '分类2', 'lianxuju', 0, 2, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(3, '分类3', 'zongyi', 0, 3, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(4, '分类4', 'dongman', 0, 4, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(5, '子类1', 'dongzuopian', 1, 11, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(6, '子类2', 'xijupian', 1, 12, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(7, '子类3', 'aiqingpian', 1, 13, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(8, '子类4', 'kehuanpian', 1, 14, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(9, '子类5', 'kongbupian', 1, 14, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(10, '子类6', 'juqingpian', 1, 16, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(11, '子类7', 'zhanzhengpian', 1, 17, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(12, '子类8', 'guochanju', 2, 21, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(13, '子类9', 'gangtaiju', 2, 22, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(14, '子类10', 'rihanju', 2, 23, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', ''),
+(15, '子类11', 'oumeiju', 2, 24, 0, 'vod_type.html', 'vod_list.html', 'vod_detail.html', 'vod_play.html', 'vod_down.html', '', '', '', '');
 ");
 
 

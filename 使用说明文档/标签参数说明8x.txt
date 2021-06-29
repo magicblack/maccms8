@@ -516,7 +516,7 @@ if标签,支持多重嵌套,每个层级的if标签不能相同
 	{page:des}    当前分类seo描述
 	{page:title}  当前分类seo标题
 	{page:link}   当前分类链接
-	{page:textlink}    当前位置导航链接  例如当前位置:首页  >>  电影 >> 动作片
+	{page:textlink}    当前位置导航链接  例如当前位置:首页  >>  分类1 >> 子类1
 	{page:linkbytime}  进入分页筛选页面，按照时间排序链接
 	{page:linkbyhits}  进入分页筛选页面，按照人气排序链接
 	{page:linkbyscore} 进入分页筛选页面，按照评分排序链接
@@ -547,7 +547,7 @@ if标签,支持多重嵌套,每个层级的if标签不能相同
 	{page:des}    当前分类seo描述
 	{page:title}  当前分类seo标题
 	{page:link}   当前分类链接
-	{page:textlink} 当前位置导航链接  例如当前位置:首页  >>  电影 >> 动作片
+	{page:textlink} 当前位置导航链接  例如当前位置:首页  >>  分类1 >> 子类1
 	
 	{page:year}      筛选参数-上映年代
 	{page:lang}          筛选参数-语言
@@ -701,7 +701,7 @@ if标签,支持多重嵌套,每个层级的if标签不能相同
 	[vod:scoremark2]  普通评分功能
 	[vod:prelink] 上一条记录
 	[vod:nextlink] 下一跳记录
-	[vod:textlink] 当前位置导航链接  例如当前位置:首页  >>  电影 >> 动作片 >> 火影忍者
+	[vod:textlink] 当前位置导航链接  例如当前位置:首页  >>  分类1 >> 子类1 >> 火影忍者
 
 
 播放页特有标签:
@@ -807,7 +807,7 @@ if标签,支持多重嵌套,每个层级的if标签不能相同
 	{page:des}    当前分类seo描述
 	{page:title}  当前分类seo标题
 	{page:link}   当前分类链接
-	{page:textlink}    当前位置导航链接  例如当前位置:首页  >>  电影 >> 动作片
+	{page:textlink}    当前位置导航链接  例如当前位置:首页  >>  分类1 >> 子类1
 ****************************文章分类列表页参数详解 结束****************************
 
 

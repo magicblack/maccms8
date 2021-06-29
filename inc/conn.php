@@ -1,4 +1,11 @@
 <?php
+	/*
+	'软件名称：苹果CMS   源码库：https://github.com/magicblack
+	'--------------------------------------------------------
+	'Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+	'遵循Apache2开源协议发布，并提供免费使用。
+	'--------------------------------------------------------
+	*/
 @session_start();
 @header('Content-Type:text/html;Charset=utf-8');
 @date_default_timezone_set('Etc/GMT-8');

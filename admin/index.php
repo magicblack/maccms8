@@ -1,6 +1,6 @@
 <?php
     /*
-	'软件名称：苹果CMS    官方网站：http://www.maccms.la/  源码库：https://github.com/magicblack
+	'软件名称：苹果CMS   源码库：https://github.com/magicblack
     '--------------------------------------------------------
     'Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
     '遵循Apache2开源协议发布，并提供免费使用。

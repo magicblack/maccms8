@@ -470,25 +470,24 @@ elseif($method=='cj'){
 
 	                	$colarr = array();
 	                	$valarr = array();
-	                	array_push($colarr,'d_time');
-	                	array_push($valarr,time());
 
-	                	if(strpos(','.$uprule,'a') && $ct!=1){
+
+	                	if(strpos(','.$uprule,'a') && $ct!=1 && $rc){
 	                		array_push($colarr,'d_playfrom','d_playserver','d_playnote','d_playurl');
 	                		array_push($valarr,$n_from,$n_server,$n_note,$n_url);
 	                	}
-	                	if(strpos(','.$uprule,'b') && $ct==1){
+	                	if(strpos(','.$uprule,'b') && $ct==1 && $rc){
 	                		array_push($colarr,'d_downfrom','d_downserver','d_downnote','d_downurl');
 	                		array_push($valarr,$n_from,$n_server,$n_note,$n_url);
 	                	}
-	                	if(strpos(','.$uprule,'c')){ array_push($colarr,'d_state'); array_push($valarr,$d_state); }
-	                	if(strpos(','.$uprule,'d')){ array_push($colarr,'d_remarks'); array_push($valarr,$d_remarks); }
-	                	if(strpos(','.$uprule,'e')){ array_push($colarr,'d_directed'); array_push($valarr,$d_directed); }
-	                	if(strpos(','.$uprule,'f')){ array_push($colarr,'d_starring'); array_push($valarr,$d_starring); }
-	                	if(strpos(','.$uprule,'g')){ array_push($colarr,'d_year'); array_push($valarr,$d_year); }
-	                	if(strpos(','.$uprule,'h')){ array_push($colarr,'d_area'); array_push($valarr,$d_area); }
-	                	if(strpos(','.$uprule,'i')){ array_push($colarr,'d_lang'); array_push($valarr,$d_lang); }
-	                	if(strpos(','.$uprule,'j')){
+	                	if(strpos(','.$uprule,'c') && $row['d_state'] != $d_state){ array_push($colarr,'d_state'); array_push($valarr,$d_state); }
+	                	if(strpos(','.$uprule,'d') && $row['d_remarks'] != $d_remarks){ array_push($colarr,'d_remarks'); array_push($valarr,$d_remarks); }
+	                	if(strpos(','.$uprule,'e') && $row['d_directed'] != $d_directed){ array_push($colarr,'d_directed'); array_push($valarr,$d_directed); }
+	                	if(strpos(','.$uprule,'f') && $row['d_starring'] != $d_starring){ array_push($colarr,'d_starring'); array_push($valarr,$d_starring); }
+	                	if(strpos(','.$uprule,'g') && $row['d_year'] != $d_year){ array_push($colarr,'d_year'); array_push($valarr,$d_year); }
+	                	if(strpos(','.$uprule,'h') && $row['d_area'] != $d_area){ array_push($colarr,'d_area'); array_push($valarr,$d_area); }
+	                	if(strpos(','.$uprule,'i') && $row['d_lang'] != $d_lang){ array_push($colarr,'d_lang'); array_push($valarr,$d_lang); }
+	                	if(strpos(','.$uprule,'j') && $row['d_pic'] !=$d_pic){
 	                		if($MAC['collect']['vod']['pic']==1){
 					    		$ext = @substr($d_pic,strlen($d_pic)-3);
 					    		if($ext!='jpg' || $ext!='bmp' || $ext!='gif'){$ext='jpg';}
@@ -507,11 +506,13 @@ elseif($method=='cj'){
 					    		array_push($colarr,'d_picthumb'); array_push($valarr,$d_picthumb);
 					    	}
 	                	}
-	                	if(strpos(','.$uprule,'k')){ array_push($colarr,'d_content'); array_push($valarr,$d_content); }
-	                	if(strpos(','.$uprule,'l')){ array_push($colarr,'d_tag'); array_push($valarr,$d_tag); }
-	                	if(strpos(','.$uprule,'m')){ array_push($colarr,'d_subname'); array_push($valarr,$d_subname); }
-	                	
+	                	if(strpos(','.$uprule,'k') && $row['d_content'] != $d_content){ array_push($colarr,'d_content'); array_push($valarr,$d_content); }
+	                	if(strpos(','.$uprule,'l') && $row['d_tag'] != $d_tag){ array_push($colarr,'d_tag'); array_push($valarr,$d_tag); }
+	                	if(strpos(','.$uprule,'m') && $row['d_subname'] != $d_subname){ array_push($colarr,'d_subname'); array_push($valarr,$d_subname); }
+
 	                	if(count($colarr)>0){
+                            array_push($colarr,'d_time');
+                            array_push($valarr,time());
                             $des .= '<font color="green">字段更新，成功。</font>';
 	                		$db->Update("{pre}vod",$colarr,$valarr,"d_id=".$row["d_id"] );
 	                	}

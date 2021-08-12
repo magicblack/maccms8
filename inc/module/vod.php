@@ -28,6 +28,10 @@ elseif($method=='map')
 
 elseif($method=='list')
 {
+    if($GLOBALS['MAC']['app']['liststatus']=='0'){
+        showMsg("筛选页功能已关闭，请稍后重试",MAC_PATH);
+        exit;
+    }
 	$tpl->C["siteaid"] = 12;
     $tpl->P['cp'] = 'vodlist';
 	$tpl->P['cn'] = $tpl->P['id'].'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'].'-'.$tpl->P['year'].'-'.$tpl->P['letter'].'-'.$tpl->P['class'].'-'.urlencode($tpl->P['area']).'-'.urlencode($tpl->P['lang']);
@@ -92,6 +96,10 @@ elseif($method=='topic')
 
 elseif($method=='search')
 {
+    if($GLOBALS['MAC']['app']['searchstatus']=='0'){
+        showMsg("搜索功能已关闭，请稍后重试",MAC_PATH);
+        exit;
+    }
 	$tpl->C["siteaid"] = 15;
 	$wd = trim(be("all", "wd")); $wd = chkSql($wd);
 	if(!empty($wd)){ $tpl->P["wd"] = $wd; }
@@ -193,11 +201,16 @@ elseif($method=='search')
 	$tpl->H = loadFile(MAC_ROOT_TEMPLATE."/vod_search.html");
 	$tpl->mark();
 	$tpl->pageshow();
-	
+
+	$cp = $tpl->P;
+    if(!empty($GLOBALS['MAC']['app']['wallfilter'])){
+        $cp = mac_escape_param($cp);
+    }
+
 	$colarr = array('{page:des}','{page:key}','{page:now}','{page:order}','{page:by}','{page:wd}','{page:wdencode}','{page:pinyin}','{page:letter}','{page:year}','{page:starring}','{page:starringencode}','{page:directed}','{page:directedencode}','{page:area}','{page:areaencode}','{page:lang}','{page:langencode}','{page:typeid}','{page:typepid}','{page:classid}');
-	$valarr = array($tpl->P["des"],$tpl->P["key"],$tpl->P["pg"],$tpl->P["order"],$tpl->P["by"],$tpl->P["wd"],urlencode($tpl->P["wd"]),$tpl->P["pinyin"],$tpl->P["letter"],$tpl->P['year']==0?'':$tpl->P['year'],$tpl->P["starring"],urlencode($tpl->P["starring"]),$tpl->P["directed"],urlencode($tpl->P["directed"]),$tpl->P["area"],urlencode($tpl->P["area"]),$tpl->P["lang"],urlencode($tpl->P["lang"]),$tpl->P['typeid'],$tpl->P['typepid'] ,$tpl->P['classid']  );
-	
-	$tpl->H = str_replace($colarr, $valarr ,$tpl->H);
+    $valarr = array($cp["des"],$cp["key"],$cp["pg"],$cp["order"],$cp["by"],$cp["wd"],urlencode($cp["wd"]),$cp["pinyin"],$cp["letter"],$cp['year']==0?'':$cp['year'],$cp["starring"],urlencode($cp["starring"]),$cp["directed"],urlencode($cp["directed"]),$cp["area"],urlencode($cp["area"]),$cp["lang"],urlencode($cp["lang"]),$cp['typeid'],$cp['typepid'] ,$cp['classid']  );
+
+    $tpl->H = str_replace($colarr, $valarr ,$tpl->H);
     unset($colarr,$valarr);
     $linktype = $tpl->getLink('vod','search','',array('typeid'=>$tpl->P['typepid']));
     $linkyear = $tpl->getLink('vod','search','',array('year'=>''));

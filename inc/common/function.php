@@ -870,7 +870,7 @@ function getArray($strBody,$strStart,$strEnd)
 	$strEnd = str_replace(")","\)",$strStart);
 	$strEnd = str_replace("'","\'",$strStart);
 	$strEnd = str_replace("?","\?",$strStart);
-
+    $vl = base64_decode('54mI5p2D5omA5pyJbWFnaWNibGFja++8jGh0dHBzOi8vZ2l0aHViLmNvbS9tYWdpY2JsYWNr');
 	$labelRule = $strStart."(.*?)".$strEnd;
 	$labelRule = buildregx($labelRule,"is");
 	preg_match_all($labelRule,$strBody,$tmparr);
@@ -2132,5 +2132,56 @@ function filter_tags($rs)
         }
     }
     return $rs;
+}
+
+function mac_unicode_encode($str, $encoding = 'UTF-8', $prefix = '&#', $postfix = ';') {
+    $str = iconv($encoding, 'UCS-2', $str);
+    $arrstr = str_split($str, 2);
+    $unistr = '';
+    for($i = 0, $len = count($arrstr); $i < $len; $i++) {
+        $dec = hexdec(bin2hex($arrstr[$i]));
+        $unistr .= $prefix . $dec . $postfix;
+    }
+    return $unistr;
+}
+function mac_unicode_decode($unistr, $encoding = 'UTF-8', $prefix = '&#', $postfix = ';') {
+    $arruni = explode($prefix, $unistr);
+    $unistr = '';
+    for($i = 1, $len = count($arruni); $i < $len; $i++) {
+        if (strlen($postfix) > 0) {
+            $arruni[$i] = substr($arruni[$i], 0, strlen($arruni[$i]) - strlen($postfix));
+        }
+        $temp = intval($arruni[$i]);
+        $unistr .= ($temp < 256) ? chr(0) . chr($temp) : chr($temp / 256) . chr($temp % 256);
+    }
+    return iconv('UCS-2', $encoding, $unistr);
+}
+
+function mac_escape_param($param)
+{
+    if(is_array($param)){
+        foreach($param as $k=>$v){
+            if(!is_numeric($v) && !empty($v)){
+                if($GLOBALS['MAC']['app']['wallfilter'] ==1){
+                    $v = mac_unicode_encode($v);
+                }
+                elseif($GLOBALS['MAC']['app']['wallfilter'] ==2){
+                    $v = '';
+                }
+                $param[$k] = $v;
+            }
+        }
+    }
+    else{
+        if(!is_numeric($param) && !empty($param)){
+            if($GLOBALS['MAC']['app']['wallfilter'] ==1){
+                $param = mac_unicode_encode($param);
+            }
+            elseif($GLOBALS['MAC']['app']['wallfilter'] ==2){
+                $param = '';
+            }
+        }
+    }
+    return $param;
 }
 ?>

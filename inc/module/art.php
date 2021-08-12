@@ -28,6 +28,10 @@ elseif($method=='map')
 
 elseif($method=='list')
 {
+    if($GLOBALS['MAC']['app']['liststatus']=='0'){
+        showMsg("筛选页功能已关闭，请稍后重试",MAC_PATH);
+        exit;
+    }
 	$tpl->C["siteaid"] = 22;
 	$tpl->P['cp'] = 'artlist';
 	$tpl->P['cn'] = $tpl->P['id'].'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'];
@@ -89,6 +93,11 @@ elseif($method=='topic')
 
 elseif($method=='search')
 {
+    if($GLOBALS['MAC']['app']['searchstatus']=='0'){
+        showMsg("搜索功能已关闭，请稍后重试",MAC_PATH);
+        exit;
+    }
+    
 	$tpl->C["siteaid"] = 25;
 	$wd = trim(be("all", "wd")); $wd = chkSql($wd);
 	if(!empty($wd)){ $tpl->P["wd"] = $wd; }
@@ -156,9 +165,14 @@ elseif($method=='search')
 	$tpl->H = loadFile(MAC_ROOT_TEMPLATE."/art_search.html");
 	$tpl->mark();
 	$tpl->pageshow();
-	
+
+    $cp = $tpl->P;
+    if(!empty($GLOBALS['MAC']['app']['wallfilter'])){
+        $cp = mac_escape_param($cp);
+    }
+
 	$colarr = array('{page:des}','{page:key}','{page:now}','{page:order}','{page:by}','{page:wd}','{page:wdencode}','{page:pinyin}','{page:letter}','{page:typeid}','{page:typepid}');
-	$valarr = array($tpl->P["des"],$tpl->P["key"],$tpl->P["pg"],$tpl->P["order"],$tpl->P["by"],$tpl->P["wd"],urlencode($tpl->P["wd"]),$tpl->P["pinyin"],$tpl->P["letter"],$tpl->P['typeid'],$tpl->P['typepid']   );
+    $valarr = array($cp["des"],$cp["key"],$cp["pg"],$cp["order"],$cp["by"],$cp["wd"],urlencode($cp["wd"]),$cp["pinyin"],$cp["letter"],$cp['typeid'],$cp['typepid']   );
 	
 	$tpl->H = str_replace($colarr, $valarr ,$tpl->H);
     unset($colarr,$valarr);

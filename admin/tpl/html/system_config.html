@@ -205,6 +205,30 @@ function sethtmldir(id,value){
                 （提醒：开启后可能会影响网站速度，但是会过滤数据库里的挂马html标签和if标签来保证系统安全。）
             </td>
         </tr>
+        <tr>
+            <td>假墙防御：</td>
+            <td>
+                <!-- BEGIN list_app_wallfilter -->
+                <input type="radio" name="app_wallfilter" value="{v}" {c} />{n}&nbsp;
+                <!-- END list_app_wallfilter -->
+            </td>
+        </tr>
+        <tr>
+            <td>筛选页开关：</td>
+            <td>
+                <!-- BEGIN list_app_liststatus -->
+                <input type="radio" name="app_liststatus" value="{v}" {c} />{n}&nbsp;
+                <!-- END list_app_liststatus -->
+            </td>
+        </tr>
+        <tr>
+            <td>搜索开关：</td>
+            <td>
+                <!-- BEGIN list_app_searchstatus -->
+                <input type="radio" name="app_searchstatus" value="{v}" {c} />{n}&nbsp;
+                <!-- END list_app_searchstatus -->
+            </td>
+        </tr>
     <tr>
       <td>搜索时间间隔(秒)：</td>
       <td>

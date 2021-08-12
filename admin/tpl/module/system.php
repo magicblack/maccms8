@@ -80,6 +80,9 @@ if($method=='configsave')
 	$config['app']['dynamiccache'] = intval(trim(be('post','app_dynamiccache')));
 	$config['app']['compress'] = intval(trim(be('post','app_compress')));
     $config['app']['filtertags'] = intval(trim(be('post','app_filtertags')));
+    $config['app']['searchstatus'] = intval(trim(be('post','app_searchstatus')));
+    $config['app']['liststatus'] = intval(trim(be('post','app_liststatus')));
+    $config['app']['wallfilter'] = intval(trim(be('post','app_wallfilter')));
 
 	$config['app']['searchtime'] = !is_numeric(be('post','app_searchtime')) ? 5 : intval(trim(be('post','app_searchtime')));
     $config['app']['searchlen'] = !is_numeric(be('post','app_searchlen')) ? 10 : intval(trim(be('post','app_searchlen')));
@@ -298,7 +301,11 @@ elseif($method=='config')
 		array('p'=>'app','a'=>'encrypt','c'=>$MAC['app']['encrypt'],'t'=>1,'n'=>array('不加密','escape编码','base64编码'),'v'=>array(0,1,2)),
 		array('p'=>'app','a'=>'isopen','c'=>$MAC['app']['isopen'],'t'=>1,'n'=>array('普通窗口','弹出窗口'),'v'=>array(0,1)),
 		array('p'=>'app','a'=>'suffix','c'=>$MAC['app']['suffix'],'t'=>1,'n'=>array('htm','html','shtml'),'v'=>array('htm','html','shtml')),
-		
+
+        array('p'=>'app','a'=>'searchstatus','c'=>$MAC['app']['searchstatus'],'t'=>0),
+        array('p'=>'app','a'=>'liststatus','c'=>$MAC['app']['liststatus'],'t'=>0),
+        array('p'=>'app','a'=>'wallfilter','c'=>$MAC['app']['wallfilter'],'t'=>0,'n'=>array('关闭','编码方式','空白方式'),'v'=>array(0,1,2)),
+
 		array('p'=>'site','a'=>'mobstatus','c'=>$MAC['site']['mobstatus'],'t'=>0),
 			
 		array('p'=>'user','a'=>'status','c'=>$MAC['user']['status'],'t'=>0),

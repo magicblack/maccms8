@@ -58,11 +58,10 @@ class AppTpl
 	    		}
 	    		$strpg='';
 	    		$colarr=array('pg','wd','year','starring','directed','pinyin','letter','ids','area','lang','tag','typeid','classid','order','by');
-	    		
 	    		$valarr=array();
 	    		foreach($colarr as $k=>$v){
 	    			$c = $colarr[$k];
-	    			$valarr[$c] = rawurlencode($this->P[$c]);
+	    			$valarr[$c] = $this->P[$c];
 	    		}
 	    		foreach($d as $k=>$v){
 					$valarr[$k]=$v;
@@ -90,7 +89,7 @@ class AppTpl
 					$str = $r;
 				}
 				$colarr = array('{id}','{pg}','{order}','{by}','{class}','{year}','{letter}','{area}','{lang}');
-				$valarr = array('id'=>$this->P['id'],'pg'=>'1','order'=>$this->P['order'],'by'=>$this->P['by'],'class'=>rawurlencode($this->P['class']),'year'=>rawurlencode($this->P['year']),'letter'=>rawurlencode($this->P['letter']),'area'=>rawurlencode($this->P['area']),'lang'=>rawurlencode($this->P['lang']));
+				$valarr = array('id'=>$this->P['id'],'pg'=>'1','order'=>$this->P['order'],'by'=>$this->P['by'],'class'=>urlencode($this->P['class']),'year'=>urlencode($this->P['year']),'letter'=>urlencode($this->P['letter']),'area'=>urlencode($this->P['area']),'lang'=>urlencode($this->P['lang']));
 				foreach($d as $k=>$v){
 					$valarr[$k]= $v;
 				}

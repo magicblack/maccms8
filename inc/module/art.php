@@ -32,6 +32,10 @@ elseif($method=='list')
         showMsg("筛选页功能已关闭，请稍后重试",MAC_PATH);
         exit;
     }
+    if($GLOBALS['MAC']['app']['listcode']=='1' && empty($_SESSION['code_list'])){
+        $tpl->loadVerify('list');
+        exit;
+    }
 	$tpl->C["siteaid"] = 22;
 	$tpl->P['cp'] = 'artlist';
 	$tpl->P['cn'] = $tpl->P['id'].'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'];
@@ -97,7 +101,10 @@ elseif($method=='search')
         showMsg("搜索功能已关闭，请稍后重试",MAC_PATH);
         exit;
     }
-    
+    if($GLOBALS['MAC']['app']['searchcode']=='1' && empty($_SESSION['code_search'])){
+        $tpl->loadVerify('search');
+        exit;
+    }
 	$tpl->C["siteaid"] = 25;
 	$wd = trim(be("all", "wd")); $wd = chkSql($wd);
 	if(!empty($wd)){ $tpl->P["wd"] = $wd; }

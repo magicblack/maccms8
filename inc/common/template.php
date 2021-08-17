@@ -2403,6 +2403,14 @@ class AppTpl
 		}
 		unset($matches2);
     }
+
+    function loadVerify($type)
+    {
+        $this->H = loadFile(MAC_ROOT_TEMPLATE."/home_verify.html");
+        $this->H = str_replace("{type}",$type,$this->H);
+        $this->base();
+        echo $this->H;
+    }
 }
 $tpl = new AppTpl();
 ?>

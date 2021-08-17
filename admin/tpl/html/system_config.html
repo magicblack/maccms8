@@ -222,11 +222,27 @@ function sethtmldir(id,value){
             </td>
         </tr>
         <tr>
+            <td>筛选页验证码：</td>
+            <td>
+                <!-- BEGIN list_app_listcode -->
+                <input type="radio" name="app_listcode" value="{v}" {c} />{n}&nbsp;
+                <!-- END list_app_listcode -->
+            </td>
+        </tr>
+        <tr>
             <td>搜索开关：</td>
             <td>
                 <!-- BEGIN list_app_searchstatus -->
                 <input type="radio" name="app_searchstatus" value="{v}" {c} />{n}&nbsp;
                 <!-- END list_app_searchstatus -->
+            </td>
+        </tr>
+        <tr>
+            <td>搜索验证码：</td>
+            <td>
+                <!-- BEGIN list_app_searchcode -->
+                <input type="radio" name="app_searchcode" value="{v}" {c} />{n}&nbsp;
+                <!-- END list_app_searchcode -->
             </td>
         </tr>
     <tr>

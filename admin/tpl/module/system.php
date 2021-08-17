@@ -81,6 +81,8 @@ if($method=='configsave')
 	$config['app']['compress'] = intval(trim(be('post','app_compress')));
     $config['app']['filtertags'] = intval(trim(be('post','app_filtertags')));
     $config['app']['searchstatus'] = intval(trim(be('post','app_searchstatus')));
+    $config['app']['searchcode'] = intval(trim(be('post','app_searchcode')));
+    $config['app']['listcode'] = intval(trim(be('post','app_listcode')));
     $config['app']['liststatus'] = intval(trim(be('post','app_liststatus')));
     $config['app']['wallfilter'] = intval(trim(be('post','app_wallfilter')));
 
@@ -304,6 +306,8 @@ elseif($method=='config')
 
         array('p'=>'app','a'=>'searchstatus','c'=>$MAC['app']['searchstatus'],'t'=>0),
         array('p'=>'app','a'=>'liststatus','c'=>$MAC['app']['liststatus'],'t'=>0),
+        array('p'=>'app','a'=>'listcode','c'=>$MAC['app']['listcode'],'t'=>0),
+        array('p'=>'app','a'=>'searchcode','c'=>$MAC['app']['searchcode'],'t'=>0),
         array('p'=>'app','a'=>'wallfilter','c'=>$MAC['app']['wallfilter'],'t'=>0,'n'=>array('关闭','编码方式','空白方式'),'v'=>array(0,1,2)),
 
 		array('p'=>'site','a'=>'mobstatus','c'=>$MAC['site']['mobstatus'],'t'=>0),

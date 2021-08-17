@@ -32,12 +32,16 @@ elseif($method=='list')
         showMsg("筛选页功能已关闭，请稍后重试",MAC_PATH);
         exit;
     }
-	$tpl->C["siteaid"] = 12;
+    if($GLOBALS['MAC']['app']['listcode']=='1' && empty($_SESSION['code_list'])){
+        $tpl->loadVerify('list');
+        exit;
+    }
+    $tpl->C["siteaid"] = 12;
     $tpl->P['cp'] = 'vodlist';
 	$tpl->P['cn'] = $tpl->P['id'].'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'].'-'.$tpl->P['year'].'-'.$tpl->P['letter'].'-'.$tpl->P['class'].'-'.urlencode($tpl->P['area']).'-'.urlencode($tpl->P['lang']);
 	echoPageCache($tpl->P['cp'],$tpl->P['cn']);
 	$tpl->P['vodtypeid'] = $tpl->P['id'];
-	
+
 	$tpl->T = $MAC_CACHE['vodtype'][$tpl->P['vodtypeid']];
 	if(!is_array($tpl->T)){ showMsg("获取数据失败，请勿非法传递参数","../"); }
 	getDbConnect();
@@ -98,6 +102,10 @@ elseif($method=='search')
 {
     if($GLOBALS['MAC']['app']['searchstatus']=='0'){
         showMsg("搜索功能已关闭，请稍后重试",MAC_PATH);
+        exit;
+    }
+    if($GLOBALS['MAC']['app']['searchcode']=='1' && empty($_SESSION['code_search'])){
+        $tpl->loadVerify('search');
         exit;
     }
 	$tpl->C["siteaid"] = 15;

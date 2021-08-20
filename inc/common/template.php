@@ -987,9 +987,7 @@ class AppTpl
 			//exit;
 		}
 	}
-    
-    
-    
+
     function ifex()
     {
         if (!strpos(",".$this->H,"{if-")) { return; }

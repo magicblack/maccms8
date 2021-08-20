@@ -18,7 +18,7 @@
     
     if(empty($ac)){ $ac='vod'; $method='index'; }
     
-    $col_num = array('id','pg','year','type','typeid','class','classid','src','level','num','aid','vid','uid');
+    $col_num = array('id','pg','year','type','typeid','class','classid','src','level','num','aid','vid','uid','maxpage');
     $col_str = array('wd','ids','pinyin','area','lang','letter','starring','directed','tag','order','by','flag','clear','ref','s','t');
     if($parlen>=2){
     	$method = $par[1];

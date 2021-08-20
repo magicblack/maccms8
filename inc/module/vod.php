@@ -36,9 +36,44 @@ elseif($method=='list')
         $tpl->loadVerify('list');
         exit;
     }
+
+    if(intval($MAC['app']['searchlen'])<1){
+        $MAC['app']['searchlen'] = 10;
+    }
+    if(mb_strlen($tpl->P['wd']) > $MAC['app']['searchlen']){
+        $tpl->P['wd'] = substring($tpl->P['wd'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['area']) > $MAC['app']['searchlen']){
+        $tpl->P['area'] = substring($tpl->P['area'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['year']) > $MAC['app']['searchlen']){
+        $tpl->P['year'] = substring($tpl->P['year'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['lang']) > $MAC['app']['searchlen']){
+        $tpl->P['lang'] = substring($tpl->P['lang'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['letter']) > $MAC['app']['searchlen']){
+        $tpl->P['letter'] = substring($tpl->P['letter'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['class']) > $MAC['app']['searchlen']){
+        $tpl->P['class'] = substring($tpl->P['class'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['pinyin']) > $MAC['app']['searchlen']){
+        $tpl->P['pinyin'] = substring($tpl->P['pinyin'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['tag']) > $MAC['app']['searchlen']){
+        $tpl->P['tag'] = substring($tpl->P['tag'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['starring']) > $MAC['app']['searchlen']){
+        $tpl->P['starring'] = substring($tpl->P['starring'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['directed']) > $MAC['app']['searchlen']){
+        $tpl->P['directed'] = substring($tpl->P['directed'],$MAC['app']['searchlen']);
+    }
+
     $tpl->C["siteaid"] = 12;
     $tpl->P['cp'] = 'vodlist';
-	$tpl->P['cn'] = $tpl->P['id'].'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'].'-'.$tpl->P['year'].'-'.$tpl->P['letter'].'-'.$tpl->P['class'].'-'.urlencode($tpl->P['area']).'-'.urlencode($tpl->P['lang']);
+    $tpl->P['cn'] = urlencode($tpl->P['area'].'-'.$tpl->P['year'].'-'.$tpl->P['lang'].'-'.$tpl->P['letter'].'-'.$tpl->P['class']. '-'.$tpl->P['wd']. '-'.$tpl->P['pinyin'].  '-'.$tpl->P['tag']. '-'.$tpl->P['starring'].'-'.$tpl->P['directed'].'-'.$tpl->P['typeid'].'-'.$tpl->P['classid'] .'-'.$tpl->P['ids'] .'-'.$tpl->P['id'] .'-'.$tpl->P['by'] .'-'.$tpl->P['order'] .'-'.$tpl->P['pg']);
 	echoPageCache($tpl->P['cp'],$tpl->P['cn']);
 	$tpl->P['vodtypeid'] = $tpl->P['id'];
 
@@ -122,14 +157,40 @@ elseif($method=='search')
     if(intval($MAC['app']['searchlen'])<1){
         $MAC['app']['searchlen'] = 10;
     }
-
     if(mb_strlen($wd) > $MAC['app']['searchlen']){
         $wd = substring($wd,$MAC['app']['searchlen']);
         $tpl->P["wd"] = $wd;
     }
+    if(mb_strlen($tpl->P['area']) > $MAC['app']['searchlen']){
+        $tpl->P['area'] = substring($tpl->P['area'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['year']) > $MAC['app']['searchlen']){
+        $tpl->P['year'] = substring($tpl->P['year'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['lang']) > $MAC['app']['searchlen']){
+        $tpl->P['lang'] = substring($tpl->P['lang'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['letter']) > $MAC['app']['searchlen']){
+        $tpl->P['letter'] = substring($tpl->P['letter'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['class']) > $MAC['app']['searchlen']){
+        $tpl->P['class'] = substring($tpl->P['class'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['pinyin']) > $MAC['app']['searchlen']){
+        $tpl->P['pinyin'] = substring($tpl->P['pinyin'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['tag']) > $MAC['app']['searchlen']){
+        $tpl->P['tag'] = substring($tpl->P['tag'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['starring']) > $MAC['app']['searchlen']){
+        $tpl->P['starring'] = substring($tpl->P['starring'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['directed']) > $MAC['app']['searchlen']){
+        $tpl->P['directed'] = substring($tpl->P['directed'],$MAC['app']['searchlen']);
+    }
 	
     $tpl->P['cp'] = 'vodsearch';
-	$tpl->P['cn'] = urlencode($tpl->P['wd']).'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'].'-'.$tpl->P['ids']. '-'.$tpl->P['pinyin']. '-'.$tpl->P['type'].  '-'.$tpl->P['year']. '-'.$tpl->P['letter'].'-'.$tpl->P['typeid'].'-'.$tpl->P['classid'].'-'.urlencode($tpl->P['area']) .'-'.urlencode($tpl->P['lang'])  .'-'.urlencode($tpl->P['tag']) .'-'.urlencode($tpl->P['starring']) .'-'.urlencode($tpl->P['directed']) ;
+    $tpl->P['cn'] = urlencode($tpl->P['area'].'-'.$tpl->P['year'].'-'.$tpl->P['lang'].'-'.$tpl->P['letter'].'-'.$tpl->P['class']. '-'.$tpl->P['wd']. '-'.$tpl->P['pinyin'].  '-'.$tpl->P['tag']. '-'.$tpl->P['starring'].'-'.$tpl->P['directed'].'-'.$tpl->P['typeid'].'-'.$tpl->P['classid'] .'-'.$tpl->P['ids'] .'-'.$tpl->P['id'] .'-'.$tpl->P['by'] .'-'.$tpl->P['order'] .'-'.$tpl->P['pg']);
 	echoPageCache($tpl->P['cp'],$tpl->P['cn']);
 	$tpl->P["where"]='';
 	$tpl->P["des"]='';

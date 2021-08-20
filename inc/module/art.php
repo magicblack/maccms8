@@ -108,8 +108,10 @@ elseif($method=='search')
 	$tpl->C["siteaid"] = 25;
 	$wd = trim(be("all", "wd")); $wd = chkSql($wd);
 	if(!empty($wd)){ $tpl->P["wd"] = $wd; }
-	
-	if ( $tpl->P['pg']==1 && getTimeSpan("last_arsearchtime") < $MAC['app']['searchtime']){ 
+
+    //if (empty($tpl->P["wd"]) && empty($tpl->P["ids"]) && empty($tpl->P["pinyin"]) && empty($tpl->P["letter"]) && empty($tpl->P["tag"]) && empty($tpl->P["type"]) ){ alert ("搜索参数不正确"); }
+
+    if ( $tpl->P['pg']==1 && getTimeSpan("last_arsearchtime") < $MAC['app']['searchtime']){
 		showMsg("请不要频繁操作，时间间隔为".$MAC['app']['searchtime']."秒",MAC_PATH);
 		exit;
 	}
@@ -122,11 +124,19 @@ elseif($method=='search')
 	    $wd = substring($wd,$MAC['app']['searchlen']);
         $tpl->P["wd"] = $wd;
     }
-	
-	//if (empty($tpl->P["wd"]) && empty($tpl->P["ids"]) && empty($tpl->P["pinyin"]) && empty($tpl->P["letter"]) && empty($tpl->P["tag"]) && empty($tpl->P["type"]) ){ alert ("搜索参数不正确"); }
-	
-	$tpl->P['cp'] = 'artsearch';
-	$tpl->P['cn'] = urlencode($tpl->P['wd']).'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'].'-'.$tpl->P['ids']. '-'.$tpl->P['pinyin']. '-'.$tpl->P['type'] .'-'.urlencode($tpl->P['tag']) ;
+    if(mb_strlen($tpl->P['letter']) > $MAC['app']['searchlen']){
+        $tpl->P['letter'] = substring($tpl->P['letter'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['pinyin']) > $MAC['app']['searchlen']){
+        $tpl->P['pinyin'] = substring($tpl->P['pinyin'],$MAC['app']['searchlen']);
+    }
+    if(mb_strlen($tpl->P['tag']) > $MAC['app']['searchlen']){
+        $tpl->P['tag'] = substring($tpl->P['tag'],$MAC['app']['searchlen']);
+    }
+
+
+    $tpl->P['cp'] = 'artsearch';
+	$tpl->P['cn'] = urlencode($tpl->P['wd']).'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'].'-'.$tpl->P['ids'].'-'.$tpl->P['letter']. '-'.$tpl->P['pinyin']. '-'.$tpl->P['type'] . '-'.$tpl->P['typeid'] .'-'.urlencode($tpl->P['tag']) ;
 	echoPageCache($tpl->P['cp'],$tpl->P['cn']);
 	$tpl->P["where"]='';
 	$tpl->P["des"]='';

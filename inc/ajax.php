@@ -233,28 +233,30 @@ elseif($ac=='suggest')
 	echo $res;
 }
 
-else if($ac=='code_check'){
-	$v=be("get","code"); $v = chkSql($v);
-	$t=be("get","type"); $t = chkSql($t);
-	$res = array();
-	$res['code'] = 1;
-	$res['msg'] = 'ok';
-	if(!in_array($t,['search','list'])){
-	     $res['code'] = 1001;
-	     $res['msg'] = '参数错误';
-            echo json_encode($res);
-            exit;
-       }
-       
-       if($_SESSION["code_yz_".$t] != $v){
-       	$res['code'] = 1002;
-	      $res['msg'] = '验证码错误';
-             echo json_encode($res);
-             exit;
-       }
-       
-        $_SESSION["code_yz_".$t] ='1';
+else if($ac=='code_check') {
+    $v = be("get", "code");
+    $v = chkSql($v);
+    $t = be("get", "type");
+    $t = chkSql($t);
+    $res = array();
+    $res['code'] = 1;
+    $res['msg'] = 'ok';
+    if (!in_array($t, ['search', 'list'])) {
+        $res['code'] = 1001;
+        $res['msg'] = '参数错误';
         echo json_encode($res);
+        exit;
+    }
+
+    if($_SESSION["code_" . $t] != $v){
+        $res['code'] = 1002;
+        $res['msg'] = '验证码错误';
+        echo json_encode($res);
+        exit;
+    }
+
+    $_SESSION["code_yz_" . $t] = '1';
+    echo json_encode($res);
 }
 
 else

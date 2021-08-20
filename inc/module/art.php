@@ -36,9 +36,20 @@ elseif($method=='list')
         $tpl->loadVerify('list');
         exit;
     }
+
+    if(intval($MAC['app']['searchlen'])<1){
+        $MAC['app']['searchlen'] = 10;
+    }
+    $psm = array('wd','letter','pinyin','tag');
+    foreach($psm as $v){
+        if(mb_strlen($tpl->P[$v]) > $MAC['app']['searchlen']){
+            $tpl->P[$v] = substring($tpl->P[$v],$MAC['app']['searchlen']);
+        }
+    }
+
 	$tpl->C["siteaid"] = 22;
 	$tpl->P['cp'] = 'artlist';
-	$tpl->P['cn'] = $tpl->P['id'].'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'];
+    $tpl->P['cn'] = urlencode($tpl->P['wd'].'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'].'-'.$tpl->P['ids'].'-'.$tpl->P['id'].'-'.$tpl->P['letter']. '-'.$tpl->P['pinyin']. '-'.$tpl->P['type'] . '-'.$tpl->P['typeid'] .'-'.$tpl->P['tag']) ;
 	echoPageCache($tpl->P['cp'],$tpl->P['cn']);
 	$tpl->P['arttypeid'] = $tpl->P['id'];
 	$tpl->T = $MAC_CACHE['arttype'][$tpl->P['arttypeid']];
@@ -119,24 +130,15 @@ elseif($method=='search')
     if(intval($MAC['app']['searchlen'])<1){
         $MAC['app']['searchlen'] = 10;
     }
-
-	if(mb_strlen($wd) > $MAC['app']['searchlen']){
-	    $wd = substring($wd,$MAC['app']['searchlen']);
-        $tpl->P["wd"] = $wd;
+    $psm = array('wd','letter','pinyin','tag');
+    foreach($psm as $v){
+        if(mb_strlen($tpl->P[$v]) > $MAC['app']['searchlen']){
+            $tpl->P[$v] = substring($tpl->P[$v],$MAC['app']['searchlen']);
+        }
     }
-    if(mb_strlen($tpl->P['letter']) > $MAC['app']['searchlen']){
-        $tpl->P['letter'] = substring($tpl->P['letter'],$MAC['app']['searchlen']);
-    }
-    if(mb_strlen($tpl->P['pinyin']) > $MAC['app']['searchlen']){
-        $tpl->P['pinyin'] = substring($tpl->P['pinyin'],$MAC['app']['searchlen']);
-    }
-    if(mb_strlen($tpl->P['tag']) > $MAC['app']['searchlen']){
-        $tpl->P['tag'] = substring($tpl->P['tag'],$MAC['app']['searchlen']);
-    }
-
 
     $tpl->P['cp'] = 'artsearch';
-	$tpl->P['cn'] = urlencode($tpl->P['wd']).'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'].'-'.$tpl->P['ids'].'-'.$tpl->P['letter']. '-'.$tpl->P['pinyin']. '-'.$tpl->P['type'] . '-'.$tpl->P['typeid'] .'-'.urlencode($tpl->P['tag']) ;
+	$tpl->P['cn'] = urlencode($tpl->P['wd'].'-'.$tpl->P['pg'].'-'.$tpl->P['order'].'-'.$tpl->P['by'].'-'.$tpl->P['ids'].'-'.$tpl->P['id'].'-'.$tpl->P['letter']. '-'.$tpl->P['pinyin']. '-'.$tpl->P['type'] . '-'.$tpl->P['typeid'] .'-'.$tpl->P['tag']) ;
 	echoPageCache($tpl->P['cp'],$tpl->P['cn']);
 	$tpl->P["where"]='';
 	$tpl->P["des"]='';

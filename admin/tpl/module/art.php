@@ -344,7 +344,7 @@ elseif($method=='list')
 	$type=$p['type']; if(empty($type)){ $type=999; } else { $type=intval($type); }
 	$topic=$p['topic']; if(empty($topic)){ $topic=999; } else { $topic=intval($topic); }
 	$level=$p['level']; if(empty($level)){ $level=999; } else { $level=intval($level); }
-	$hide=$p['hide']; if(empty($hide)){ $hide=999; } else { $hide=intval($hide); }
+	$hide=$p['hide']; if($hide==''){ $hide=999; } else { $hide=intval($hide); }
 	$lock=$p['lock']; if(empty($lock)){ $lock=999; } else { $lock=intval($lock); }
 	
 	$id=$p['id'];

@@ -246,14 +246,14 @@ else if($ac=='code_check'){
             exit;
        }
        
-       if($_SESSION["code_".$t] != $v){
+       if($_SESSION["code_yz_".$t] != $v){
        	$res['code'] = 1002;
 	      $res['msg'] = '验证码错误';
              echo json_encode($res);
              exit;
        }
        
-        $_SESSION["code_".$t] ='1';
+        $_SESSION["code_yz_".$t] ='1';
         echo json_encode($res);
 }
 

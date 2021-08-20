@@ -32,7 +32,7 @@ elseif($method=='list')
         showMsg("筛选页功能已关闭，请稍后重试",MAC_PATH);
         exit;
     }
-    if($GLOBALS['MAC']['app']['listcode']=='1' && empty($_SESSION['code_list'])){
+    if($GLOBALS['MAC']['app']['listcode']=='1' && empty($_SESSION['code_yz_list'])){
         $tpl->loadVerify('list');
         exit;
     }
@@ -104,7 +104,7 @@ elseif($method=='search')
         showMsg("搜索功能已关闭，请稍后重试",MAC_PATH);
         exit;
     }
-    if($GLOBALS['MAC']['app']['searchcode']=='1' && empty($_SESSION['code_search'])){
+    if($GLOBALS['MAC']['app']['searchcode']=='1' && empty($_SESSION['code_yz_search'])){
         $tpl->loadVerify('search');
         exit;
     }

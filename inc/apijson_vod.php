@@ -27,9 +27,9 @@ if($MAC['api']['vod']['charge'] == 1) {
 	}
 }
 
-
 getDbConnect();
 
+$ver = '2021.08.21';
 $ac = be("get","ac");
 $t = intval(be("get","t"));
 $pg = intval(be("get","pg"));
@@ -99,9 +99,6 @@ if($ac=='videolist' || $ac=='detail')
 		
 		while ($row = $db ->fetch_array($rs))
 		{
-            if($GLOBALS['MAC']['app']['filtertags'] != '2') {
-                $row = array_map('filter_tags', $row);
-            }
 			$tmp = urlDeal($row["d_playurl"],$row["d_playfrom"],$row["d_playserver"],$row["d_playnote"],$from);
 		    if(substr($row["d_pic"],0,4)=="http"){ $temppic = $row["d_pic"]; } else { $temppic = $MAC['api']['vod']['imgurl'] . $row["d_pic"]; }
 		    
@@ -165,6 +162,7 @@ if($ac=='videolist' || $ac=='detail')
 	}
 	unset($rs);
 	$xml = json_encode($json);
+    $xml = filter_tags($xml);
 	setPageCache($cp,$cn,$xml);
 	echo $xml;
 }
@@ -214,9 +212,6 @@ else
 		
 		while ($row = $db ->fetch_array($rs))
 	  	{
-            if($GLOBALS['MAC']['app']['filtertags'] != '2') {
-                $row = array_map('filter_tags', $row);
-            }
 	  		$dt = $from!='' ? $from : replaceStr($row["d_playfrom"],'$$$',',');
 	  		$typearr = $MAC_CACHE['vodtype'][$row["d_type"]];
 			
@@ -242,9 +237,6 @@ else
 	$rs = $db->query($sql);
 	while ($row = $db ->fetch_array($rs))
 	{
-        if($GLOBALS['MAC']['app']['filtertags'] != '2') {
-            $row = array_map('filter_tags', $row);
-        }
 		$json['class'][] = array(
 			'type_id'=>$row['t_id'],
 			'type_name'=>$row['t_name']
@@ -253,6 +245,7 @@ else
 	unset($rs);
 	//分类列表结束
 	$xml = json_encode($json);
+    $xml = filter_tags($xml);
 	setPageCache($cp,$cn,$xml);
 	echo $xml;
 }

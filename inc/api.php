@@ -29,7 +29,7 @@ if($MAC['api']['vod']['charge'] == 1) {
 
 getDbConnect();
 
-$ver = '2017.10.17.11.07';
+$ver = '2021.08.21';
 $ac = be("get","ac");
 $t = intval(be("get","t"));
 $pg = intval(be("get","pg"));
@@ -96,9 +96,6 @@ if($ac=='videolist')
 		
 		while ($row = $db ->fetch_array($rs))
 		{
-            if($GLOBALS['MAC']['app']['filtertags'] != '2') {
-                $row = array_map('filter_tags', $row);
-            }
 			$tempurl = urlDeal($row["d_playurl"],$row["d_playfrom"],$from);
 		    if(substr($row["d_pic"],0,4)=="http"){ $temppic = $row["d_pic"]; } else { $temppic = $MAC['api']['vod']['imgurl'] . $row["d_pic"]; }
 		    
@@ -124,7 +121,8 @@ if($ac=='videolist')
 		$xml .= "</list>";
 	}
 	unset($rs);
-	$xmla .= $xml . "</rss>";
+	$xml .=  "</rss>";
+    $xml = filter_tags($xml);
 	setPageCache($cp,$cn,$xmla);
 	echo $xmla;
 }
@@ -168,9 +166,6 @@ else
 		
 		while ($row = $db ->fetch_array($rs))
 	  	{
-            if($GLOBALS['MAC']['app']['filtertags'] != '2') {
-                $row = array_map('filter_tags', $row);
-            }
 	  		$typearr = $MAC_CACHE['vodtype'][$row["d_type"]];
 			$xml .= "<video>";
 			$xml .= "<last>".date('Y-m-d H:i:s',$row["d_time"])."</last>";
@@ -200,15 +195,13 @@ else
 	$rs = $db->query($sql);
 	while ($row = $db ->fetch_array($rs))
 	{
-        if($GLOBALS['MAC']['app']['filtertags'] != '2') {
-            $row = array_map('filter_tags', $row);
-        }
 		$xml .= "<ty id=\"". $row["t_id"] ."\">". $row["t_name"] . "</ty>";
 	}
 	unset($rs);
 	$xml .= "</class>";
 	//分类列表结束
 	$xml .= "</rss>";
+    $xml = filter_tags($xml);
 	setPageCache($cp,$cn,$xml);
 	echo $xml;
 }

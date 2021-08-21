@@ -232,9 +232,8 @@ elseif($method=='cj'){
 	if(strpos($html,'<rss')===false){
 		$html = '<?xml version="1.0" encoding="utf-8"?><rss version="5.1">' . $html .'</rss>';
 	}
-	
+    $html = filter_tags($html);
     $xml = @simplexml_load_string($html);
-    
     if(empty($xml)){
 		$labelRule = '<pic>'."(.*?)".'</pic>';
 		$labelRule = buildregx($labelRule,"is");
@@ -256,9 +255,7 @@ elseif($method=='cj'){
 		}
     }
     
-    
-    
-    
+
     $pgcount = (string)@$xml->list->attributes()->pagecount;
     $pgsize = (string)@$xml->list->attributes()->pagesize;
     $recordcount = (string)@$xml->list->attributes()->recordcount;
@@ -287,20 +284,20 @@ elseif($method=='cj'){
     	$i++;
         $rc = false;
         $d_id = (string)$video->id;
-        $d_name = format_vodname(filter_tags((string)$video->name)); $d_name = str_replace("'", "''",$d_name);
-        $d_subname = filter_tags((string)$video->subname); $d_subname = str_replace("'", "''",$d_subname);
-        $d_remarks = filter_tags((string)$video->note); $d_remarks = str_replace("'", "''",$d_remarks);
+        $d_name = format_vodname((string)$video->name); $d_name = str_replace("'", "''",$d_name);
+        $d_subname = (string)$video->subname; $d_subname = str_replace("'", "''",$d_subname);
+        $d_remarks = (string)$video->note; $d_remarks = str_replace("'", "''",$d_remarks);
         $d_state = intval((string)$video->state);
         $d_type = $xt=='0'? (string)$video->tid : $flag.(string)$video->tid;
         $d_type = intval( $bindcache[$d_type] );
-        $d_starring = filter_tags((string)$video->actor); $d_starring = str_replace("'", "''",$d_starring);
-        $d_directed = filter_tags((string)$video->director); $d_directed = str_replace("'", "''",$d_directed);
-        $d_pic = filter_tags((string)$video->pic); $d_pic = str_replace("'", "''",$d_pic);
+        $d_starring = (string)$video->actor; $d_starring = str_replace("'", "''",$d_starring);
+        $d_directed = (string)$video->director; $d_directed = str_replace("'", "''",$d_directed);
+        $d_pic = (string)$video->pic; $d_pic = str_replace("'", "''",$d_pic);
         $d_time = (string)$video->last;
         $d_year = intval((string)$video->year);
-        $d_area = filter_tags((string)$video->area); $d_area = str_replace("'", "''",$d_area);
-        $d_lang = filter_tags((string)$video->lang); $d_lang = str_replace("'", "''",$d_lang);
-        $d_content = filter_tags((string)$video->des); $d_content = str_replace("'", "''",$d_content);
+        $d_area = (string)$video->area; $d_area = str_replace("'", "''",$d_area);
+        $d_lang = (string)$video->lang; $d_lang = str_replace("'", "''",$d_lang);
+        $d_content = (string)$video->des; $d_content = str_replace("'", "''",$d_content);
 
         $d_enname = Hanzi2PinYin($d_name);
         $d_letter = strtoupper(substring($d_enname,1));
@@ -778,22 +775,22 @@ elseif($method=='cjjson'){
             $i++;
             $rc = false;
             $d_id = $one['vod_id'];
-            $d_name = format_vodname(filter_tags($one['vod_name']));
+            $d_name = format_vodname($one['vod_name']);
             $d_name = str_replace("'", "''", $d_name);
-            $d_subname = filter_tags($one['vod_sub']); $d_remarks = str_replace("'", "''",$d_subname);
-            $d_remarks = filter_tags($one['vod_remarks']); $d_remarks = str_replace("'", "''", $d_remarks);
+            $d_subname = $one['vod_sub']; $d_remarks = str_replace("'", "''",$d_subname);
+            $d_remarks = $one['vod_remarks']; $d_remarks = str_replace("'", "''", $d_remarks);
             $d_state = intval($one['vod_serial']);
             $d_type = $xt == '0' ? $one['type_id'] : $flag . $one['type_id'];
             $d_type = intval($bindcache[$d_type]);
-            $d_starring = filter_tags($one['vod_actor']);  $d_starring = str_replace("'", "''", $d_starring);
-            $d_directed = filter_tags($one['vod_director']);  $d_directed = str_replace("'", "''", $d_directed);
-            $d_pic = filter_tags($one['vod_pic']);
+            $d_starring = $one['vod_actor'];  $d_starring = str_replace("'", "''", $d_starring);
+            $d_directed = $one['vod_director'];  $d_directed = str_replace("'", "''", $d_directed);
+            $d_pic = $one['vod_pic'];
             $d_pic = str_replace("'", "''", $d_pic);
             $d_time = $one['vod_time'];
             $d_year = intval($one['vod_year']);
-            $d_area = filter_tags($one['vod_area']);  $d_area = str_replace("'", "''", $d_area);
-            $d_lang = filter_tags($one['vod_lang']);  $d_lang = str_replace("'", "''", $d_lang);
-            $d_content = filter_tags($one['vod_content']);  $d_content = str_replace("'", "''", $d_content);
+            $d_area = $one['vod_area'];  $d_area = str_replace("'", "''", $d_area);
+            $d_lang = $one['vod_lang'];  $d_lang = str_replace("'", "''", $d_lang);
+            $d_content = $one['vod_content'];  $d_content = str_replace("'", "''", $d_content);
 
             $d_enname = Hanzi2PinYin($d_name);
             $d_letter = strtoupper(substring($d_enname, 1));
@@ -1199,18 +1196,18 @@ EOT;
             $i++;
             $rc = false;
             $a_id = $one['art_id'];
-            $a_name = format_vodname(filter_tags($one['art_name']));
+            $a_name = format_vodname($one['art_name']);
             $a_name = str_replace("'", "''", $a_name);
-            $a_remarks = filter_tags($one['art_remarks']); $a_remarks = str_replace("'", "''", $a_remarks);
-            $a_subname = filter_tags($one['art_subname']); $a_subname = str_replace("'", "''", $a_remarks);
+            $a_remarks = $one['art_remarks']; $a_remarks = str_replace("'", "''", $a_remarks);
+            $a_subname = $one['art_subname']; $a_subname = str_replace("'", "''", $a_remarks);
             $a_type = $xt == '0' ? $one['type_id'] : $flag . $one['type_id'];
             $a_type = intval($bindcache[$a_type]);
-            $a_tag = filter_tags($one['art_tag']); $a_tag = str_replace("'", "''", $a_tag);
-            $a_from = filter_tags($one['art_from']); $a_from = str_replace("'", "''", $a_from);
-            $a_author = filter_tags($one['art_author']); $a_author = str_replace("'", "''", $a_author);
-            $a_pic = filter_tags($one['art_pic']);$a_pic = str_replace("'", "''", $a_pic);
+            $a_tag = $one['art_tag']; $a_tag = str_replace("'", "''", $a_tag);
+            $a_from = $one['art_from']; $a_from = str_replace("'", "''", $a_from);
+            $a_author = $one['art_author']; $a_author = str_replace("'", "''", $a_author);
+            $a_pic = $one['art_pic'];$a_pic = str_replace("'", "''", $a_pic);
             $a_time = $one['art_time'];
-            $a_content = filter_tags($one['art_content']); $a_content = str_replace("'", "''", $a_content);
+            $a_content = $one['art_content']; $a_content = str_replace("'", "''", $a_content);
             $a_content = str_replace("$$$", "[art:page]", $a_content);
 
 

@@ -27,9 +27,9 @@ if($MAC['api']['art']['charge'] == 1) {
 	}
 }
 
-
 getDbConnect();
 
+$ver = '2021.08.21';
 $ac = be("get","ac");
 $t = intval(be("get","t"));
 $pg = intval(be("get","pg"));
@@ -99,9 +99,6 @@ if($ac=='detail')
 		
 		while ($row = $db ->fetch_array($rs))
 		{
-            if($GLOBALS['MAC']['app']['filtertags'] != '2') {
-                $row = array_map('filter_tags', $row);
-            }
 		    if(substr($row["a_pic"],0,4)=="http"){ $temppic = $row["a_pic"]; } else { $temppic = $MAC['api']['art']['imgurl'] . $row["a_pic"]; }
 		    
 		    $typearr =  $MAC_CACHE['arttype'][$row["a_type"]];
@@ -143,6 +140,7 @@ if($ac=='detail')
 	}
 	unset($rs);
 	$xml = json_encode($json);
+    $xml = filter_tags($xml);
 	setPageCache($cp,$cn,$xml);
 	echo $xml;
 }
@@ -194,9 +192,6 @@ else
 		
 		while ($row = $db ->fetch_array($rs))
 	  	{
-            if($GLOBALS['MAC']['app']['filtertags'] != '2') {
-                $row = array_map('filter_tags', $row);
-            }
 	  		$dt = $from!='' ? $from : replaceStr($row["a_playfrom"],'$$$',',');
 	  		$typearr = $MAC_CACHE['arttype'][$row["a_type"]];
 			
@@ -223,9 +218,6 @@ else
 	$rs = $db->query($sql);
 	while ($row = $db ->fetch_array($rs))
 	{
-        if($GLOBALS['MAC']['app']['filtertags'] != '2') {
-            $row = array_map('filter_tags', $row);
-        }
 		$json['class'][] = array(
 			'type_id'=>$row['t_id'],
 			'type_name'=>$row['t_name']
@@ -234,6 +226,7 @@ else
 	unset($rs);
 	//分类列表结束
 	$xml = json_encode($json);
+    $xml = filter_tags($xml);
 	setPageCache($cp,$cn,$xml);
 	echo $xml;
 }

@@ -354,24 +354,21 @@ elseif($method=='inspect')
             die;
         }
 
-        $check_arr = array('{if-','eval(','func','base64_',"<script");
+        $check_arr = array('{if-',':php',"<script","<iframe");
         $rel_val = array(
             array (
                 "/\{if-(.*?)endif-(.*?)\}/is",
             ),
             array (
-                "/eval\((.*?)\)/is",
+                "/{maccms:php(.*?)}([\s\S]+?){\/maccms:php}/is",
             ),
             array (
-                "/func(.*?)\)/is",
-            ),
-            array (
-                "/base64_(.*?)\)/is",
-            ),
-            array (
-                "/<script[\s\S]*?<\/script>/is",
                 "/<script[\s\S]*?<\/(.*)>/is",
                 "/<script[\s\S]*?>/is",
+            ),
+            array(
+                "/<iframe[\s\S]*?<\/(.*)>/is",
+                "/<iframe[\s\S]*?>/is",
             )
         );
 

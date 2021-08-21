@@ -2117,18 +2117,17 @@ function resize($srcImage,$toFile,$maxWidth = 100,$maxHeight = 100,$imgQuality=1
 
 function filter_tags($rs)
 {
+    $rex = array('{if','{endif','<script','<iframe','<frameset','<object','onerror');
     if(is_array($rs)){
         foreach($rs as $k2=>$v2){
             if(!is_numeric($v2)){
-                $rs[$k2] = strip_tags($v2);
-                $rs[$k2] = str_ireplace(array('{if','{endif'),'*',$rs[$k2]);
+                $rs[$k2] = str_ireplace($rex,'*',$rs[$k2]);
             }
         }
     }
     else{
         if(!is_numeric($rs)) {
-            $rs = strip_tags($rs);
-            $rs = str_ireplace(array('{if','{endif'),'*',$rs);
+            $rs = str_ireplace($rex,'*',$rs);
         }
     }
     return $rs;

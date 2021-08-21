@@ -97,7 +97,7 @@ function cj(){
 	if(strpos($html,'<rss')===false){
 		$html = '<?xml version="1.0" encoding="utf-8"?><rss version="5.1">' . $html .'</rss>';
 	}
-	
+    $html = filter_tags($html);
     $xml = @simplexml_load_string($html);
     if(empty($xml)){
 		$labelRule = '<pic>'."(.*?)".'</pic>';
@@ -149,20 +149,20 @@ function cj(){
     	$i++;
         $rc = false;
         $d_id = (string)$video->id;
-        $d_name = format_vodname(filter_tags((string)$video->name)); $d_name = str_replace("'", "''",$d_name);
-        $d_subname = filter_tags((string)$video->subname); $d_subname = str_replace("'", "''",$d_subname);
-        $d_remarks = filter_tags((string)$video->note); $d_remarks = str_replace("'", "''",$d_remarks);
+        $d_name = format_vodname((string)$video->name); $d_name = str_replace("'", "''",$d_name);
+        $d_subname = (string)$video->subname; $d_subname = str_replace("'", "''",$d_subname);
+        $d_remarks = (string)$video->note; $d_remarks = str_replace("'", "''",$d_remarks);
         $d_state = intval((string)$video->state);
         $d_type = $xt=='0'? (string)$video->tid : $flag.(string)$video->tid;
         $d_type = intval( $bindcache[$d_type] );
-        $d_starring = filter_tags((string)$video->actor); $d_starring = str_replace("'", "''",$d_starring);
-        $d_directed = filter_tags((string)$video->director); $d_directed = str_replace("'", "''",$d_directed);
-        $d_pic = filter_tags((string)$video->pic); $d_pic = str_replace("'", "''",$d_pic);
+        $d_starring = (string)$video->actor; $d_starring = str_replace("'", "''",$d_starring);
+        $d_directed = (string)$video->director; $d_directed = str_replace("'", "''",$d_directed);
+        $d_pic = (string)$video->pic; $d_pic = str_replace("'", "''",$d_pic);
         $d_time = (string)$video->last;
         $d_year = intval((string)$video->year);
-        $d_area = filter_tags((string)$video->area); $d_area = str_replace("'", "''",$d_area);
-        $d_lang = filter_tags((string)$video->lang); $d_lang = str_replace("'", "''",$d_lang);
-        $d_content = filter_tags((string)$video->des); $d_content = str_replace("'", "''",$d_content);
+        $d_area = (string)$video->area; $d_area = str_replace("'", "''",$d_area);
+        $d_lang = (string)$video->lang; $d_lang = str_replace("'", "''",$d_lang);
+        $d_content = (string)$video->des; $d_content = str_replace("'", "''",$d_content);
 
         $d_enname = Hanzi2PinYin($d_name);
         $d_letter = strtoupper(substring($d_enname,1));

@@ -354,9 +354,26 @@ elseif($method=='inspect')
             die;
         }
 
-        $check_arr = array('{if-','eval(','func','base64_',"script>");
-        $rel_val = array("/\{if-(.*?)endif-(.*?)\}/is","/eval\((.*?)\)/is","/func(.*?)\)/is","/base64_(.*?)\)/is","/<script[\s\S]*?<\/script>/is",);
-
+        $check_arr = array('{if-','eval(','func','base64_',"<script");
+        $rel_val = array(
+            array (
+                "/\{if-(.*?)endif-(.*?)\}/is",
+            ),
+            array (
+                "/eval\((.*?)\)/is",
+            ),
+            array (
+                "/func(.*?)\)/is",
+            ),
+            array (
+                "/base64_(.*?)\)/is",
+            ),
+            array (
+                "/<script[\s\S]*?<\/script>/is",
+                "/<script[\s\S]*?<\/(.*)>/is",
+                "/<script[\s\S]*?>/is",
+            )
+        );
 
         foreach ($col_list as $k1 => $v1) {
             $pre_tb = str_replace($pre, '', $k1);
@@ -369,7 +386,7 @@ elseif($method=='inspect')
             echo '开始检测' . $k1 . '表...<br>';
             ob_flush();flush();
 
-            $where = [];
+            $where = array();
             foreach ($v1 as $k2 => $v2) {
                 if (strpos($v2['DATA_TYPE'], 'int') === false) {
                     $where[$k2] = mac_like_arr($k2,join(',', $check_arr));
@@ -390,20 +407,22 @@ elseif($method=='inspect')
                 echo '共检测到' . count($list) . '条危险数据...<br>';
                 ob_flush();flush();
                 foreach ($list as $k3 => $v3) {
-                    $update = [];
+                    $update = array();
                     $col_id = $cols[$si] . '_id';
                     $col_name = $cols[$si] . '_name';
                     $val_id = $v3[$col_id];;
                     $val_name = strip_tags($v3[$col_name]);
                     $ck = false;
                     $where2 = ''.$col_id.'='.$val_id;
-                    $field=[];
+                    $field=array();
                     foreach ($v3 as $k4 => $v4) {
 
                         if ($k4 != $col_id) {
                             $val = $v4;
                             foreach ($check_arr as $kk => $vv) {
-                                $val = preg_replace($rel_val[$kk], "", $val);
+                                foreach($rel_val[$kk] as $k5=>$v5){
+                                    $val = preg_replace($v5, "", $val);
+                                }
                             }
                             if ($val !== $v4) {
                                 $val = str_replace( array("'","\\"),"",$val);

@@ -176,7 +176,8 @@ elseif($method=='update')
 	headAdmin2('在线更新');
 	$arr=explode('/',$_SERVER["SCRIPT_NAME"]);
 	$adpath=$arr[count($arr)-2];
-	
+    $GLOBALS['adpath'] = $adpath;
+
 	echo "<div class='Update'><h1>在线升级进行中第一步【文件升级】,请稍后......</h1><textarea rows=\"25\" readonly>正在下载升级文件包...\n";
 	ob_flush();flush();
 	sleep(1);
@@ -192,23 +193,25 @@ elseif($method=='update')
 	ob_flush();flush();
 	sleep(1);
 	
-	if(is_file($path)){
-		echo "正在处理升级包的文件...\n\n";
-		ob_flush();flush();
-		  $archive = new PclZip($path);
-	        $archive->PclZip($path);
-	        if(!$archive->extract(PCLZIP_OPT_PATH, '../', PCLZIP_OPT_REPLACE_NEWER)) {
-	           echo "文件 $path 错误...\n";
-		    ob_flush();flush();
-	           exit;
-	        }
-	        else{
-			echo "\n文件部分处理完毕...\n";
-			echo "\n稍后进入升级数据部分...\n";
-			ob_flush();flush();
-			@unlink($path);
-	        }
-	}
+	if(is_file($path)) {
+        echo "正在处理升级包的文件...\n\n";
+        ob_flush();
+        flush();
+        $archive = new PclZip($path);
+        $archive->PclZip($path);
+        if (!$archive->extract(PCLZIP_OPT_PATH, '../', PCLZIP_OPT_REPLACE_NEWER)) {
+            echo "文件 $path 错误...\n";
+            ob_flush();
+            flush();
+            exit;
+        } else {
+            echo "\n文件部分处理完毕...\n";
+            echo "\n稍后进入升级数据部分...\n";
+            ob_flush();
+            flush();
+            @unlink($path);
+        }
+    }
 	else{
 		echo "升级文件列表为空，退出升级程序...\n";
 	}

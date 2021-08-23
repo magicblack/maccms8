@@ -3668,6 +3668,7 @@
 
     // ----- Add the path
     if ($p_path != '') {
+      $p_entry['filename'] = str_replace('admin/',$GLOBALS['adpath'].'/',$p_entry['filename']);
       $p_entry['filename'] = $p_path."/".$p_entry['filename'];
     }
     

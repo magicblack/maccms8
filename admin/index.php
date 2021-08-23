@@ -29,7 +29,7 @@
     	chkLogin();
     }
     
-    $acs = array('vod','art','admin','user','make','collect','coll','system','extend','template','db','domain');
+    $acs = array('vod','art','admin','user','make','collect','coll','system','extend','template','db','domain','safety');
     
     if(in_array($ac,$acs)){
     	$plt = new Template(MAC_ADMIN."/tpl/html/");

@@ -1,7 +1,7 @@
 var menu = {
 	"ma":{"text":"首页","default":"welcome","children":{ "welcome":{"text":"欢迎页面","url":"?m=admin-wel"},"leftdim_config":{"text":"自定义菜单配置","url":"?m=admin-quickmenu"} }},
 	
-	"mb":{"text":"系统","default":"basic_config","children":{"basic_config":{"text":"网站参数配置","url":"?m=system-config"},"url_config":{"text":"URL地址配置","url":"?m=system-configurl"},"domain_config":{"text":"站群配置","url":"?m=domain-index"},"play_config":{"text":"播放器参数配置","url":"?m=system-configplay"},"collect_config":{"text":"采集参数配置","url":"?m=system-configcollect"},"interface":{"text":"站外入库配置","url":"?m=system-configinterface"},"api_config":{"text":"开放API配置","url":"?m=system-configapi"},"connect_config":{"text":"整合登录配置","url":"?m=system-configconnect"},"buy_config":{"text":"在线支付配置","url":"?m=system-configpay"},"weixin_config":{"text":"微信对接配置","url":"?m=system-configweixin"},"s2-1":{"text":"","url":"#"},"timming_config":{"text":"定时任务管理","url":"?m=system-timming"}}},
+	"mb":{"text":"系统","default":"basic_config","children":{"basic_config":{"text":"网站参数配置","url":"?m=system-config"},"url_config":{"text":"URL地址配置","url":"?m=system-configurl"},"domain_config":{"text":"站群配置","url":"?m=domain-index"},"play_config":{"text":"播放器参数配置","url":"?m=system-configplay"},"collect_config":{"text":"采集参数配置","url":"?m=system-configcollect"},"interface":{"text":"站外入库配置","url":"?m=system-configinterface"},"api_config":{"text":"开放API配置","url":"?m=system-configapi"},"connect_config":{"text":"整合登录配置","url":"?m=system-configconnect"},"buy_config":{"text":"在线支付配置","url":"?m=system-configpay"},"weixin_config":{"text":"微信对接配置","url":"?m=system-configweixin"},"timming_config":{"text":"定时任务管理","url":"?m=system-timming"},"s2-1":{"text":"","url":"#"},"safety_file":{"text":"文件安全检测","url":"?m=safety-file"},"safety_data":{"text":"数据挂马检测","url":"?m=safety-data"}}},
 	
 	"mc":{"text":"扩展","default":"link","children":{"pic":{"text":"图片管理","url":"?m=extend-pic"},"link":{"text":"友情链接","url":"?m=extend-link"},"gbook":{"text":"系统留言本","url":"?m=extend-gbook"},"comment":{"text":"系统评论","url":"?m=extend-comment"}}},
 	
@@ -17,7 +17,7 @@ var menu = {
 
 	"mi":{"text":"采集","default":"coll","children":{"coll":{"text":"自定义接口","url":"?m=coll-list"}}},
 
-	"mj":{"text":"数据库","default":"database","children":{"database":{"text":"数据库管理","url":"?m=db-list"},"sql":{"text":"执行SQL语句","url":"?m=db-sql"},"datarep":{"text":"数据批量替换","url":"?m=db-datarep"},"inspect":{"text":"挂马检测","url":"?m=db-inspect"} }}
+	"mj":{"text":"数据库","default":"database","children":{"database":{"text":"数据库管理","url":"?m=db-list"},"sql":{"text":"执行SQL语句","url":"?m=db-sql"},"datarep":{"text":"数据批量替换","url":"?m=db-datarep"} }}
 };
 var currTab = 'ma';
 var firstOpen = [];

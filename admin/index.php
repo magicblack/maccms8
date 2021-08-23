@@ -44,6 +44,7 @@
     	$plt->set_var("MAC_URL",MAC_URL);
     	$plt->set_var("MAC_NAME",MAC_NAME);
     	$plt->set_var("MAC_RUNTIME",getRunTime());
+        $plt->set_var("MAC_TIME",time());
     	$plt->parse('mains', 'main');
     	$plt->p("mains");
     	

@@ -77,7 +77,7 @@
 <script type="text/javascript" src="../js/jq/jquery.webox.js"></script>
 <script type="text/javascript">document.getElementById('loading-msg').innerHTML = 'Loading UI Components...';</script>
 <script type="text/javascript">document.getElementById('loading-msg').innerHTML = 'Initializing...';</script>	
-<script type="text/javascript" src="tpl/config/quickmenu.js"></script>
+<script type="text/javascript" src="tpl/config/quickmenu.js?{MAC_TIME}"></script>
 <script type="text/javascript">
 if($.cookie("adminlevels")==null){
 	levels = 'a,{levels}';
@@ -86,8 +86,8 @@ if($.cookie("adminlevels")==null){
 menu.ma.children['{quickid}'] = { "text":"{quickname}","url":"{quickurl}" };
 <!-- END list_quickmenu -->
 </script>
-<script type="text/javascript" src="tpl/js/init.js"></script>
-<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script type="text/javascript" src="tpl/js/init.js?{MAC_VERSION}"></script>
+<script type="text/javascript" src="tpl/js/adm.js?{MAC_VERSION}"></script>
 </div>
 </body>
 </html>

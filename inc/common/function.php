@@ -12,7 +12,7 @@ function head()
 
 function alert($str)
 {
-	echo '<script>alert("' .$str. '\t\t");history.go(-1);</script>';
+	echo '<script>alert("' .$str. '");history.go(-1);</script>';
 }
 
 function alertUrl($str,$url)
@@ -659,14 +659,19 @@ function jsEncode($str)
 	return $str;
 }
 
-function badFilter($str)
+function badFilter($p)
 {
 	$arr=explode(",",$GLOBALS['MAC']['other']['filter']);
-	for ($i=0;$i<count($arr);$i++){
-		$str= str_replace($arr[$i],"***",$str);
-	}
+	if(is_array($p)){
+	    foreach($p as $k=>$v){
+	        $p[$k] = str_replace($arr,"***",$v);
+        }
+    }
+	else{
+        $p= str_replace($arr,"***",$p);
+    }
 	unset($arr);
-	return $str;
+	return $p;
 }
 
 function asp2phpif($str)

@@ -67,6 +67,7 @@ function sethtmldir(id,value){
 		<li id="tabs.title2" onclick="settab('2');" style="cursor:pointer">会员</li>
 		<li id="tabs.title3" onclick="settab('3');" style="cursor:pointer">其他</li>
 		<li id="tabs.title4" onclick="settab('4');" style="cursor:pointer">附件</li>
+        <li id="tabs.title5" onclick="settab('5');" style="cursor:pointer">预留</li>
 		<li>&nbsp;&nbsp;&nbsp;<input type="submit" id="btnSave" class="input" value="更新参数">&nbsp;如配置出错，请手动修改 inc/config/config.php文件。</li>
 	</ul>
 	
@@ -292,42 +293,7 @@ function sethtmldir(id,value){
 		&nbsp;每次生成数量：
 		<input name="app_makesize" value="{app_makesize}" size="5">条</td>
     </tr>
-	<tr>
-      <td>视频播放器显示排序：</td>
-      <td>
-      	<!-- BEGIN list_app_playersort -->
-		<input type="radio" name="app_playersort" value="{v}" {c} />{n}&nbsp;
-		<!-- END list_app_playersort -->
-      </td>
-    </tr>
-    <tr>
-      <td>视频地区列表：</td>
-      <td><input name="app_area" value="{app_area}" size="100">
-      	<font color="#FF0000">＊</font>
-      </td>
-    </tr>
-    <tr>
-      <td>视频语言列表：</td>
-      <td><input name="app_lang" value="{app_lang}" size="100">
-      	<font color="#FF0000">＊</font>
-      </td>
-    </tr>
-    <tr>
-      <td>视频加密地址：</td>
-      <td>
-        <select name="app_encrypt" style="width:150px">
-        <!-- BEGIN list_app_encrypt -->
-		<option value="{v}" {c}>{n}</option>
-		<!-- END list_app_encrypt -->
-        </select>
-        &nbsp;弹窗播放下载：
-        <select name="app_isopen" style="width:150px">
-        <!-- BEGIN list_app_isopen -->
-		<option value="{v}" {c}>{n}</option>
-		<!-- END list_app_isopen -->
-        </select>
-        </td>
-    </tr>
+
 	</table>
     
 	<table class="tbinfo pleft" id="tab2" style="display:none">
@@ -475,12 +441,7 @@ function sethtmldir(id,value){
       <td><input name="other_commenttime" value="{other_commenttime}" size="10">
         </td>
     </tr>
-    <tr>
-      <td>评论留言关键字过滤：</td>
-      <td>
-		<textarea name="other_filter" rows="8" style="width:350px;">{other_filter}</textarea>
-      </td>
-    </tr>
+
 	</table>
 	
 	<table class="tbinfo pleft" id="tab4" style="display:none">
@@ -581,6 +542,52 @@ function sethtmldir(id,value){
 	      <td><font color="#FF0000">请确保空间php环境支持ftp相关函数后再开启，例如（ftp_connect，ftp_login等）。 此功能暂时只针对视频图片。</font></td>
 	    </tr>
 	</table>
+
+    <table class="tbinfo pleft" id="tab5" style="display:none;">
+        <tr>
+            <td>视频播放器显示排序：</td>
+            <td>
+                <!-- BEGIN list_app_playersort -->
+                <input type="radio" name="app_playersort" value="{v}" {c} />{n}&nbsp;
+                <!-- END list_app_playersort -->
+            </td>
+        </tr>
+        <tr>
+            <td>视频地区列表：</td>
+            <td><input name="app_area" value="{app_area}" size="100">
+                <font color="#FF0000">＊</font>
+            </td>
+        </tr>
+        <tr>
+            <td>视频语言列表：</td>
+            <td><input name="app_lang" value="{app_lang}" size="100">
+                <font color="#FF0000">＊</font>
+            </td>
+        </tr>
+        <tr>
+            <td>视频加密地址：</td>
+            <td>
+                <select name="app_encrypt" style="width:150px">
+                    <!-- BEGIN list_app_encrypt -->
+                    <option value="{v}" {c}>{n}</option>
+                    <!-- END list_app_encrypt -->
+                </select>
+                &nbsp;弹窗播放下载：
+                <select name="app_isopen" style="width:150px">
+                    <!-- BEGIN list_app_isopen -->
+                    <option value="{v}" {c}>{n}</option>
+                    <!-- END list_app_isopen -->
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>词汇过滤：</td>
+            <td>
+                <textarea name="other_filter" rows="8" style="width:350px;">{other_filter}</textarea>
+            </td>
+        </tr>
+    </table>
+
 </form>
 {foot}
 </body>

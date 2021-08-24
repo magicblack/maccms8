@@ -42,6 +42,7 @@ elseif($method=='list')
     }
     $psm = array('wd','letter','pinyin','tag');
     foreach($psm as $v){
+        $tpl->P[$v] = badFilter($tpl->P[$v]);
         if(mb_strlen($tpl->P[$v]) > $MAC['app']['searchlen']){
             $tpl->P[$v] = substring($tpl->P[$v],$MAC['app']['searchlen']);
         }
@@ -132,6 +133,7 @@ elseif($method=='search')
     }
     $psm = array('wd','letter','pinyin','tag');
     foreach($psm as $v){
+        $tpl->P[$v] = badFilter($tpl->P[$v]);
         if(mb_strlen($tpl->P[$v]) > $MAC['app']['searchlen']){
             $tpl->P[$v] = substring($tpl->P[$v],$MAC['app']['searchlen']);
         }

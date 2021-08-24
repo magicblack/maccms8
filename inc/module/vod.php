@@ -40,8 +40,10 @@ elseif($method=='list')
     if(intval($MAC['app']['searchlen'])<1){
         $MAC['app']['searchlen'] = 10;
     }
+
     $psm = array('wd','area','year','lang','letter','class','pinyin','tag','starring','directed');
     foreach($psm as $v){
+        $tpl->P[$v] = badFilter($tpl->P[$v]);
         if(mb_strlen($tpl->P[$v]) > $MAC['app']['searchlen']){
             $tpl->P[$v] = substring($tpl->P[$v],$MAC['app']['searchlen']);
         }
@@ -135,6 +137,7 @@ elseif($method=='search')
     }
     $psm = array('wd','area','year','lang','letter','class','pinyin','tag','starring','directed');
     foreach($psm as $v){
+        $tpl->P[$v] = badFilter($tpl->P[$v]);
         if(mb_strlen($tpl->P[$v]) > $MAC['app']['searchlen']){
             $tpl->P[$v] = substring($tpl->P[$v],$MAC['app']['searchlen']);
         }

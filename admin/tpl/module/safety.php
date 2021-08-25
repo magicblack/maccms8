@@ -31,8 +31,12 @@ function listDir($dir)
 if($method=='file')
 {
     $ck = be('all','ck');
+    $ft = be('arr','ft');
     if(empty($ck)){
         $ck = $p['ck'];
+    }
+    if(empty($ft)){
+        $ft='1,2';
     }
     if($ck!=''){
         echo '<style type="text/css">body{font-size:12px;color: #333333;line-height:21px;}span{font-weight:bold;color:#FF0000}</style>';
@@ -56,15 +60,16 @@ if($method=='file')
             showMsg('获取本地文件列表失败，请重试');
             exit;
         }
-
+        $show_add = strpos($ft,'1');
+        $show_edit = strpos($ft,'2');
         foreach($files as $k=>$v){
             $color = '';
             $msg = 'ok';
-            if(empty($json[$k])){
+            if(empty($json[$k]) && $show_add!==false){
                 $color = 'BlueViolet';
                 $msg = '新增文件';
             }
-            elseif($v['md5'] != $json[$k]['md5']){
+            elseif(!empty($json[$k]) && $v['md5'] != $json[$k]['md5'] && $show_edit!==false){
                 $color = 'red';
                 $msg = '与原版有差异';
             }

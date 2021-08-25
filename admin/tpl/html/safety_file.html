@@ -24,14 +24,16 @@ $(function(){
     <input type="hidden" name="ck" value="1">
     <table class="tb">
 <tr><td>
-    <strong>文件安全检测3.0版本</strong><br>
+    <strong>文件安全检测3.1版本</strong><br>
     1，将对网站内所有文件进行比对筛选进行检查。<br>
     2，将原版程序包内自带文件将比对md5罗列出。<br>
     3，将原版程序包内没有的新增文件罗列出。<br>
     4，不能保证100%正确，如还有问题请到官网github提报。<br>
     5，建议多次检测，详细检查每个罗列出的文件。
 </td></tr>
-    <tr><td><input class="input" type="submit" value="开始执行" name="Submit"></td></tr>
+    <tr><td>
+        新增文件<input type="checkbox" name="ft[]" value="1" checked>&nbsp;&nbsp;差异文件<input type="checkbox" name="ft[]" value="2" checked>
+        <input class="input" type="submit" value="开始执行" name="Submit"></td></tr>
 
     </table></form>
 {foot}

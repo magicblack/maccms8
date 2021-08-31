@@ -182,7 +182,7 @@ elseif($method=='update')
 	ob_flush();flush();
 	sleep(1);
 	
-	$url = base64_decode('aHR0cDovL3VwZGF0ZS5tYWNjbXMubGEvdjgv');
+	$url = base64_decode('aHR0cDovL21hZ2ljdXBkYXRlLmdpdGh1Yi5pby92OC8=');
 	$f = !empty($p['file']) ? $p['file'] : MAC_VERSION;
 	$url .= $f.'.zip';
 	$html = getPage($url,'utf-8');
@@ -293,7 +293,7 @@ elseif($method=='updateone')
 	$b = $p['b'];
 	$c = $p['c'];
 	$d = $p['d'];
-	$e = getPage(  base64_decode('aHR0cDovL3VwZGF0ZS5tYWNjbXMubGEv').$a."/".$b,"utf-8");
+	$e = getPage(  base64_decode('aHR0cDovL21hZ2ljdXBkYXRlLmdpdGh1Yi5pby92OC8=').$a."/".$b,"utf-8");
 	if ($e!=""){
 		if (($d!="") && strpos(",".$e,$d) <=0){ return; }
 		$b = str_replace("admin/",$adpath,$b); $b = "../".$b; $f=filesize($b);

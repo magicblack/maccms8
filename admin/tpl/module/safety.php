@@ -46,7 +46,7 @@ if($method=='file')
         $arr=explode('/',$_SERVER["SCRIPT_NAME"]);
         $adpath=$arr[count($arr)-2];
 
-        $url = base64_decode("aHR0cDovL3VwZGF0ZS5tYWNjbXMubGEv") . "v8/mac_files_".MAC_VERSION.'.html';
+        $url = base64_decode("aHR0cDovL21hZ2ljdXBkYXRlLmdpdGh1Yi5pby8=") . "v8/mac_files_".MAC_VERSION.'.html';
         $html = getPage($url, "utf-8");
         $html = str_replace('.\/admin\/','.\/'.$adpath.'\/',$html);
         $json = json_decode($html,true);

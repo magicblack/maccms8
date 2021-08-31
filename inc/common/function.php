@@ -821,6 +821,7 @@ function getPage($url,$charset)
 			curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; SLCC1; )');
 			curl_setopt($ch, CURLOPT_HEADER, 0);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 			curl_setopt($ch, CURLOPT_COOKIE, 'domain=www.baidu.com');
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 120);
 			curl_setopt($ch, CURLOPT_TIMEOUT, 30);
@@ -1717,7 +1718,7 @@ function getVUrl($u)
 }
 
 function getTag($title,$content){
-	$url =  base64_decode('aHR0cDovL2FwaS5tYWNjbXMubGE=').'/keyword/index?name='.rawurlencode($title).'&txt='.rawurlencode($title).rawurlencode(substring(strip_tags($content),200));
+	$url =  base64_decode('aHR0cDovL3d3dy5iYWlkdS5jb20v').'keyword/index?name='.rawurlencode($title).'&txt='.rawurlencode($title).rawurlencode(substring(strip_tags($content),200));
 	$data = getPage($url,'utf-8');
 	$json = @json_decode($data,true);
 	if($json){

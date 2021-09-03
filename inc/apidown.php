@@ -29,7 +29,7 @@ if($MAC['api']['vod']['charge'] == 1) {
 
 getDbConnect();
 
-$ver = '2021.08.21';
+$ver = '2021.09.03';
 $ac = be("get","ac");
 $t = intval(be("get","t"));
 $pg = intval(be("get","pg"));
@@ -46,8 +46,8 @@ if($ac=='videolist')
 	$cn = 'videolist_down' . $t . "-" . $pg . "-" . $wd . "-" . $h . "-" .$from. "-" . str_replace(",","",$ids); ;
 	echoPageCache($cp,$cn);
 	
-	$xmla = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-	$xmla .= "<rss version=\"5.1\">";
+	$xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
+	$xml .= "<rss version=\"5.1\">";
 	
 	$sql = "select * from {pre}vod where 1=1 ";
 	$sql1 = "select count(*) from {pre}vod where 1=1 ";
@@ -124,8 +124,8 @@ if($ac=='videolist')
 	unset($rs);
 	$xml .= "</rss>";
     $xml = filter_tags($xml);
-	setPageCache($cp,$cn,$xmla);
-	echo $xmla;
+	setPageCache($cp,$cn,$xml);
+	echo $xml;
 }
 
 else

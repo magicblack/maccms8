@@ -1,6 +1,6 @@
 <?php
 if(!defined('MAC_ADMIN')){
-	exit('Access Denied');
+    exit('Access Denied');
 }
 ob_end_clean();
 ob_implicit_flush(true);
@@ -46,7 +46,7 @@ if($method=='file')
         $arr=explode('/',$_SERVER["SCRIPT_NAME"]);
         $adpath=$arr[count($arr)-2];
 
-        $url = base64_decode("aHR0cDovL21hZ2ljdXBkYXRlLmdpdGh1Yi5pby8=") . "v8/mac_files_".MAC_VERSION.'.html';
+        $url = base64_decode("aHR0cDovL3VwZGF0ZS5tYWNjbXMubGEv") . "v8/mac_files_".MAC_VERSION.'.html';
         $html = getPage($url, "utf-8");
         $html = str_replace('.\/admin\/','.\/'.$adpath.'\/',$html);
         $json = json_decode($html,true);
@@ -208,6 +208,6 @@ elseif($method=='data')
 
 else
 {
-	showErr('System','未找到指定系统模块');
+    showErr('System','未找到指定系统模块');
 }
 ?>

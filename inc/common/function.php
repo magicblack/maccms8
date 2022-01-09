@@ -2139,6 +2139,11 @@ function filter_tags($rs)
     return $rs;
 }
 
+function mac_filter_xss($str)
+{
+    return htmlspecialchars(strip_tags(trim($str)), ENT_QUOTES);
+}
+
 function mac_unicode_encode($str, $encoding = 'UTF-8', $prefix = '&#', $postfix = ';') {
     $str = iconv($encoding, 'UCS-2', $str);
     $arrstr = str_split($str, 2);

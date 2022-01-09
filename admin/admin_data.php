@@ -509,6 +509,37 @@ else if($ac=='save')
 		    $valarr['d_downserver']=$d_downserver;
 		    $valarr['d_downnote']=$d_downnote;
 		    $valarr['d_downurl']=$d_downurl;
+            // xss过滤、长度裁剪
+            $filter_fields = [
+                'd_name'        => 255,
+                'd_subname'     => 255,
+                'd_enname'      => 255,
+                'd_pic'         => 255,
+                'd_picthumb'    => 255,
+                'd_picslide'    => 255,
+                'd_starring'    => 255,
+                'd_directed'    => 255,
+                'd_tag'         => 64,
+                'd_remarks'     => 64,
+                'd_area'        => 16,
+                'd_lang'        => 16,
+                'd_type_expand' => 255,
+                'd_class'       => 255,
+                'd_topic'       => 255,
+                'd_playfrom'    => 255,
+                'd_playserver'  => 255,
+                'd_playnote'    => 255,
+                'd_downfrom'    => 255,
+                'd_downserver'  => 255,
+                'd_downnote'    => 255,
+            ];
+            foreach ($filter_fields as $filter_field => $field_length) {
+                if (!isset($valarr[$filter_field])) {
+                    continue;
+                }
+                $valarr[$filter_field] = mac_filter_xss($valarr[$filter_field]);
+                $valarr[$filter_field] = substring($valarr[$filter_field], $field_length);
+            }
 		    $where = "d_id=".$id;
 		    if($GLOBALS['MAC']['view']['voddetail']==2 || $GLOBALS['MAC']['view']['vodplay']==2 || $GLOBALS['MAC']['view']['voddown']==2){
 		    	$ismake=true;

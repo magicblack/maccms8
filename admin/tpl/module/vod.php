@@ -1135,9 +1135,10 @@ elseif($method=='list')
 		}
 		if($page==1){
 			//temporary
-			$db->query('DROP TABLE IF EXISTS tmptable;');
-			$tmpsql='create table IF NOT EXISTS `tmptable` as (SELECT ' . $repeat_field . ' FROM {pre}vod GROUP BY d_name1 HAVING COUNT(d_name1)>1); ';
-			
+			//$tmpsql='create table IF NOT EXISTS `tmptable` as (SELECT ' . $repeat_field . ' FROM {pre}vod GROUP BY d_name1 HAVING COUNT(d_name1)>1); ';
+			//fix mysql ERROR 1786 : Statement violates GTID consistency
+			$db->query('CREATE TABLE `tmptable`  (`d_name1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT \'\')');
+			$tmpsql='insert into `tmptable` (SELECT ' . $repeat_field . ' FROM {pre}vod GROUP BY d_name1 HAVING COUNT(d_name1)>1); ';
 			$db->query($tmpsql);
 		}
     }
